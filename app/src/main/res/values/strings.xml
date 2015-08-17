@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BejingUnion</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="search_hint">亲,在这里搜索哦</string>
+    <string name="system_hint_1">需要传入FragmentManager</string>
+</resources>
