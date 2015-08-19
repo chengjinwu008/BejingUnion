@@ -38,6 +38,7 @@ public class BannerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView view  = ads.get(position).getImageView();
         new AQuery(view).image(ads.get(position).getUrl(),false,true);
+        view.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(view);
         return view;
     }

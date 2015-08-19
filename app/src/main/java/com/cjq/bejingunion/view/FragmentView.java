@@ -53,6 +53,7 @@ public class FragmentView extends FrameLayout implements View.OnClickListener, V
         View view = inflater.inflate(R.layout.fragment_view, null, false);
         bottomBar = (LinearLayout) view.findViewById(R.id.main_bottom_bar);
         content = (ViewPager) view.findViewById(R.id.main_content);
+        content.setOffscreenPageLimit(3);
         addView(view);
     }
 

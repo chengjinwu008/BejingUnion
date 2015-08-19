@@ -74,6 +74,11 @@
             android:name="com.baidu.android.pushservice.CommandService"
             android:exported="true" />
 
+
+        <activity android:name=".WelcomeActivity"/>
+        <activity android:name=".activities.UserSettingActivity"/>
+        <activity android:name=".activities.ForgetPasswordActivity"/>
+        <activity android:name=".activities.RegisterActivity"/>
     </application>
 
 </manifest>
