@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,7 +17,7 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+            android:src="@drawable/return1" />
 
         <ImageView
             android:layout_width="40dp"
@@ -25,7 +26,8 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/a5" />
+            android:src="@drawable/a5"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/broadband_title"
@@ -36,6 +38,26 @@
             android:textColor="#fff"
             android:textSize="20sp" />
     </RelativeLayout>
+
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <GridView
+                android:id="@+id/broadband_band_item"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </GridView>
+        </LinearLayout>
+
+    </HorizontalScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -48,40 +70,21 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/broadband_sort_click1">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="默认" />
+                android:text="时间" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/a32" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="默认" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/a32" />
+                android:src="@drawable/a32"
+                android:id="@+id/broadband_sort1" />
 
         </LinearLayout>
 
@@ -95,19 +98,21 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/broadband_sort_click2">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="默认" />
+                android:text="评价" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/a32" />
+                android:src="@drawable/a33"
+                android:id="@+id/broadband_sort2" />
 
         </LinearLayout>
 
@@ -121,19 +126,21 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/broadband_sort_click3">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="默认" />
+                android:text="销量" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/a32" />
+                android:src="@drawable/a33"
+                android:id="@+id/broadband_sort3" />
 
         </LinearLayout>
 
@@ -147,80 +154,39 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:id="@+id/broadband_sort_click4">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:padding="10dp"
-                android:text="默认" />
+                android:text="价格" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/a32" />
+                android:src="@drawable/a33"
+                android:id="@+id/broadband_sort4" />
 
         </LinearLayout>
     </LinearLayout>
 
-    <HorizontalScrollView
-        android:id="@+id/horizontalScrollView"
+    <com.cjq.bejingunion.view.MyRefreshLayout
+        android:id="@+id/broadband_refresh"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
-            <TextView
-                android:paddingLeft="10dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingRight="10dp"
-                android:textSize="16sp"
-                android:text="12M"
-                android:background="#FAB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:paddingLeft="10dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingRight="10dp"
-                android:textSize="16sp"
-                android:text="12M"
-                android:background="#FAC"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:paddingLeft="10dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingRight="10dp"
-                android:textSize="16sp"
-                android:text="12M"
-                android:background="#AAB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:paddingLeft="10dp"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingRight="10dp"
-                android:textSize="16sp"
-                android:text="12M"
-                android:background="#BAB"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <GridView
-        android:numColumns="2"
-        android:id="@+id/broadband_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-
+        <GridView
+            android:horizontalSpacing="5dp"
+            android:verticalSpacing="10dp"
+            android:id="@+id/broadband_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="2" />
+    </com.cjq.bejingunion.view.MyRefreshLayout>
 </LinearLayout>

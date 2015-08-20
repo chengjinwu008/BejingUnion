@@ -79,6 +79,11 @@
         <activity android:name=".activities.UserSettingActivity"/>
         <activity android:name=".activities.ForgetPasswordActivity"/>
         <activity android:name=".activities.RegisterActivity"/>
+        <activity android:name=".activities.MarketActivity"/>
+        <activity android:name=".activities.BroadBandActivity"/>
+        <activity android:name=".activities.MobileNumberListActivity"/>
+        <activity android:name=".activities.NewProductsRecommendActivity"/>
+        <activity android:name=".activities.ContractMachineActivity"/>
     </application>
 
 </manifest>

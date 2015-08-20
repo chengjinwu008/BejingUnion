@@ -11,7 +11,7 @@
         android:background="@color/title_bar">
 
         <ImageView
-            android:id="@+id/market_back"
+            android:id="@+id/sign_up_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -19,6 +19,7 @@
             android:src="@drawable/return1" />
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
@@ -52,7 +53,8 @@
         android:layout_marginRight="20dp"
         android:background="@drawable/no_border_white_box"
         android:gravity="center"
-        android:padding="10dp">
+        android:padding="10dp"
+        >
 
         <ImageView
             android:layout_width="wrap_content"
@@ -65,7 +67,9 @@
             android:layout_marginLeft="10dp"
             android:background="#0000"
             android:hint="手机号"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:inputType="phone"
+            android:id="@+id/sign_up_mobile_phone_number" />
     </LinearLayout>
 
     <LinearLayout
@@ -84,6 +88,7 @@
             android:src="@drawable/a7" />
 
         <EditText
+            android:id="@+id/sign_up_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -105,7 +110,7 @@
             android:textColor="#fff"
             android:padding="10dp"
             android:background="@color/title_bar"
-            android:id="@+id/sign_up_get_verify"
+            android:id="@+id/find_get_verify"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@id/sign_up_verify"
@@ -118,10 +123,9 @@
             android:id="@+id/sign_up_verify"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/sign_up_get_verify"
+            android:layout_toLeftOf="@+id/find_get_verify"
             android:background="@drawable/no_border_white_box"
             android:hint="验证码"
-            android:inputType="textPassword"
             android:padding="10dp"
             android:textSize="16sp" />
     </RelativeLayout>
@@ -131,9 +135,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <CheckBox
+            android:id="@+id/sign_up_agree"
+            android:text="我已阅读并同意"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:checked="false" />
         <TextView
+            android:id="@+id/sign_up_agree_text"
             android:text="同意XXXX协议"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -149,5 +157,6 @@
         android:layout_marginLeft="20dp"
         android:background="@drawable/blue_5dp_corner"
         android:layout_width="match_parent"
-        android:layout_height="50dp" />
+        android:layout_height="50dp"
+        android:id="@+id/sign_up_do_register" />
 </LinearLayout>

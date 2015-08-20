@@ -24,29 +24,24 @@ import java.util.Map;
  */
 public class LoginUtil {
 
-    public static void login(final Context context,String userName, final String password, final boolean remember){
+    public static void login(final Context context, String userName, final String password, final boolean remember) {
         AQuery aq = new AQuery(context);
-        Map<String,String> params = new HashMap<>();
-        params.put("username",userName);
-        params.put("password",password);
+        Map<String, String> params = new HashMap<>();
+        params.put("username", userName);
+        params.put("password", password);
         params.put("client", "android");
-        aq.ajax(CommonDataObject.LOGIN_URL,params, JSONObject.class,new AjaxCallback<JSONObject>(){
+        aq.ajax(CommonDataObject.LOGIN_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
                 try {
-                    if("200".equals(object.getString("code"))){
-                        if(remember){
-                            SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
-                            SharedPreferences.Editor editor = sharedPreferences.edit();
-                            editor.putString("user_name",object.getJSONObject("datas").getString("username"));
-                            editor.putString("key", object.getJSONObject("datas").getString("key"));
-                            editor.putString("password", password);
-                            editor.putBoolean("auto", true);
-                            editor.apply();
+                    System.out.println("loginCallBack:----------" + object.toString());
+                    if ("200".equals(object.getString("code"))) {
+                        if (remember) {
+                            saveLoginInfo(context,object.getJSONObject("datas").getString("username"),object.getJSONObject("datas").getString("key"),password);
                         }
                         EventBus.getDefault().post(new EventLoginIn());
-                    }else{
-                        Toast.makeText(context,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(context, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
                     }
                     super.callback(url, object, status);
                 } catch (JSONException e) {
@@ -56,8 +51,8 @@ public class LoginUtil {
         });
     }
 
-    public static void logout(Context context){
-        if(isLogin(context)){
+    public static void logout(Context context) {
+        if (isLogin(context)) {
             AQuery aq = new AQuery(context);
             // TODO: 2015/8/19 登出接口待实现
             SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
@@ -71,40 +66,57 @@ public class LoginUtil {
         }
     }
 
-    public static boolean isLogin(Context context){
+    public static boolean isLogin(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
-        String user_name = sharedPreferences.getString("user_name","");
+        String user_name = sharedPreferences.getString("key", "");
         return !"".equals(user_name);
     }
 
-    public static boolean isAutoLogin(Context context){
+    public static boolean isAutoLogin(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
         return sharedPreferences.getBoolean("auto", false);
     }
 
-    public static void setAuto(Context context){
+    public static void setAuto(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("auto",true);
+        editor.putBoolean("auto", true);
         editor.apply();
     }
 
-    public static void cancelAuto(Context context){
+    public static void cancelAuto(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("auto",false);
+        editor.putBoolean("auto", false);
         editor.apply();
     }
 
     public static void autoLogin(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
         String user_name = sharedPreferences.getString("user_name", "");
-        String password =sharedPreferences.getString("password", "");
+        String password = sharedPreferences.getString("password", "");
         login(context, user_name, password, true);
     }
 
-    public static String getKey(Context context){
+    public static String getKey(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
         return sharedPreferences.getString("key", "");
+    }
+
+    public static void saveLoginInfo(Context context, String username, String key, String password) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("user_name", username);
+        editor.putString("key", key);
+        editor.putString("password", password);
+        editor.putBoolean("auto", true);
+        editor.apply();
+    }
+
+    public static void logoutWithDeleteKey(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("key");
+        editor.apply();
     }
 }

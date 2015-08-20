@@ -10,6 +10,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <RelativeLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -20,7 +22,7 @@
                 android:background="@drawable/search_background"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/contract_machine_search_text" />
+                android:id="@+id/market_search_text" />
 
             <ImageView
                 android:id="@+id/imageView2"
@@ -29,8 +31,8 @@
                 android:src="@drawable/a54"
                 android:padding="8dp"
                 android:layout_centerVertical="true"
-                android:layout_alignRight="@+id/contract_machine_search_text"
-                android:layout_alignEnd="@+id/contract_machine_search_text"
+                android:layout_alignRight="@+id/market_search_text"
+                android:layout_alignEnd="@+id/market_search_text"
                 />
         </RelativeLayout>
 

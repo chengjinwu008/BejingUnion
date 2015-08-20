@@ -3,4 +3,5 @@
     <color name="bottom_bar_chosen">#3191db</color>
     <color name="bottom_bar_normal">#424242</color>
     <color name="title_bar">#027bd6</color>
+    <color name="fake">#bbbbbb</color>
 </resources>

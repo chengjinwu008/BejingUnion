@@ -20,7 +20,7 @@ public class TextViewWithMiddleLine extends TextView {
 
     public TextViewWithMiddleLine(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+//        getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
     @Override

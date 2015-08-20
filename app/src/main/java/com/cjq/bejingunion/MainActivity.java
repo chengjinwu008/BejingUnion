@@ -34,7 +34,6 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null)
             PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "rU95anFF579fG7z8N2iHcbZ4");
 
-        // TODO: 2015/8/19 进行请求
         FragmentView fragmentView = (FragmentView) findViewById(R.id.main_fragment);
 
         List<Pair<Pair<String, Integer>, Fragment>> datas = new ArrayList<>();
@@ -59,30 +58,8 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_UP){
+        if(event.getAction() == MotionEvent.ACTION_DOWN && keyCode==KeyEvent.KEYCODE_BACK){
             new AlertDialog.Builder(this).setMessage("确定要离开吗？").setPositiveButton("退出", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {

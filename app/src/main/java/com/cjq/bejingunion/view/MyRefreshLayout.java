@@ -17,38 +17,37 @@ import com.cjq.bejingunion.R;
  */
 public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.OnScrollListener {
 
-    public void setmOnLoadListener(onLoadListener mOnLoadListener) {
+    public void setOnLoadListener(onLoadListener mOnLoadListener) {
         this.mOnLoadListener = mOnLoadListener;
     }
 
-    public interface onLoadListener{
+    public interface onLoadListener {
         void onLoad();
     }
 
-    private ListView mListView;
+    private AbsListView mListView;
     private float mYDown;
     private float mLastY;
     private int mTouchSlop;
     private View mFooterView;
-    private boolean isLoading=false;
-    private boolean loading;
-    private onLoadListener  mOnLoadListener;
+    private boolean isLoading = false;
+    private onLoadListener mOnLoadListener;
 
     public MyRefreshLayout(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public MyRefreshLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
-        mFooterView = LayoutInflater.from(context).inflate(R.layout.list_bottom,null,false);
+        mFooterView = LayoutInflater.from(context).inflate(R.layout.list_bottom, null, false);
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
 
-        if(mListView==null){
+        if (mListView == null) {
             getListView();
         }
 
@@ -57,9 +56,9 @@ public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.O
     private void getListView() {
         int count = getChildCount();
 
-        for (int i=0;i<count;i++){
-            if(getChildAt(i) instanceof  ListView){
-                mListView = (ListView) getChildAt(i);
+        for (int i = 0; i < count; i++) {
+            if (getChildAt(i) instanceof AbsListView) {
+                mListView = (AbsListView) getChildAt(i);
                 mListView.setOnScrollListener(this);
                 break;
             }
@@ -69,7 +68,7 @@ public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.O
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        switch (ev.getAction()){
+        switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 mYDown = ev.getRawY();
                 mLastY = mYDown;
@@ -78,7 +77,7 @@ public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.O
                 mLastY = ev.getRawY();
                 break;
             case MotionEvent.ACTION_UP:
-                if(canLoad()){
+                if (canLoad()) {
                     loadData();
                 }
                 break;
@@ -96,18 +95,18 @@ public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.O
     }
 
     private boolean canLoad() {
-        return isBottom() && !isLoading && isPullUp();
+        return isBottom() && (!isLoading) && isPullUp() && !isRefreshing();
     }
 
-    private boolean isBottom(){
-        if(mListView!=null && mListView.getAdapter() != null){
-            return mListView.getLastVisiblePosition() ==(mListView.getAdapter().getCount()-1);
+    private boolean isBottom() {
+        if (mListView != null && mListView.getAdapter() != null) {
+            return mListView.getLastVisiblePosition() == (mListView.getAdapter().getCount() - 1);
         }
         return false;
     }
 
-    private boolean isPullUp(){
-        return (mLastY - mYDown) >= mTouchSlop;
+    private boolean isPullUp() {
+        return -(mLastY - mYDown) >= mTouchSlop;
     }
 
     @Override
@@ -123,11 +122,11 @@ public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.O
     }
 
     public void setLoading(boolean loading) {
-        this.loading = loading;
+        this.isLoading = loading;
         if (isLoading) {
-            mListView.addFooterView(mFooterView);
+//            mListView.addFooterView(mFooterView);
         } else {
-            mListView.removeFooterView(mFooterView);
+//            mListView.removeFooterView(mFooterView);
             mYDown = 0;
             mLastY = 0;
         }

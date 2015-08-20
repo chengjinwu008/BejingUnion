@@ -1,5 +1,6 @@
 package com.cjq.bejingunion.fragements;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,6 +12,8 @@ import android.widget.TextView;
 
 import com.androidquery.AQuery;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.activities.ForgetPasswordActivity;
+import com.cjq.bejingunion.activities.RegisterActivity;
 import com.cjq.bejingunion.utils.LoginUtil;
 
 /**
@@ -49,11 +52,12 @@ public class LoginFragment extends Fragment {
     }
 
     public void jumpRegister(){
-        // TODO: 2015/8/19 添加跳转到注册
-
+        Intent intent = new Intent(getActivity(), RegisterActivity.class);
+        startActivity(intent);
     }
 
     public void jumpForgetPassword(){
-        // TODO: 2015/8/19 添加跳转到找回密码
+        Intent intent = new Intent(getActivity(), ForgetPasswordActivity.class);
+        startActivity(intent);
     }
 }

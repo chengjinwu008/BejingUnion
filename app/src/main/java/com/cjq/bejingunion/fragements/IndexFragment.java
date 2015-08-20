@@ -1,5 +1,6 @@
 package com.cjq.bejingunion.fragements;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -18,6 +19,10 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.activities.BroadBandActivity;
+import com.cjq.bejingunion.activities.ContractMachineActivity;
+import com.cjq.bejingunion.activities.MarketActivity;
+import com.cjq.bejingunion.activities.MobileNumberListActivity;
 import com.cjq.bejingunion.adapter.BannerAdapter;
 import com.cjq.bejingunion.adapter.IndexGridAdapter;
 import com.cjq.bejingunion.entities.Ad;
@@ -51,12 +56,17 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
 
         aq = new AQuery(view);
         bannerView = (BannerView) aq.id(R.id.index_banner).getView();
-
         search = (EditText) aq.id(R.id.index_search_text).getView();
         new_goods = aq.id(R.id.index_new_goods_list).getGridView();
         hot_goods = aq.id(R.id.index_hot_goods_list).getGridView();
         search.clearFocus();
         search.setOnEditorActionListener(this);
+
+        aq.id(R.id.index_market).clicked(this, "jumpMarket");
+        aq.id(R.id.index_broad_band).clicked(this,"jumpBroadBand");
+        aq.id(R.id.index_broad_band).clicked(this,"jumpBroadBand");
+        aq.id(R.id.index_buy_phone_number).clicked(this, "jumpMobileNumberList");
+        aq.id(R.id.index_contract_machine).clicked(this, "jumpContractMachine");
 
         requestDatas();
 
@@ -92,29 +102,29 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
             }
         });
 
-        aq.ajax(CommonDataObject.INDEX_NEW_GOODS_LIST,JSONObject.class,new AjaxCallback<JSONObject>(){
+        aq.ajax(CommonDataObject.INDEX_NEW_GOODS_LIST, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
                 try {
-                    if("200".equals(object.getString("code"))){
+                    if ("200".equals(object.getString("code"))) {
                         JSONArray goodsList = object.getJSONObject("datas").getJSONArray("goods_list");
                         int x = 0;
-                        if(goodsList.length()<=4){
-                            x=goodsList.length();
-                        }else{
-                            x=4;
+                        if (goodsList.length() <= 4) {
+                            x = goodsList.length();
+                        } else {
+                            x = 4;
                         }
 
                         List<Goods4IndexList> indexLists = new ArrayList<Goods4IndexList>();
 
-                        for(int i=0;i<x;i++){
+                        for (int i = 0; i < x; i++) {
                             JSONObject o = goodsList.getJSONObject(i);
 
-                            Goods4IndexList goods = new Goods4IndexList(o.getString("goods_id"),o.getString("goods_price"),o.getString("goods_image_url"),o.getString("goods_name"));
+                            Goods4IndexList goods = new Goods4IndexList(o.getString("goods_id"), o.getString("goods_price"), o.getString("goods_image_url"), o.getString("goods_name"));
                             goods.setMarket_price(o.getString("goods_marketprice"));
                             indexLists.add(goods);
                         }
-                        new_goods.setAdapter(new IndexGridAdapter(getActivity(),indexLists));
+                        new_goods.setAdapter(new IndexGridAdapter(getActivity(), indexLists));
 
                     }
                 } catch (JSONException e) {
@@ -124,30 +134,30 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
             }
         });
 
-        aq.ajax(CommonDataObject.INDEX_HOT_GOODS_LIST,JSONObject.class,new AjaxCallback<JSONObject>(){
+        aq.ajax(CommonDataObject.INDEX_HOT_GOODS_LIST, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
 //
                 try {
-                    if("200".equals(object.getString("code"))){
+                    if ("200".equals(object.getString("code"))) {
                         JSONArray goodsList = object.getJSONObject("datas").getJSONArray("goods_list");
                         int x = 0;
-                        if(goodsList.length()<=4){
-                            x=goodsList.length();
-                        }else{
-                            x=4;
+                        if (goodsList.length() <= 4) {
+                            x = goodsList.length();
+                        } else {
+                            x = 4;
                         }
 
                         List<Goods4IndexList> indexLists = new ArrayList<Goods4IndexList>();
 
-                        for(int i=0;i<x;i++){
+                        for (int i = 0; i < x; i++) {
                             JSONObject o = goodsList.getJSONObject(i);
 
-                            Goods4IndexList goods = new Goods4IndexList(o.getString("goods_id"),o.getString("goods_price"),o.getString("goods_image_url"),o.getString("goods_name"));
+                            Goods4IndexList goods = new Goods4IndexList(o.getString("goods_id"), o.getString("goods_price"), o.getString("goods_image_url"), o.getString("goods_name"));
                             goods.setMarket_price(o.getString("goods_marketprice"));
                             indexLists.add(goods);
                         }
-                        hot_goods.setAdapter(new IndexGridAdapter(getActivity(),indexLists));
+                        hot_goods.setAdapter(new IndexGridAdapter(getActivity(), indexLists));
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -156,6 +166,26 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
             }
         });
 
+    }
+
+    public void jumpMarket(){
+        Intent intent = new Intent(getActivity(), MarketActivity.class);
+        startActivity(intent);
+    }
+
+    public void jumpBroadBand(){
+        Intent intent = new Intent(getActivity(), BroadBandActivity.class);
+        startActivity(intent);
+    }
+
+    public void jumpMobileNumberList(){
+        Intent intent = new Intent(getActivity(), MobileNumberListActivity.class);
+        startActivity(intent);
+    }
+
+    public void jumpContractMachine(){
+        Intent intent = new Intent(getActivity(), ContractMachineActivity.class);
+        startActivity(intent);
     }
 
     @Override
