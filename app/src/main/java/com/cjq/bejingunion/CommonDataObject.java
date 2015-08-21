@@ -14,4 +14,5 @@ public class CommonDataObject {
     public static final String VERIFY_CODE_URL =MAIN_URL+ "/app/index.php?act=login&op=getsms";
     public static final String REGISTER_URL =MAIN_URL+ "/app/index.php?act=login&op=register";
     public static final String GOODS_LIST_URL =MAIN_URL+ "/app/index.php?act=goods&op=goods_list";
+    public static final String GOODS_DETAIL_URL =MAIN_URL+ "/app/index.php?act=goods&op=goods_detail";
 }

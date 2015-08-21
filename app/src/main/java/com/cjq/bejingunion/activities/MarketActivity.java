@@ -2,6 +2,8 @@ package com.cjq.bejingunion.activities;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -14,6 +16,7 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.MarketGridAdapter;
 import com.cjq.bejingunion.entities.Goods4IndexList;
+import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.view.MyRefreshLayout;
 
 import org.json.JSONArray;
@@ -28,7 +31,7 @@ import java.util.Map;
 /**
  * Created by CJQ on 2015/8/20.
  */
-public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, MyRefreshLayout.onLoadListener {
+public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, MyRefreshLayout.onLoadListener, AdapterView.OnItemClickListener {
 
     private AQuery aq;
     private int activeSort = 1;
@@ -61,6 +64,7 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         aq.id(R.id.market_sort_click4).clicked(this, "sortByPrice");
         adapter = new MarketGridAdapter(this, goodsList);
         aq.id(R.id.market_list).getGridView().setAdapter(adapter);
+        aq.id(R.id.market_list).itemClicked(this);
         refreshLayout = (MyRefreshLayout) aq.id(R.id.market_refresh).getView();
 
         refreshLayout.setOnRefreshListener(this);
@@ -189,5 +193,12 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         refreshLayout.setLoading(true);
         current_page++;
         requestData();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Goods4IndexList goods = goodsList.get(position);
+
+        GoodsUtil.showGoodsDetail(MarketActivity.this,goods.getGoods_id());
     }
 }

@@ -16,9 +16,10 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+            android:src="@drawable/return1" />
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
@@ -58,7 +59,7 @@
                 android:layout_alignParentTop="true" />
 
             <TextView
-                android:id="@+id/textView"
+                android:id="@+id/detail_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -73,12 +74,12 @@
                 android:id="@+id/detail_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView" />
+                android:layout_below="@+id/detail_name" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/textView"
+                android:layout_below="@+id/detail_name"
                 android:layout_centerHorizontal="true"
                 android:layout_marginBottom="50dp"
                 android:gravity="center"
@@ -121,6 +122,7 @@
                         android:text="商品评价" />
 
                     <TextView
+                        android:id="@+id/detail_evaluation_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="（20）"
@@ -145,6 +147,7 @@
                         android:text="收藏" />
 
                     <TextView
+                        android:id="@+id/detail_collect_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="（2000）"

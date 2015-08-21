@@ -84,6 +84,7 @@
         <activity android:name=".activities.MobileNumberListActivity"/>
         <activity android:name=".activities.NewProductsRecommendActivity"/>
         <activity android:name=".activities.ContractMachineActivity"/>
+        <activity android:name=".activities.DetailActivity"/>
     </application>
 
 </manifest>

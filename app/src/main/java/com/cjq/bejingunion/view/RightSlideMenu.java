@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -17,8 +18,8 @@ import com.cjq.bejingunion.R;
 public class RightSlideMenu extends FrameLayout {
     private View content;
     private View menu;
-    private boolean first=true;
-    private boolean menuDrewout=false;
+    private boolean first = true;
+    private boolean menuDrewOut = false;
     private boolean isInAnimation = false;
     private int animationTime = 500;
 
@@ -32,12 +33,12 @@ public class RightSlideMenu extends FrameLayout {
 
     public RightSlideMenu(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context,attrs);
+        init(context, attrs);
     }
 
-    private void init(Context context,AttributeSet attributeSet) {
+    private void init(Context context, AttributeSet attributeSet) {
         TypedArray ta = context.obtainStyledAttributes(attributeSet, R.styleable.RightSlideMenu);
-        int id = ta.getResourceId(R.styleable.RightSlideMenu_menu_content_layout,R.layout.sliding_menu);
+        int id = ta.getResourceId(R.styleable.RightSlideMenu_menu_content_layout, R.layout.sliding_menu);
 
         ta.recycle();
         View view = LayoutInflater.from(context).inflate(id, null, false);
@@ -46,19 +47,40 @@ public class RightSlideMenu extends FrameLayout {
         addView(view);
     }
 
-    public void animateMenu() {
-        if(!isInAnimation)
-        if(menuDrewout){
-            pullMenuBack();
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        final int width = menu.getMeasuredWidth();
+        final int xwidth = getMeasuredWidth();
+        if (menuDrewOut) {
+            if (ev.getAction() == MotionEvent.ACTION_DOWN) {
+                int x = (int) ev.getX();
+                if (x > xwidth - width) {
+                    return super.onInterceptTouchEvent(ev);
+                } else {
+                    animateMenu();
+                }
+            }else{
+                return super.onInterceptTouchEvent(ev);
+            }
         }else{
-            drawMenuOut();
+            return super.onInterceptTouchEvent(ev);
         }
+        return true;
+    }
+
+    public void animateMenu() {
+        if (!isInAnimation)
+            if (menuDrewOut) {
+                pullMenuBack();
+            } else {
+                drawMenuOut();
+            }
     }
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
         super.onLayout(changed, left, top, right, bottom);
-        if(changed && first){
+        if (changed && first) {
             menu.setX(content.getWidth());
             first = false;
         }
@@ -73,12 +95,12 @@ public class RightSlideMenu extends FrameLayout {
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                isInAnimation=true;
+                isInAnimation = true;
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                menuDrewout = true;
+                menuDrewOut = true;
                 isInAnimation = false;
             }
 
@@ -89,7 +111,7 @@ public class RightSlideMenu extends FrameLayout {
 
             @Override
             public void onAnimationRepeat(Animator animation) {
-                isInAnimation=true;
+                isInAnimation = true;
             }
         });
         animator.start();
@@ -99,17 +121,17 @@ public class RightSlideMenu extends FrameLayout {
         final int width = menu.getMeasuredWidth();
         final int xwidth = getMeasuredWidth();
 
-        ObjectAnimator animator = ObjectAnimator.ofFloat(menu, "x", xwidth - width,xwidth);
+        ObjectAnimator animator = ObjectAnimator.ofFloat(menu, "x", xwidth - width, xwidth);
         animator.setDuration(animationTime);
         animator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animation) {
-                isInAnimation=true;
+                isInAnimation = true;
             }
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                menuDrewout = false;
+                menuDrewOut = false;
                 isInAnimation = false;
             }
 
@@ -120,7 +142,7 @@ public class RightSlideMenu extends FrameLayout {
 
             @Override
             public void onAnimationRepeat(Animator animation) {
-                isInAnimation=true;
+                isInAnimation = true;
             }
         });
         animator.start();
