@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
+    <com.cjq.bejingunion.view.MyTitleLinearLayout
         android:id="@+id/sliding_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -13,7 +13,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="10dp"
+            android:padding="10dp"
             android:focusable="true"
             android:focusableInTouchMode="true">
 
@@ -41,6 +41,7 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:background="#fff"
+            android:baselineAligned="false"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -155,7 +156,7 @@
                 android:numColumns="2" />
         </com.cjq.bejingunion.view.MyRefreshLayout>
 
-    </LinearLayout>
+    </com.cjq.bejingunion.view.MyTitleLinearLayout>
 
     <FrameLayout
         android:id="@+id/sliding_menu"

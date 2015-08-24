@@ -140,11 +140,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="false" />
-        <TextView
-            android:id="@+id/sign_up_agree_text"
-            android:text="同意XXXX协议"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <TextView

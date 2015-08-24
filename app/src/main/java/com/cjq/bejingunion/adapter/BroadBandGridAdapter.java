@@ -50,7 +50,7 @@ public class BroadBandGridAdapter extends BaseAdapter {
         AQuery aq = new AQuery(convertView);
         aq.id(R.id.market_item_image).image(goods.getGoods_image_url(),false,true);
         aq.id(R.id.goods_name).text(goods.getGoods_name());
-        aq.id(R.id.special_price).text(goods.getGoods_price());
+        aq.id(R.id.special_price).text("￥"+goods.getGoods_price());
         aq.id(R.id.market_price).text("已有"+goods.getMarket_price()+"人评价");
         return convertView;
     }

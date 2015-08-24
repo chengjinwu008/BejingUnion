@@ -43,7 +43,7 @@ public class ForgetPasswordActivity extends BaseActivity {
 
         aq.id(R.id.find_back).clicked(this,"closeUp");
         aq.id(R.id.find_get_verify).clicked(this,"getVerifyCode");
-        aq.id(R.id.find_submit_verify).clicked(this,"doSubmit");
+        aq.id(R.id.find_submit_verify).clicked(this, "doSubmit");
 
         verify  = aq.id(R.id.find_get_verify).getTextView();
         timer = Executors.newSingleThreadExecutor();
@@ -51,6 +51,31 @@ public class ForgetPasswordActivity extends BaseActivity {
 
     public void doSubmit(){
         // TODO: 2015/8/20 找回密码等接口出来
+        String phone = aq.id(R.id.find_phone_number).getText().toString();
+        String verify = aq.id(R.id.find_verify).getText().toString();
+
+        Map<String,String> params = new HashMap<>();
+        params.put("username",phone);
+        params.put("verify",verify);
+
+        aq.ajax(CommonDataObject.FIND_PASSWORD_BACK_URL,params,JSONObject.class,new AjaxCallback<JSONObject>(){
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                try {
+                    if(200==object.getInt("code")){
+                        //// TODO: 2015/8/21 成功，跳转页面修改
+                        finish();
+
+
+                    }else{
+                        Toast.makeText(ForgetPasswordActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                    }
+                } catch (JSONException e) {
+                }
+                super.callback(url, object, status);
+            }
+        });
+
     }
 
     public void getVerifyCode() {

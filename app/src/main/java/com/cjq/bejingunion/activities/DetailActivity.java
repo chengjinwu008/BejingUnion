@@ -53,6 +53,8 @@ public class DetailActivity extends BaseActivity{
                         JSONObject goods_info = object.getJSONObject("datas").getJSONObject("goods_info");
                         String name = goods_info.getString("goods_name");
 
+
+
                         nameText.setText(name);
                         evaluateCountText.setText("("+goods_info.getString("evaluation_count")+")");
                         collectCountText.setText("("+goods_info.getString("goods_collect")+")");

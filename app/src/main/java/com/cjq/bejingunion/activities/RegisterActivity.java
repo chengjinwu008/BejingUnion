@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,11 +47,11 @@ public class RegisterActivity extends BaseActivity {
 
         aq = new AQuery(this);
         aq.id(R.id.sign_up_back).clicked(this, "closeUp");
-        String s = "《呵呵协议》";
+        String s = "我已阅读并同意《呵呵协议》";
         SpannableString string = new SpannableString(s);
         URLSpan span = new URLSpan("http://www.baidu.com");
-        string.setSpan(span, 0, s.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        aq.id(R.id.sign_up_agree_text).text(string).clicked(this, "readAgreement");
+        string.setSpan(span, 7, 13, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        aq.id(R.id.sign_up_agree).text(string).getCheckBox().setMovementMethod(LinkMovementMethod.getInstance());
         aq.id(R.id.find_get_verify).clicked(this, "getVerifyCode");
         aq.id(R.id.sign_up_do_register).clicked(this, "doRegister");
 
@@ -178,9 +179,5 @@ public class RegisterActivity extends BaseActivity {
                 }
             });
         }
-    }
-
-    public void readAgreement() {
-        // TODO: 2015/8/20 打开wap协议
     }
 }
