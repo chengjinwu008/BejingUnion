@@ -20,10 +20,8 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.BroadBandBandItemAdapter;
 import com.cjq.bejingunion.adapter.BroadBandGridAdapter;
-import com.cjq.bejingunion.adapter.MarketGridAdapter;
 import com.cjq.bejingunion.entities.BandItem;
 import com.cjq.bejingunion.entities.Goods4IndexList;
-import com.cjq.bejingunion.view.BannerView;
 import com.cjq.bejingunion.view.MyRefreshLayout;
 
 import org.json.JSONArray;
@@ -50,6 +48,8 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
     private MyRefreshLayout refreshLayout;
     private List<Goods4IndexList> goodsList = new ArrayList<>();
     private BaseAdapter adapter;
+    private int categoryNo=0;
+    private List<BandItem> bandItems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,8 +77,6 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
 
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadListener(this);
-
-        requestData();
     }
 
     public void sortByTime() {
@@ -134,6 +132,8 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
     }
 
     private void requestData() {
+        String bandId = bandItems.get(categoryNo).getPost();//选择的带宽的id
+
         Map<String, String> params = new HashMap<>();
         params.put("key", String.valueOf(activeSort));
         params.put("page", String.valueOf(CommonDataObject.PAGE_SIZE));
@@ -144,7 +144,6 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
         aq.ajax(CommonDataObject.GOODS_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
-                System.out.println(url +"++++++++++++++++++++++++" +object.toString());
                 try {
                     if ("200".equals(object.getString("code"))) {
                         JSONArray goods_list = object.getJSONObject("datas").getJSONArray("goods_list");
@@ -180,32 +179,48 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
     }
 
     private void initBandList() {
-        // TODO: 2015/8/20 这个列表应该从网络得到
-
-        List<BandItem> bandItems = new ArrayList<>();
-        bandItems.add(new BandItem("10M", "").setChosen(true));
-        bandItems.add(new BandItem("10M", ""));
-        bandItems.add(new BandItem("10M", ""));
-        bandItems.add(new BandItem("10M", ""));
-        bandItems.add(new BandItem("10M", ""));
-        bandItems.add(new BandItem("10M", ""));
-        bandItems.add(new BandItem("10M", ""));
-        bandItems.add(new BandItem("10M", ""));
-        bandItems.add(new BandItem("10M", ""));
-
         gridView = aq.id(R.id.broadband_band_item).getGridView();
-        int ww = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics()) * bandItems.size());
-        gridView.setAdapter(new BroadBandBandItemAdapter(bandItems, this));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ww, ViewGroup.LayoutParams.MATCH_PARENT);
-        params.topMargin = 10;
-        params.bottomMargin = 10;
-        params.leftMargin = 10;
-        params.rightMargin = 10;
-        gridView.setColumnWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics()));
-        gridView.setNumColumns(bandItems.size());
-        gridView.setHorizontalSpacing(10);
-        gridView.setHorizontalSpacing(10);
-        gridView.setLayoutParams(params);
+
+        Map<String,String> params = new HashMap<>();
+        params.put("gc_id", String.valueOf(gc_id));
+
+        aq.ajax(CommonDataObject.CATEGORY_LIST_FOR_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                System.out.println(object.toString());
+                try {
+                    if (200 == object.getInt("code")) {
+                        JSONArray categories = object.getJSONObject("datas").getJSONArray("class_list");
+
+                        bandItems = new ArrayList<BandItem>();
+                        for (int i = 0; i < categories.length(); i++) {
+                            JSONObject c = categories.getJSONObject(i);
+                            BandItem category = new BandItem(c.getString("gc_name"), c.getString("gc_id"));
+                            bandItems.add(category);
+                        }
+                        int ww = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics()) * bandItems.size());
+                        gridView.setAdapter(new BroadBandBandItemAdapter(bandItems, BroadBandActivity.this));
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ww, ViewGroup.LayoutParams.MATCH_PARENT);
+
+                        params.topMargin = 10;
+                        params.bottomMargin = 10;
+                        params.leftMargin = 10;
+                        params.rightMargin = 10;
+                        gridView.setColumnWidth((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics()));
+
+                        gridView.setNumColumns(bandItems.size());
+                        gridView.setHorizontalSpacing(10);
+                        gridView.setHorizontalSpacing(10);
+                        gridView.setLayoutParams(params);
+
+                        requestData();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                super.callback(url, object, status);
+            }
+        });
 
         gridView.setOnItemClickListener(this);
     }
@@ -217,18 +232,20 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         BroadBandBandItemAdapter adapter = (BroadBandBandItemAdapter) gridView.getAdapter();
-        String post = adapter.getPost(position);
-
-        // TODO: 2015/8/20 改变了套餐类型 相应的列表也应该跟随改变
-
+//        String post = adapter.getPost(position);
+        categoryNo = position;
+        refreshLayout.setRefreshing(true);
         adapter.changeChosen(position);
         adapter.notifyDataSetChanged();
+
+        requestData();
     }
 
     @Override
     public void onRefresh() {
         currentPage = 1;
         goodsList.clear();
+        adapter.notifyDataSetChanged();
         refreshLayout.setRefreshing(true);
         requestData();
     }

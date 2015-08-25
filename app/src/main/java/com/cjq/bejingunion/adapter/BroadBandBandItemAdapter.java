@@ -28,9 +28,9 @@ public class BroadBandBandItemAdapter extends BaseAdapter {
         this.context = context;
     }
 
-    public String getPost(int position) {
-        return bandItems.get(position).getPost();
-    }
+//    public String getPost(int position) {
+//        return bandItems.get(position).getPost();
+//    }
 
     @Override
     public int getCount() {

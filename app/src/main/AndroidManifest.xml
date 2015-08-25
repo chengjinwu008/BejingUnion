@@ -85,6 +85,8 @@
         <activity android:name=".activities.NewProductsRecommendActivity"/>
         <activity android:name=".activities.ContractMachineActivity"/>
         <activity android:name=".activities.DetailActivity"/>
+        <activity android:name=".activities.MyCollectionActivity"/>
+        <activity android:name=".activities.AddressListActivity"/>
     </application>
 
 </manifest>

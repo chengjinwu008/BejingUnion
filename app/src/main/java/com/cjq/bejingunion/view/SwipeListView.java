@@ -3,7 +3,9 @@ package com.cjq.bejingunion.view;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
+import android.view.View;
 import android.view.ViewConfiguration;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 /**
@@ -11,7 +13,7 @@ import android.widget.ListView;
  */
 public class SwipeListView extends ListView {
 
-    private int mTouchSlop;
+    private int mTouchSlop=0;
     private float mDownX;
     private float mDownY;
     private boolean isJudged = false;
@@ -38,7 +40,7 @@ public class SwipeListView extends ListView {
     }
 
     private void init(Context context) {
-        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
+//        mTouchSlop = ViewConfiguration.get(context).getScaledTouchSlop();
     }
 
     @Override
@@ -60,6 +62,7 @@ public class SwipeListView extends ListView {
                 if(lastItem!=null && drewOut && lastItem!=mCurrentViewItem){
                     lastItem.mSmoothScrollTo(0);
                     drewOut=false;
+                    lastItem.setDrawOut(false);
                 }
                 if(mCurrentViewItem!=null)
                 mCurrentX = mCurrentViewItem.getCurrentX();
@@ -78,6 +81,7 @@ public class SwipeListView extends ListView {
                             if(lastItem!=null && drewOut ){
                                 lastItem.mSmoothScrollTo(0);
                                 drewOut=false;
+                                lastItem.setDrawOut(false);
                             }
                         }
                         isJudged = true;
@@ -110,9 +114,11 @@ public class SwipeListView extends ListView {
                         if (mCurrentViewItem.getCurrentX() > mCurrentViewItem.getRightEdge() / 2) {
                             mCurrentViewItem.mSmoothScrollTo(0);
                             drewOut=false;
+                            mCurrentViewItem.setDrawOut(false);
                         } else {
                             mCurrentViewItem.mSmoothScrollTo(mCurrentViewItem.getRightEdge());
                             drewOut=true;
+                            mCurrentViewItem.setDrawOut(true);
                         }
                     }
                     break;

@@ -13,9 +13,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="10dp"
             android:focusable="true"
-            android:focusableInTouchMode="true">
+            android:focusableInTouchMode="true"
+            android:padding="10dp">
 
             <EditText
                 android:id="@+id/market_search_text"
@@ -49,16 +49,18 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/contract_machine_sort_click1">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="默认" />
+                    android:text="时间" />
 
                 <ImageView
+                    android:id="@+id/contract_machine_sort1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/a32" />
@@ -75,19 +77,21 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/contract_machine_sort_click2">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="默认" />
+                    android:text="评价" />
 
                 <ImageView
+                    android:id="@+id/contract_machine_sort2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/a32" />
+                    android:src="@drawable/a33" />
 
             </LinearLayout>
 
@@ -101,19 +105,21 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/contract_machine_sort_click3">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="默认" />
+                    android:text="销量" />
 
                 <ImageView
+                    android:id="@+id/contract_machine_sort3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/a32" />
+                    android:src="@drawable/a33" />
 
             </LinearLayout>
 
@@ -127,19 +133,21 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:id="@+id/contract_machine_sort_click4">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="默认" />
+                    android:text="价格" />
 
                 <ImageView
+                    android:id="@+id/contract_machine_sort4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/a32" />
+                    android:src="@drawable/a33" />
 
             </LinearLayout>
         </LinearLayout>
@@ -147,13 +155,18 @@
         <com.cjq.bejingunion.view.MyRefreshLayout
             android:id="@+id/contract_machine_refresh"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp">
 
             <GridView
                 android:id="@+id/contract_machine_grid_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:numColumns="2" />
+                android:horizontalSpacing="5dp"
+                android:numColumns="2"
+                android:verticalSpacing="8dp" />
         </com.cjq.bejingunion.view.MyRefreshLayout>
 
     </com.cjq.bejingunion.view.MyTitleLinearLayout>

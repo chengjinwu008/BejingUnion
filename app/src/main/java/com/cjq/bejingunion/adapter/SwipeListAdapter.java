@@ -8,24 +8,16 @@ import android.widget.BaseAdapter;
 
 import com.cjq.bejingunion.R;
 
+import java.util.List;
+
 /**
  * Created by CJQ on 2015/8/19.
  */
-public class SwipeListAdapter extends BaseAdapter {
+public abstract class SwipeListAdapter extends BaseAdapter {
     protected Context context;
 
     public SwipeListAdapter(Context context) {
         this.context = context;
-    }
-
-    @Override
-    public int getCount() {
-        return 10;
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return null;
     }
 
     @Override

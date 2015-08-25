@@ -73,6 +73,7 @@ public class LoginUtil {
     }
 
     public static boolean isAutoLogin(Context context) {
+        logoutWithDeleteKey(context);
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
         return sharedPreferences.getBoolean("auto", false);
     }

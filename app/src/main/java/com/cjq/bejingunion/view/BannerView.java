@@ -6,6 +6,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -28,8 +29,8 @@ public class BannerView extends RelativeLayout implements ViewPager.OnPageChange
     private PagerAdapter mAdapter;
     private int mNowPage = 0;
     private Handler mHandler = null;
-    private int normalId = R.drawable.a6;
-    private int selectedId = R.drawable.a7;
+    private int normalId = R.drawable.jd;
+    private int selectedId = R.drawable.jds;
     public final int SECONDS_LEFT = 30;
     private int secondsLeft = SECONDS_LEFT;
 
@@ -127,13 +128,12 @@ public class BannerView extends RelativeLayout implements ViewPager.OnPageChange
         mNowPage = 0;
 
         for (int i = 0; i != mAdapter.getCount(); i++) {
-            ImageView tempView = new ImageView(getContext());
-
-            tempView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            ImageView tempView = (ImageView) LayoutInflater.from(getContext()).inflate(R.layout.image_view_layout,null,false);
             if (mNowPage != i)
                 tempView.setImageResource(normalId);
             else
                 tempView.setImageResource(selectedId);
+
             points.addView(tempView);
         }
 

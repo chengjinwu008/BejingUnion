@@ -86,7 +86,7 @@ public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.O
     }
 
     private void loadData() {
-        if (mOnLoadListener != null) {
+        if (mOnLoadListener != null && !isRefreshing()) {
             // 设置状态
             setLoading(true);
             //

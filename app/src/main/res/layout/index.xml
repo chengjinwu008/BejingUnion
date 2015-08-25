@@ -1,61 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:background="@color/title_bar"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="center_horizontal">
-
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="20dp"
-            android:layout_marginStart="20dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/a49" />
-
-        <EditText
-            android:imeOptions="actionSearch"
-            android:singleLine="true"
-            android:id="@+id/index_search_text"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginEnd="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/imageView"
-            android:layout_toRightOf="@+id/imageView"
-            android:background="@drawable/search_background"
-            android:hint="@string/search_hint"
-            android:padding="5dp"
-            android:textSize="20sp" />
-
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignEnd="@+id/index_search_text"
-            android:layout_alignRight="@+id/index_search_text"
-            android:layout_centerVertical="true"
-            android:padding="10dp"
-            android:src="@drawable/a54" />
-
-    </RelativeLayout>
-
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    <com.cjq.bejingunion.view.MyScrollView
+        android:id="@+id/index_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -85,10 +34,10 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/index_broad_band"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/a50"
-                        android:id="@+id/index_broad_band" />
+                        android:src="@drawable/a50" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -104,10 +53,10 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/index_buy_phone_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/a51"
-                        android:id="@+id/index_buy_phone_number" />
+                        android:src="@drawable/a51" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -123,10 +72,10 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/index_contract_machine"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/a52"
-                        android:id="@+id/index_contract_machine" />
+                        android:src="@drawable/a52" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -142,10 +91,10 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/index_market"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/a53"
-                        android:id="@+id/index_market" />
+                        android:src="@drawable/a53" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -182,13 +131,13 @@
                         android:padding="5dp"
                         android:text="促销活动" />
 
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:paddingRight="10dp"
-                        android:text="》》" />
+                        android:src="@drawable/a67" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -197,34 +146,34 @@
                     android:layout_below="@+id/title1">
 
                     <ImageView
-                        android:scaleType="fitXY"
                         android:id="@+id/left_ad"
                         android:layout_width="108dp"
-                        android:layout_height="200dp" />
+                        android:layout_height="200dp"
+                        android:scaleType="fitXY" />
 
                     <GridView
-                        android:layout_marginTop="1px"
-                        android:layout_marginBottom="1px"
-                        android:horizontalSpacing="1px"
-                        android:verticalSpacing="1px"
                         android:id="@+id/index_new_goods_list"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_alignParentTop="true"
+                        android:layout_marginBottom="1px"
+                        android:layout_marginTop="1px"
                         android:layout_toEndOf="@+id/left_ad"
                         android:layout_toRightOf="@+id/left_ad"
                         android:choiceMode="none"
-                        android:numColumns="2" />
+                        android:horizontalSpacing="1px"
+                        android:numColumns="2"
+                        android:verticalSpacing="1px" />
 
                 </RelativeLayout>
             </RelativeLayout>
 
             <ImageView
-                android:scaleType="fitXY"
+                android:id="@+id/center_ad"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_marginTop="10dp"
-                android:id="@+id/center_ad" />
+                android:scaleType="fitXY" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -253,13 +202,13 @@
                         android:padding="5dp"
                         android:text="热卖商品" />
 
-                    <TextView
+                    <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
                         android:paddingRight="10dp"
-                        android:text="》》" />
+                        android:src="@drawable/a67" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -268,30 +217,80 @@
                     android:layout_below="@+id/title2">
 
                     <ImageView
-                        android:scaleType="fitXY"
                         android:id="@+id/right_ad"
                         android:layout_width="108dp"
                         android:layout_height="200dp"
                         android:layout_alignParentEnd="true"
-                        android:layout_alignParentRight="true" />
+                        android:layout_alignParentRight="true"
+                        android:scaleType="fitXY" />
 
                     <GridView
-                        android:horizontalSpacing="1px"
-                        android:verticalSpacing="1px"
-                        android:layout_marginTop="1px"
-                        android:layout_marginBottom="1px"
                         android:id="@+id/index_hot_goods_list"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_alignParentTop="true"
+                        android:layout_marginBottom="1px"
+                        android:layout_marginTop="1px"
                         android:layout_toLeftOf="@+id/right_ad"
                         android:layout_toStartOf="@+id/right_ad"
                         android:choiceMode="none"
-                        android:numColumns="2" />
+                        android:horizontalSpacing="1px"
+                        android:numColumns="2"
+                        android:verticalSpacing="1px" />
 
                 </RelativeLayout>
             </RelativeLayout>
 
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+    </com.cjq.bejingunion.view.MyScrollView>
+
+    <RelativeLayout
+        android:id="@+id/index_title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/a49" />
+
+        <EditText
+            android:id="@+id/index_search_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/imageView"
+            android:layout_toRightOf="@+id/imageView"
+            android:background="@drawable/search_background"
+            android:hint="@string/search_hint"
+            android:imeOptions="actionSearch"
+            android:padding="5dp"
+            android:singleLine="true"
+            android:textSize="20sp" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignEnd="@+id/index_search_text"
+            android:layout_alignRight="@+id/index_search_text"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:src="@drawable/a54" />
+
+    </RelativeLayout>
+</RelativeLayout>

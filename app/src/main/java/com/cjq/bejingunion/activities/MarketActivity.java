@@ -136,7 +136,7 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         aq.ajax(CommonDataObject.GOODS_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
-                System.out.println(object.toString());
+//                System.out.println(object.toString());
                 try {
                     if ("200".equals(object.getString("code"))) {
                         JSONArray goods_list = object.getJSONObject("datas").getJSONArray("goods_list");
@@ -184,6 +184,7 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
     public void onRefresh() {
         current_page = 1;
         goodsList.clear();
+        adapter.notifyDataSetChanged();
         refreshLayout.setRefreshing(true);
         requestData();
     }
