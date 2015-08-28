@@ -2,6 +2,7 @@ package com.cjq.bejingunion.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.widget.Toast;
 
@@ -9,6 +10,7 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.CommonDataObject;
+import com.cjq.bejingunion.activities.LoginActivity;
 import com.cjq.bejingunion.event.EventLoginIn;
 import com.cjq.bejingunion.event.EventLogout;
 import com.ypy.eventbus.EventBus;
@@ -99,9 +101,28 @@ public class LoginUtil {
         login(context, user_name, password, true);
     }
 
-    public static String getKey(Context context) {
+    public static String getKey(Context context) throws Exception {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
-        return sharedPreferences.getString("key", "");
+        String key = sharedPreferences.getString("key", "");
+        if("".equals(key)){
+            //跳转到登录
+            Intent intent = new Intent(context, LoginActivity.class);
+            context.startActivity(intent);
+            throw new Exception("没有登录！");
+        }
+        return key;
+    }
+
+    public static String getPassword(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
+        return sharedPreferences.getString("password", "");
+    }
+
+    public static void savePassword(Context context,String password) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("password", password);
+        editor.apply();
     }
 
     public static void saveLoginInfo(Context context, String username, String key, String password) {
@@ -115,6 +136,7 @@ public class LoginUtil {
     }
 
     public static void logoutWithDeleteKey(Context context) {
+        // TODO: 2015/8/19 登出接口待实现
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("key");

@@ -1,16 +1,20 @@
 package com.cjq.bejingunion.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
-import com.cjq.bejingunion.entities.CollectionToShow;
+import com.cjq.bejingunion.activities.AddressEditActivity;
+import com.cjq.bejingunion.entities.Address4Show;
 import com.cjq.bejingunion.event.EventCollectionChange;
 import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -27,37 +31,34 @@ import java.util.Map;
 /**
  * Created by CJQ on 2015/8/25.
  */
-public class CollectionAdapter extends SwipeListAdapter {
+public class AddressAdapter extends SwipeListAdapter {
+    List<Address4Show> address4ShowList;
 
-    private List<CollectionToShow> list;
-
-    public CollectionAdapter(Context context, List<CollectionToShow> list) {
+    public AddressAdapter(List<Address4Show> address4ShowList, Context context) {
         super(context);
-        this.list = list;
+        this.address4ShowList = address4ShowList;
     }
 
     @Override
     public int getCount() {
-        return list.size();
+        return address4ShowList.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return list.get(position);
+        return address4ShowList.get(position);
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, final ViewGroup parent) {
+        final Address4Show address4Show = address4ShowList.get(position);
         if (convertView == null) {
-            convertView = LayoutInflater.from(context).inflate(R.layout.collection_list_item, null, false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.address_swipe_list_item, parent, false);
         }
-        final CollectionToShow collectionToShow = list.get(position);
-
-
         final AQuery aq = new AQuery(convertView);
-        aq.id(R.id.collection_image).image(collectionToShow.getGoods_image_url(), false, true);
-        aq.id(R.id.collection_title).text(collectionToShow.getGoods_name());
-        aq.id(R.id.collection_price).text(collectionToShow.getGoods_price());
+        aq.id(R.id.address_detail).text(address4Show.getAddress());
+        aq.id(R.id.address_true_name).text(address4Show.getTrueName());
+        aq.id(R.id.address_mobile_number).text(address4Show.getPhoneNumber());
 
         final View finalConvertView = convertView;
         aq.id(R.id.sliding_content).clicked(new View.OnClickListener() {
@@ -65,8 +66,11 @@ public class CollectionAdapter extends SwipeListAdapter {
             public void onClick(View v) {
                 boolean drewOut = ((SwipeListItemView) finalConvertView).isDrawOut();
                 if (!drewOut) {
-                    String goods_id = collectionToShow.getGoods_id();
-                    GoodsUtil.showGoodsDetail(context, goods_id);
+                    String addressId = address4Show.getAddressId();
+                    Intent intent = new Intent(context, AddressEditActivity.class);
+                    intent.putExtra("position", position);
+                    intent.putExtra("addressId", addressId);
+                    ((Activity) context).startActivityForResult(intent, 1);
                 }
             }
         });
@@ -74,21 +78,19 @@ public class CollectionAdapter extends SwipeListAdapter {
         aq.id(R.id.sliding_menu).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String favid = collectionToShow.getFav_id();
+                String addressId = address4Show.getAddressId();
 
                 try {
                     Map<String, String> params = new HashMap<String, String>();
                     params.put("key", LoginUtil.getKey(context));
-                    params.put("fav_id", favid);
+                    params.put("address_id", addressId);
 
-                    aq.ajax(CommonDataObject.COLLECTION_DELETE_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+                    aq.ajax(CommonDataObject.ADDRESS_DELETE_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                         @Override
                         public void callback(String url, JSONObject object, AjaxStatus status) {
                             try {
                                 if (200 == object.getInt("code")) {
-                                    ((SwipeListItemView) finalConvertView).mSmoothScrollTo(0);
-                                    list.remove(position);
-                                    EventBus.getDefault().post(new EventCollectionChange());
+                                    address4ShowList.remove(position);
                                     notifyDataSetChanged();
                                 }
                             } catch (JSONException e) {
@@ -103,6 +105,7 @@ public class CollectionAdapter extends SwipeListAdapter {
 
             }
         });
+
         return convertView;
     }
 }

@@ -81,8 +81,9 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
 
         aq.id(R.id.index_market).clicked(this, "jumpMarket");
         aq.id(R.id.index_broad_band).clicked(this, "jumpBroadBand");
-        aq.id(R.id.index_broad_band).clicked(this, "jumpBroadBand");
         aq.id(R.id.index_buy_phone_number).clicked(this, "jumpMobileNumberList");
+        aq.id(R.id.index_jump_market_order_by_time).clicked(this, "jumpMarket");
+        aq.id(R.id.index_jump_market_order_by_sale).clicked(this, "jumpMarketOrderBySale");
         aq.id(R.id.index_contract_machine).clicked(this, "jumpContractMachine");
         MyScrollView scrollViewview = (MyScrollView) aq.id(R.id.index_content).getView();
         scrollViewview.setListener(this);
@@ -97,6 +98,7 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
 
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
+                System.out.println(object.toString());
                 try {
                     if ("200".equals(object.getString("code"))) {
                         JSONObject data = object.getJSONObject("datas");
@@ -109,9 +111,9 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
                         }
                         bannerView.setAdapter(new BannerAdapter(getActivity(), adList));
 
-                        aq.id(R.id.left_ad).image(!"null".equals(data.getString("left")) ? data.getJSONObject("left").getString("title") : "http://i2.tietuku.com/e86aeadd2b3fa6a2s.jpg", false, true, 200, 0);
-                        aq.id(R.id.center_ad).image(!"null".equals(data.getString("center")) ? data.getJSONObject("center").getString("title") : "http://i2.tietuku.com/e86aeadd2b3fa6a2s.jpg", false, true, 200, 0);
-                        aq.id(R.id.right_ad).image(!"null".equals(data.getString("right")) ? data.getJSONObject("right").getString("title") : "http://i2.tietuku.com/e86aeadd2b3fa6a2s.jpg", false, true, 200, 0);
+                        aq.id(R.id.left_ad).image(data.getJSONObject("left").getString("title"), false, true, 200, 0);
+                        aq.id(R.id.center_ad).image(data.getJSONObject("center").getString("title"), false, true, 200, 0);
+                        aq.id(R.id.right_ad).image(data.getJSONObject("right").getString("title"), false, true, 200, 0);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -188,6 +190,12 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
 
     public void jumpMarket() {
         Intent intent = new Intent(getActivity(), MarketActivity.class);
+        startActivity(intent);
+    }
+
+    public void jumpMarketOrderBySale(){
+        Intent intent = new Intent(getActivity(), MarketActivity.class);
+        intent.putExtra("activeOrder",3);
         startActivity(intent);
     }
 

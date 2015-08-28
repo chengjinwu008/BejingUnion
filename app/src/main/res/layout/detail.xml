@@ -40,11 +40,13 @@
 
     <ScrollView
         android:id="@+id/content"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/detail_top">
 
-        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        <LinearLayout
+            android:layout_marginBottom="60dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#f0f0f0"
@@ -53,39 +55,157 @@
             <com.cjq.bejingunion.view.BannerView
                 android:id="@+id/detail_banner"
                 android:layout_width="match_parent"
-                android:layout_height="180dp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_alignParentTop="true" />
+                android:layout_height="180dp"/>
 
             <TextView
+                android:textSize="20sp"
+                android:textColor="#000"
                 android:id="@+id/detail_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/detail_banner"
                 android:paddingBottom="15dp"
                 android:paddingLeft="10dp"
                 android:paddingTop="15dp"
                 android:text="New Text" />
+            <FrameLayout
+                android:background="#bdbdbd"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+            <LinearLayout
+                android:orientation="horizontal" android:layout_width="match_parent"
+                android:padding="10dp"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                >
 
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/detail_const_1"
+                    android:text="价格"
+                    android:textSize="18sp"
+                    android:textColor="#000"/>
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" :    "
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    />
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="￥"
+                    android:textColor="#fe0100"
+                    android:textSize="18sp"/>
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="199.9"
+                    android:id="@+id/detail_const_price"
+                    android:textColor="#fe0100"
+                    android:textSize="18sp"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:textSize="18sp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/a11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                     />
+            </LinearLayout>
+            <FrameLayout
+                android:background="#bdbdbd"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
             <com.cjq.bejingunion.view.AllListView
                 android:id="@+id/detail_item"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/detail_name" />
-
+                android:layout_height="wrap_content" />
+            <FrameLayout
+                android:background="#bdbdbd"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:orientation="horizontal" android:layout_width="match_parent"
+                android:padding="10dp"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                >
+
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="库存"
+                    android:id="@+id/detail_const_2"
+                    android:textSize="18sp"
+                    android:textColor="#000"/>
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" :    "
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    />
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="30"
+                    android:id="@+id/detail_const_2_detail"
+                    android:textColor="#000"
+                    android:textSize="18sp"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:textSize="18sp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/a11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <FrameLayout
+                android:background="#bdbdbd"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+            <LinearLayout
+                android:orientation="horizontal" android:layout_width="match_parent"
+                android:padding="10dp"
+                android:gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:background="#fff"
+                >
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="购买数量"
+                    android:textSize="18sp"
+                    android:textColor="#000"/>
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" :    "
+                    android:textColor="#000"
+                    android:textSize="18sp"
+                    />
+                <com.cjq.bejingunion.view.NumericView
+                    android:id="@+id/detail_bought_count"
+                    android:layout_width="100dp"
+                    android:layout_height="30dp"/>
+                <ImageView
+                    android:visibility="gone"
+                    android:textSize="18sp"
+                    android:layout_gravity="end"
+                    android:src="@drawable/a11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    />
+            </LinearLayout>
+            <FrameLayout
+                android:background="#bdbdbd"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/detail_name"
-                android:layout_centerHorizontal="true"
                 android:layout_marginBottom="50dp"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/detail_show_detail_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -130,6 +250,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/detail_add_to_collection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -154,7 +275,7 @@
                         android:textColor="#ff4e02" />
                 </LinearLayout>
             </LinearLayout>
-        </RelativeLayout>
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout

@@ -43,6 +43,7 @@
         android:layout_height="match_parent">
 
         <LinearLayout
+            android:paddingBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -275,6 +276,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1px"/>
                 <LinearLayout
+                    android:id="@+id/user_center_change_password"
                     android:gravity="center_vertical"
                     android:paddingTop="5dp"
                     android:orientation="horizontal"

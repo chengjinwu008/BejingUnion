@@ -134,7 +134,7 @@
             android:layout_height="wrap_content"
             android:text="忘记密码？"
             android:id="@+id/login_jump_forget_password" />
-    </RelativeLayout>
+    </RelativeLayout>a
 
 
 

@@ -1,5 +1,6 @@
 package com.cjq.bejingunion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
@@ -47,6 +48,8 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.market);
+        Intent intent = getIntent();
+
         aq = new AQuery(this);
 
         sortViews = new ImageView[4];
@@ -54,6 +57,10 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         sortViews[1] = aq.id(R.id.market_sort2).getImageView();
         sortViews[2] = aq.id(R.id.market_sort3).getImageView();
         sortViews[3] = aq.id(R.id.market_sort4).getImageView();
+
+        if(activeSort != intent.getIntExtra("activeOrder",1)){
+            changeArrow(intent.getIntExtra("activeOrder",1));
+        }
 
         aq.id(R.id.market_search_text).getView().clearFocus();
         aq.id(R.id.market_back).clicked(this, "closeUp");
@@ -69,7 +76,6 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
 
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadListener(this);
-
         requestData();
     }
 

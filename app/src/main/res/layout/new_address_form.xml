@@ -10,14 +10,15 @@
         android:id="@+id/relativeLayout5">
 
         <ImageView
-            android:id="@+id/market_back"
+            android:id="@+id/new_address_form_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+            android:src="@drawable/return1" />
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
@@ -27,11 +28,11 @@
             android:src="@drawable/a5" />
 
         <TextView
-            android:id="@+id/market_title"
+            android:id="@+id/new_address_form_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="商城"
+            android:text="@string/new_address"
             android:textColor="#fff"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -58,6 +59,7 @@
                     android:layout_width="100dp"
                     android:layout_height="match_parent" />
                 <EditText
+                    android:id="@+id/new_address_form_username"
                     android:background="#0000"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -81,6 +83,8 @@
                     android:layout_width="100dp"
                     android:layout_height="match_parent" />
                 <EditText
+                    android:inputType="phone"
+                    android:id="@+id/new_address_form_mob_phone"
                     android:background="#0000"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -94,6 +98,7 @@
                 android:background="#fff"
                 android:padding="10dp"
                 android:gravity="center"
+                android:id="@+id/new_address_form_select_provence"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -104,16 +109,23 @@
                     android:layout_width="100dp"
                     android:layout_height="match_parent" />
                 <TextView
+                    android:hint="--选择省份--"
+                    android:id="@+id/new_address_form_select_provence_show"
                     android:background="#0000"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent" />
-
+                <ImageView
+                    android:src="@drawable/a67"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
             </LinearLayout>
             <FrameLayout
                 android:background="#bdbdbd"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
             <LinearLayout
+                android:id="@+id/new_address_form_select_city"
                 android:background="#fff"
                 android:padding="10dp"
                 android:gravity="center"
@@ -127,16 +139,23 @@
                     android:layout_width="100dp"
                     android:layout_height="match_parent" />
                 <TextView
+                    android:hint="--选择市--"
+                    android:id="@+id/new_address_form_select_city_show"
                     android:background="#0000"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent" />
-
+                <ImageView
+                    android:src="@drawable/a67"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
             </LinearLayout>
             <FrameLayout
                 android:background="#bdbdbd"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
             <LinearLayout
+                android:id="@+id/new_address_form_select_area"
                 android:background="#fff"
                 android:padding="10dp"
                 android:gravity="center"
@@ -150,10 +169,16 @@
                     android:layout_width="100dp"
                     android:layout_height="match_parent" />
                 <TextView
+                    android:hint="--选择区/县--"
+                    android:id="@+id/new_address_form_select_area_show"
                     android:background="#0000"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent" />
-
+                <ImageView
+                    android:src="@drawable/a67"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent" />
             </LinearLayout>
             <FrameLayout
                 android:background="#bdbdbd"
@@ -173,6 +198,7 @@
                     android:layout_width="100dp"
                     android:layout_height="match_parent" />
                 <EditText
+                    android:id="@+id/new_address_form_address"
                     android:background="#0000"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -181,6 +207,7 @@
             <FrameLayout
                 android:background="#bdbdbd"
                 android:layout_width="match_parent"
+                android:layout_marginBottom="60dp"
                 android:layout_height="1dp"/>
         </LinearLayout>
     </ScrollView>
@@ -195,7 +222,7 @@
         android:textSize="20sp"
         android:textColor="#fff"
         android:text="保存"
-        android:id="@+id/textView27"
+        android:id="@+id/new_address_form_submit"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

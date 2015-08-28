@@ -51,7 +51,6 @@
 
     </LinearLayout>
 
-
     <TextView
         android:textColor="#fff"
         android:layout_alignTop="@id/sliding_content"

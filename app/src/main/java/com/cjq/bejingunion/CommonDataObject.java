@@ -22,4 +22,14 @@ public class CommonDataObject {
     public static final String COLLECTION_LIST_URL =MAIN_URL+ "/app/index.php?act=member_favorites&op=favorites_list";
     public static final String ADDRESS_LIST_URL =MAIN_URL+ "/app/index.php?act=member_address&op=address_list";
     public static final String COLLECTION_DELETE_URL =MAIN_URL+ "/app/index.php?act=member_favorites&op=favorites_del";
+    public static final String COLLECTION_ADD_URL =MAIN_URL+ "/app/index.php?act=member_favorites&op=favorites_add";
+    public static final String PROVENCE_LIST_URL =MAIN_URL+ "/app/index.php?act=member_address&op=area_list";
+    public static final String CITY_LIST_URL =MAIN_URL+ "/app/index.php?act=member_address&op=area_list";
+    public static final String ADDRESS_EDIT_URL =MAIN_URL+ "/app/index.php?act=member_address&op=address_info";
+    public static final String DO_ADD_ADDRESS =MAIN_URL+ "/app/index.php?act=member_address&op=address_add";
+    public static final String ADDRESS_DELETE_URL =MAIN_URL+ "/app/index.php?act=member_address&op=address_del";
+    public static final String DO_EDIT_ADDRESS =MAIN_URL+ "/app/index.php?act=member_address&op=address_edit";
+    public static final String CATEGORIES_GET_URL =MAIN_URL+ "/app/index.php?act=member_brand&op=brand_list";
+
+    public static final String DETAIL_WAP=MAIN_URL+"/wap/tmpl/product_info.html";
 }
