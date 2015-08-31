@@ -46,31 +46,34 @@ public class DetailChoiceAdapter extends BaseAdapter {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        if(convertView==null){
-            convertView= LayoutInflater.from(context).inflate(R.layout.detail_item,parent,false);
+        if (convertView == null) {
+            convertView = LayoutInflater.from(context).inflate(R.layout.detail_item, parent, false);
         }
         DetailItem item = detailItems.get(position);
         AQuery aq = new AQuery(convertView);
         final ArrayList<DetailChoice> choices = new ArrayList<>();
-        for (DetailChoice c:item.getDetailChoices().values()){
+        for (DetailChoice c : item.getDetailChoices().values()) {
             choices.add(c);
         }
         aq.id(R.id.detail_item_type_name).text(item.getName());
-        aq.id(R.id.detail_item_chosen_name).text(item.getDetailChoices().get(Integer.parseInt(item.getChosenId())).getValue());
-        if(item.getDetailChoices().size()>1){
+        if (item.getDetailChoices().size() > 0)
+            aq.id(R.id.detail_item_chosen_name).text(item.getDetailChoices().get(Integer.parseInt(item.getChosenId())).getValue());
+        else
+            aq.id(R.id.detail_item_chosen_name).text("");
+        if (item.getDetailChoices().size() > 1) {
             aq.id(R.id.detail_item_into).visible();
             convertView.setClickable(true);
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(context, CommonListActivity.class);
-                    intent.putExtra("ListNo",CommonListActivity.CHOICE_LIST);
-                    intent.putExtra("position",position);
+                    intent.putExtra("ListNo", CommonListActivity.CHOICE_LIST);
+                    intent.putExtra("position", position);
                     intent.putParcelableArrayListExtra("choices", choices);
-                    ((Activity)context).startActivityForResult(intent,0);
+                    ((Activity) context).startActivityForResult(intent, 0);
                 }
             });
-        }else{
+        } else {
             aq.id(R.id.detail_item_into).invisible();
             convertView.setClickable(false);
         }

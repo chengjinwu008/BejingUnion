@@ -57,19 +57,26 @@ public class UserCenterFragment extends Fragment {
             aq.ajax(CommonDataObject.USER_INFO_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
-//                System.out.println(object.toString());
+                System.out.println(object.toString());
                     try {
                         if (200 == object.getInt("code")) {
                             JSONObject info = object.getJSONObject("datas").getJSONObject("member_info");
-                            username = info.getString("user_name");
+                            username = info.getString("member_nickname");
                             avator = info.getString("avator");
-                            int point = info.getInt("point");
                             double predepoit = info.getDouble("predepoit");
+                            Object is_agent = info.get("is_agent");
 
-                            aq.id(R.id.user_center_points).text(String.valueOf(point));
+                            aq.id(R.id.user_center_points).text(String.valueOf(predepoit));
                             aq.id(R.id.user_center_username).text(username);
                             aq.id(R.id.user_center_user_portrait).image(avator, false, true);
 
+                            if(is_agent==JSONObject.NULL || 1!=info.getInt("is_agent")){
+                                aq.id(R.id.user_center_vip_charge).gone();
+                                aq.id(R.id.user_center_vip).background(R.drawable.btn1);
+                            }else{
+                                aq.id(R.id.user_center_vip_charge).visible();
+                                aq.id(R.id.user_center_vip).background(R.drawable.btn);
+                            }
                         }
                         super.callback(url, object, status);
                     } catch (JSONException e) {

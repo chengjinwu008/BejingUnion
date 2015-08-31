@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="center_horizontal"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -12,21 +13,25 @@
         android:background="@color/title_bar">
 
         <ImageView
-            android:id="@+id/detail_back"
+            android:id="@+id/evaluation_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+            android:src="@drawable/return1" />
 
         <ImageView
+            android:id="@+id/evaluation_write_evaluation"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
+            android:padding="10dp"
             android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/a5" />
+            android:src="@drawable/penwrite"
+            android:visibility="visible"
+            />
 
         <TextView
             android:id="@+id/detail_title"
@@ -41,7 +46,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:gravity="center_horizontal|bottom"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -51,6 +56,7 @@
             android:padding="5dp">
 
             <TextView
+                android:id="@+id/evaluate_avg_points"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="5.0"
@@ -65,43 +71,61 @@
         </LinearLayout>
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/evaluate_avg_rating_bar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:isIndicator="false"
-            android:rating="4"
-            android:stepSize="1"
+            android:isIndicator="true"
             android:numStars="5"
+            android:rating="4"
             style="@style/roomRatingBar"
-            />
+            android:stepSize="1" />
     </LinearLayout>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        >
+        android:gravity="center"
+        android:orientation="horizontal">
+
         <com.cjq.bejingunion.view.PercentView
-            android:id="@+id/percent1"
-            android:layout_margin="5dp"
+            android:id="@+id/evaluate_good_percent"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:layout_margin="5dp" />
+
         <com.cjq.bejingunion.view.PercentView
-            android:layout_margin="5dp"
+            android:id="@+id/evaluate_general_percent"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:layout_margin="5dp" />
+
         <com.cjq.bejingunion.view.PercentView
-            android:layout_margin="5dp"
+            android:id="@+id/evaluate_poor_percent"
             android:layout_width="100dp"
-            android:layout_height="100dp" />
+            android:layout_height="100dp"
+            android:layout_margin="5dp" />
 
     </LinearLayout>
 
+    <FrameLayout
+        android:background="#bdbdbd"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="1px"/>
+
+    <TextView
+        android:visibility="gone"
+        android:id="@+id/evaluation_no_evaluation_hint"
+        android:textSize="18sp"
+        android:padding="10dp"
+        android:text="目前该商品还没有评论呢~！"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <ListView
+        android:visibility="gone"
         android:id="@+id/evaluate_comments_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        />
-
+        android:layout_height="match_parent" />
 </LinearLayout>

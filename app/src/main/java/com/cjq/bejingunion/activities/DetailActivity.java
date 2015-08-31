@@ -58,6 +58,7 @@ public class DetailActivity extends BaseActivity {
         aq.id(R.id.detail_back).clicked(this, "closeUp");
         aq.id(R.id.detail_add_to_collection).clicked(this, "addToCollection");
         aq.id(R.id.detail_show_detail_info).clicked(this, "showDetailWap");
+        aq.id(R.id.detail_jump_evaluation).clicked(this, "showEvaluations");
         evaluateCountText = aq.id(R.id.detail_evaluation_count).getTextView();
         collectCountText = aq.id(R.id.detail_collect_count).getTextView();
         detail_banner = (BannerView) aq.id(R.id.detail_banner).getView();
@@ -144,6 +145,9 @@ public class DetailActivity extends BaseActivity {
                     adapter.notifyDataSetChanged();
                 }
                 break;
+            case 1:
+                // TODO: 2015/8/28 处理评论的返回值
+                break;
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -181,5 +185,11 @@ public class DetailActivity extends BaseActivity {
         Intent intent = new Intent(this,CommonWebViewActivity.class);
         intent.putExtra("url",CommonDataObject.DETAIL_WAP+"?goods_id="+goods_id);
         startActivity(intent);
+    }
+
+    public void showEvaluations(){
+        Intent intent = new Intent(this,EvaluateActivity.class);
+        intent.putExtra("goods_id",goods_id);
+        startActivityForResult(intent, 1);
     }
 }

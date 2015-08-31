@@ -101,19 +101,49 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
                 System.out.println(object.toString());
                 try {
                     if ("200".equals(object.getString("code"))) {
-                        JSONObject data = object.getJSONObject("datas");
+                        final JSONObject data = object.getJSONObject("datas");
                         JSONArray banner = data.getJSONArray("banner");
                         List<Ad> adList = new ArrayList<>();
                         for (int i = 0; i < banner.length(); i++) {
                             JSONObject o = banner.getJSONObject(i);
-                            Ad ad = new Ad(getActivity(), o.getString("title"), String.valueOf(i));
+                            Ad ad = new Ad(getActivity(), o.getString("title"), o.getString("goods_id"));
                             adList.add(ad);
                         }
                         bannerView.setAdapter(new BannerAdapter(getActivity(), adList));
 
-                        aq.id(R.id.left_ad).image(data.getJSONObject("left").getString("title"), false, true, 200, 0);
-                        aq.id(R.id.center_ad).image(data.getJSONObject("center").getString("title"), false, true, 200, 0);
-                        aq.id(R.id.right_ad).image(data.getJSONObject("right").getString("title"), false, true, 200, 0);
+                        aq.id(R.id.left_ad).image(data.getJSONObject("left").getString("title"), false, true, 200, 0).clicked(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    if(0!=data.getJSONObject("left").getInt("goods_id"))
+                                    GoodsUtil.showGoodsDetail(getActivity(),data.getJSONObject("left").getString("goods_id"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        aq.id(R.id.center_ad).image(data.getJSONObject("center").getString("title"), false, true, 200, 0).clicked(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    if (0 != data.getJSONObject("center").getInt("goods_id"))
+                                        GoodsUtil.showGoodsDetail(getActivity(), data.getJSONObject("center").getString("goods_id"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+                        aq.id(R.id.right_ad).image(data.getJSONObject("right").getString("title"), false, true, 200, 0).clicked(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                try {
+                                    if (0 != data.getJSONObject("right").getInt("goods_id"))
+                                        GoodsUtil.showGoodsDetail(getActivity(), data.getJSONObject("right").getString("goods_id"));
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

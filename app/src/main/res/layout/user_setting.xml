@@ -52,7 +52,7 @@
                 android:background="@drawable/a59">
 
                 <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                    android:id="@+id/profile_image"
+                    android:id="@+id/user_center_setting_portrait"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_centerVertical="true"
@@ -66,10 +66,11 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/profile_image"
+                    android:layout_toRightOf="@+id/user_center_setting_portrait"
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/user_setting_showing_nick_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="美术馆里的兔子"
@@ -81,25 +82,27 @@
                         android:orientation="horizontal">
 
                         <TextView
+                            android:id="@+id/user_setting_vip"
+                            android:textColor="#fff"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="#f00"
+                            android:background="@drawable/btn"
                             android:paddingBottom="5dp"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:paddingTop="5dp"
                             android:text="vip会员" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="20dp"
-                            android:text="积分：" />
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_marginLeft="20dp"-->
+                            <!--android:text="积分：" />-->
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="880" />
+                        <!--<TextView-->
+                            <!--android:layout_width="wrap_content"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:text="880" />-->
                     </LinearLayout>
                 </LinearLayout>
 
@@ -118,16 +121,18 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:text="用户名" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:text="用户名" />
+
+                    <TextView
+                        android:id="@+id/user_setting_username"
+                        android:gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
                         android:text="池子里的苹果" />
 
                     <ImageView
@@ -151,16 +156,18 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:layout_weight="1"
-                        android:text="昵称" />
-
-                    <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
+                        android:text="昵称" />
+
+                    <TextView
+                        android:id="@+id/user_setting_edit_nickname"
+                        android:gravity="right"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
                         android:text="美术馆里的兔子" />
 
                     <ImageView
@@ -184,13 +191,15 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:layout_weight="1"
                         android:text="性别" />
 
                     <TextView
+                        android:id="@+id/user_setting_sex"
+                        android:gravity="right"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -217,13 +226,15 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:layout_weight="1"
                         android:text="出生日期" />
 
                     <TextView
+                        android:id="@+id/user_setting_edit_birthday"
+                        android:gravity="right"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -250,13 +261,15 @@
                     android:orientation="horizontal">
 
                     <TextView
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
-                        android:layout_weight="1"
                         android:text="电话号码" />
 
                     <TextView
+                        android:id="@+id/user_setting_edit_mobile"
+                        android:gravity="right"
+                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="10dp"
@@ -273,6 +286,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/user_setting_become_partner"
                 android:layout_marginTop="10dp"
                 android:background="#fff"
                 android:layout_width="match_parent"

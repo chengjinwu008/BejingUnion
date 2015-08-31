@@ -8,6 +8,7 @@ import android.widget.ImageView;
 
 import com.androidquery.AQuery;
 import com.cjq.bejingunion.entities.Ad;
+import com.cjq.bejingunion.utils.GoodsUtil;
 
 import java.util.List;
 
@@ -35,11 +36,20 @@ public class BannerAdapter extends PagerAdapter {
     }
 
     @Override
-    public Object instantiateItem(ViewGroup container, int position) {
+    public Object instantiateItem(ViewGroup container, final int position) {
         ImageView view  = ads.get(position).getImageView();
         new AQuery(view).image(ads.get(position).getUrl(),false,true);
         view.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(view);
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(0!=Integer.parseInt(ads.get(position).getId())){
+                    GoodsUtil.showGoodsDetail(context,ads.get(position).getId());
+                }
+            }
+        });
+
         return view;
     }
 

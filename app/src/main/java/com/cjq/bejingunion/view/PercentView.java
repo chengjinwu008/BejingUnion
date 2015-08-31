@@ -56,7 +56,7 @@ public class PercentView extends RelativeLayout {
         textView2.setText(percentFormat.format(percent/100));
     }
 
-    public void setPercent(float percent) {
+    public void setPercent(Float percent) {
         this.percent = percent;
         textView2.setText(percentFormat.format(percent/100));
         mCircle.setProgress(percent);

@@ -21,4 +21,7 @@
     <string name="p_not_equals_to_rp">两次输入的密码不一致</string>
     <string name="chose_cate">选择类型</string>
     <string name="add_to_collection_succeed">添加收藏成功</string>
+    <string name="good">满意</string>
+    <string name="general">一般</string>
+    <string name="poor">差评</string>
 </resources>

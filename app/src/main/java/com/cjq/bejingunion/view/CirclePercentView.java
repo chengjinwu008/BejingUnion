@@ -44,8 +44,6 @@ public class CirclePercentView extends View {
         mPaint.setStyle(Paint.Style.STROKE);
         mPaint.setStrokeWidth(20);
         rectF = new RectF(20,20,30,30);
-
-
     }
 
     @Override
@@ -68,11 +66,10 @@ public class CirclePercentView extends View {
 
         rectF.right = radius*2+20;
         rectF.bottom = radius*2+20;
-
+        mPaint.setColor(Color.parseColor("#00BFBE"));
         canvas.drawArc(rectF, start, xprogress, false, mPaint);
 
         mPaint.setColor(Color.WHITE);
-
         canvas.drawArc(rectF, end_start, left_progress, false, mPaint);
     }
 }

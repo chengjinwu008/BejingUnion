@@ -30,6 +30,8 @@ public class CommonDataObject {
     public static final String ADDRESS_DELETE_URL =MAIN_URL+ "/app/index.php?act=member_address&op=address_del";
     public static final String DO_EDIT_ADDRESS =MAIN_URL+ "/app/index.php?act=member_address&op=address_edit";
     public static final String CATEGORIES_GET_URL =MAIN_URL+ "/app/index.php?act=member_brand&op=brand_list";
+    public static final String EVALUATION_LIST_URL =MAIN_URL+ "/app/index.php?act=goods&op=goods_common";
+    public static final String USER_INFO_SETTING =MAIN_URL+ "/app/index.php?act=member_index&op=user_info";
 
     public static final String DETAIL_WAP=MAIN_URL+"/wap/tmpl/product_info.html";
 }
