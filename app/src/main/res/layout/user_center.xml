@@ -396,6 +396,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1px"/>
                 <LinearLayout
+                    android:id="@+id/user_center_jump_evaluation"
                     android:gravity="center_vertical"
                     android:paddingTop="5dp"
                     android:orientation="horizontal"
@@ -423,6 +424,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/user_center_jump_pay_points"
                 android:background="#fff"
                 android:layout_marginTop="5dp"
                 android:layout_width="match_parent"

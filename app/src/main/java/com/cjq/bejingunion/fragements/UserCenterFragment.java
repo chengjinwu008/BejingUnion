@@ -16,6 +16,7 @@ import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.activities.AddressListActivity;
 import com.cjq.bejingunion.activities.ChangePasswordActivity;
 import com.cjq.bejingunion.activities.MyCollectionActivity;
+import com.cjq.bejingunion.activities.PayForPointsActivity;
 import com.cjq.bejingunion.activities.UserSettingActivity;
 import com.cjq.bejingunion.event.EventPortraitChange;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -37,8 +38,8 @@ public class UserCenterFragment extends Fragment {
     private String avator;
     private String username;
 
-    public void onEventMainThread(EventPortraitChange e){
-        aq.id(R.id.user_center_user_portrait).image(e.getImage(),true,false);
+    public void onEventMainThread(EventPortraitChange e) {
+        aq.id(R.id.user_center_user_portrait).image(e.getImage(), true, false);
     }
 
     @Nullable
@@ -60,6 +61,7 @@ public class UserCenterFragment extends Fragment {
             aq.id(R.id.user_center_my_collection).clicked(this, "jumpMyCollection");
             aq.id(R.id.user_center_my_address).clicked(this, "jumpMyAddress");
             aq.id(R.id.user_center_change_password).clicked(this, "showChangePassword");
+            aq.id(R.id.user_center_jump_pay_points).clicked(this, "jumpPayPoints");
 
             aq.ajax(CommonDataObject.USER_INFO_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
@@ -77,10 +79,10 @@ public class UserCenterFragment extends Fragment {
                             aq.id(R.id.user_center_username).text(username);
                             aq.id(R.id.user_center_user_portrait).image(avator, true, false);
 
-                            if(is_agent==JSONObject.NULL || 1!=info.getInt("is_agent")){
+                            if (is_agent == JSONObject.NULL || 1 != info.getInt("is_agent")) {
                                 aq.id(R.id.user_center_vip_charge).gone();
                                 aq.id(R.id.user_center_vip).background(R.drawable.btn1);
-                            }else{
+                            } else {
                                 aq.id(R.id.user_center_vip_charge).visible();
                                 aq.id(R.id.user_center_vip).background(R.drawable.btn);
                             }
@@ -121,6 +123,11 @@ public class UserCenterFragment extends Fragment {
 
     public void jumpMyAddress() {
         Intent intent = new Intent(getActivity(), AddressListActivity.class);
+        startActivity(intent);
+    }
+
+    public void jumpPayPoints() {
+        Intent intent = new Intent(getActivity(), PayForPointsActivity.class);
         startActivity(intent);
     }
 

@@ -28,7 +28,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/a10" />
+            android:src="@drawable/xuanze" />
 
         <TextView
             android:id="@+id/market_title"
