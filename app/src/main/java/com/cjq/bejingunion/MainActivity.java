@@ -2,7 +2,10 @@ package com.cjq.bejingunion;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
@@ -13,6 +16,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.androidquery.AQuery;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
 import com.cjq.bejingunion.event.EventShutDown;
@@ -22,6 +26,7 @@ import com.cjq.bejingunion.fragements.IndexFragment;
 import com.cjq.bejingunion.fragements.UserCenterFragmentMain;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.view.FragmentView;
+import com.cjq.bejingunion.view.ImageSelectorView;
 import com.ypy.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -33,6 +38,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
         if (savedInstanceState == null)
             PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "rU95anFF579fG7z8N2iHcbZ4");
 

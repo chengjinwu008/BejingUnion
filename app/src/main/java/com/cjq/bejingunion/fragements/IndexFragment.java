@@ -98,7 +98,7 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
 
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
-                System.out.println(object.toString());
+//                System.out.println(object.toString());
                 try {
                     if ("200".equals(object.getString("code"))) {
                         final JSONObject data = object.getJSONObject("datas");

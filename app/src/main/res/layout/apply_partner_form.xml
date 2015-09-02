@@ -11,14 +11,15 @@
         android:background="@color/title_bar">
 
         <ImageView
-            android:id="@+id/market_back"
+            android:id="@+id/apply_form_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel" />
+            android:src="@drawable/return1" />
 
         <ImageView
+            android:visibility="gone"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
@@ -39,10 +40,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/relativeLayout5">
 
         <LinearLayout
+            android:paddingBottom="70dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -50,7 +52,8 @@
             <LinearLayout
 
                 android:layout_width="match_parent"
-
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:background="@drawable/border_white_box"
@@ -65,6 +68,7 @@
                     android:text="姓名：" />
 
                 <EditText
+                    android:id="@+id/apply_form_member_truename"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#0000" />
@@ -88,6 +92,8 @@
                     android:text="电话：" />
 
                 <EditText
+                    android:id="@+id/apply_form_member_mobile"
+                    android:inputType="phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#0000" />
@@ -111,6 +117,8 @@
                     android:text="邮箱：" />
 
                 <EditText
+                    android:id="@+id/apply_form_member_email"
+                    android:inputType="textEmailAddress"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#0000" />
@@ -134,6 +142,7 @@
                     android:text="地址：" />
 
                 <EditText
+                    android:id="@+id/apply_form_member_areainfo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#0000" />
@@ -157,6 +166,8 @@
                     android:text="身份证：" />
 
                 <EditText
+                    android:inputType="number"
+                    android:id="@+id/apply_form_id_card"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:background="#0000" />
@@ -173,6 +184,7 @@
                     android:layout_height="wrap_content" />
 
                 <com.cjq.bejingunion.view.ImageSelectorView
+                    android:id="@+id/apply_form_add_pic"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -180,7 +192,7 @@
     </ScrollView>
 
     <TextView
-        android:id="@+id/textView27"
+        android:id="@+id/apply_form_submit"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"

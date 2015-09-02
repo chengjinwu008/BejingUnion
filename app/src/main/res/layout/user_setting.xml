@@ -11,7 +11,7 @@
         android:background="@color/title_bar">
 
         <ImageView
-            android:id="@+id/market_back"
+            android:id="@+id/user_setting_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -19,20 +19,23 @@
             android:src="@drawable/return1" />
 
         <ImageView
+            android:id="@+id/user_setting_commit"
+            android:visibility="gone"
             android:layout_width="40dp"
             android:layout_height="40dp"
+            android:padding="10dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/a5" />
+            android:src="@drawable/a10" />
 
         <TextView
             android:id="@+id/market_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="登录"
+            android:text="修改信息"
             android:textColor="#fff"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -150,6 +153,7 @@
                     android:background="#cdcdcd" />
 
                 <LinearLayout
+                    android:id="@+id/user_setting_edit_nickname_click"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -161,7 +165,10 @@
                         android:layout_margin="10dp"
                         android:text="昵称" />
 
-                    <TextView
+                    <EditText
+                        android:textSize="16sp"
+                        android:focusable="false"
+                        android:background="@drawable/no_border_white_box"
                         android:id="@+id/user_setting_edit_nickname"
                         android:gravity="right"
                         android:layout_width="wrap_content"
@@ -171,10 +178,11 @@
                         android:text="美术馆里的兔子" />
 
                     <ImageView
+                        android:id="@+id/user_setting_edit_nickname_pen_icon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/back"
+                        android:src="@drawable/a56"
                         android:visibility="visible" />
 
                 </LinearLayout>
@@ -185,6 +193,7 @@
                     android:background="#cdcdcd" />
 
                 <LinearLayout
+                    android:id="@+id/user_setting_sex_click"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -197,6 +206,8 @@
                         android:text="性别" />
 
                     <TextView
+                        android:textSize="16sp"
+                        android:textColor="#000"
                         android:id="@+id/user_setting_sex"
                         android:gravity="right"
                         android:layout_weight="1"
@@ -206,10 +217,11 @@
                         android:text="保密" />
 
                     <ImageView
+                        android:id="@+id/user_setting_sex_icon"
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/back"
+                        android:src="@drawable/a56"
                         android:visibility="visible" />
 
                 </LinearLayout>
@@ -220,6 +232,7 @@
                     android:background="#cdcdcd" />
 
                 <LinearLayout
+                    android:id="@+id/user_setting_edit_birthday_click"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -232,6 +245,8 @@
                         android:text="出生日期" />
 
                     <TextView
+                        android:textSize="16sp"
+                        android:textColor="#000"
                         android:id="@+id/user_setting_edit_birthday"
                         android:gravity="right"
                         android:layout_weight="1"
@@ -244,7 +259,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/back"
+                        android:src="@drawable/a56"
                         android:visibility="visible" />
 
                 </LinearLayout>
@@ -255,6 +270,7 @@
                     android:background="#cdcdcd" />
 
                 <LinearLayout
+                    android:id="@+id/user_setting_edit_mobile_click"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
@@ -266,9 +282,12 @@
                         android:layout_margin="10dp"
                         android:text="电话号码" />
 
-                    <TextView
+                    <EditText
+                        android:inputType="phone"
+                        android:background="@drawable/no_border_white_box"
                         android:id="@+id/user_setting_edit_mobile"
                         android:gravity="right"
+                        android:focusable="false"
                         android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -279,7 +298,7 @@
                         android:layout_width="20dp"
                         android:layout_height="20dp"
                         android:layout_marginRight="10dp"
-                        android:src="@drawable/back"
+                        android:src="@drawable/a56"
                         android:visibility="visible" />
 
                 </LinearLayout>
@@ -295,6 +314,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/user_setting_become_partner_text"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"

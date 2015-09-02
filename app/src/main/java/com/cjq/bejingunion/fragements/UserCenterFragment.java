@@ -17,7 +17,9 @@ import com.cjq.bejingunion.activities.AddressListActivity;
 import com.cjq.bejingunion.activities.ChangePasswordActivity;
 import com.cjq.bejingunion.activities.MyCollectionActivity;
 import com.cjq.bejingunion.activities.UserSettingActivity;
+import com.cjq.bejingunion.event.EventPortraitChange;
 import com.cjq.bejingunion.utils.LoginUtil;
+import com.ypy.eventbus.EventBus;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,6 +37,10 @@ public class UserCenterFragment extends Fragment {
     private String avator;
     private String username;
 
+    public void onEventMainThread(EventPortraitChange e){
+        aq.id(R.id.user_center_user_portrait).image(e.getImage(),true,false);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -46,6 +52,7 @@ public class UserCenterFragment extends Fragment {
     private void initView1(View view) {
         aq = new AQuery(view);
         aq.id(R.id.user_center_jump_user_setting).clicked(this, "jumpSetting");
+        EventBus.getDefault().register(this);
 
         try {
             Map<String, String> params = new HashMap<>();
@@ -57,7 +64,7 @@ public class UserCenterFragment extends Fragment {
             aq.ajax(CommonDataObject.USER_INFO_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
-                System.out.println(object.toString());
+//                System.out.println(object.toString());
                     try {
                         if (200 == object.getInt("code")) {
                             JSONObject info = object.getJSONObject("datas").getJSONObject("member_info");
@@ -68,7 +75,7 @@ public class UserCenterFragment extends Fragment {
 
                             aq.id(R.id.user_center_points).text(String.valueOf(predepoit));
                             aq.id(R.id.user_center_username).text(username);
-                            aq.id(R.id.user_center_user_portrait).image(avator, false, true);
+                            aq.id(R.id.user_center_user_portrait).image(avator, true, false);
 
                             if(is_agent==JSONObject.NULL || 1!=info.getInt("is_agent")){
                                 aq.id(R.id.user_center_vip_charge).gone();
@@ -87,8 +94,12 @@ public class UserCenterFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
-
+    @Override
+    public void onDestroyView() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroyView();
     }
 
     public void showChangePassword() {

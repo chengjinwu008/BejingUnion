@@ -32,6 +32,10 @@ public class CommonDataObject {
     public static final String CATEGORIES_GET_URL =MAIN_URL+ "/app/index.php?act=member_brand&op=brand_list";
     public static final String EVALUATION_LIST_URL =MAIN_URL+ "/app/index.php?act=goods&op=goods_common";
     public static final String USER_INFO_SETTING =MAIN_URL+ "/app/index.php?act=member_index&op=user_info";
+    public static final String USER_INFO_SETTING_COMMIT =MAIN_URL+ "/app/index.php?act=member_index&op=eidt_user";
+    public static final String UPLOAD_AGENT_URL =MAIN_URL+ "/app/index.php?act=uploud_image&op=upload_agent_img";
+    public static final String UPLOAD_PORTRAIT_URL =MAIN_URL+ "/app/index.php?act=uploud_image&op=upload_user_img";
+    public static final String APPLY_PARTNER_URL =MAIN_URL+ "/app/index.php?act=member_index&op=show_vip";
 
     public static final String DETAIL_WAP=MAIN_URL+"/wap/tmpl/product_info.html";
 }
