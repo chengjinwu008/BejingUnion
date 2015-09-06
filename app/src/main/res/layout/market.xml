@@ -52,6 +52,8 @@
             android:padding="10dp">
 
             <EditText
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
                 android:id="@+id/market_search_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

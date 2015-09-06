@@ -77,9 +77,9 @@ public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.O
                 mLastY = ev.getRawY();
                 break;
             case MotionEvent.ACTION_UP:
-                if (canLoad()) {
-                    loadData();
-                }
+//                if (canLoad()) {
+//                    loadData();
+//                }
                 break;
         }
         return super.dispatchTouchEvent(ev);

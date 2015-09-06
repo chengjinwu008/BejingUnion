@@ -3,10 +3,14 @@ package com.cjq.bejingunion.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
@@ -32,7 +36,7 @@ import java.util.Map;
 /**
  * Created by CJQ on 2015/8/20.
  */
-public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, MyRefreshLayout.onLoadListener, AdapterView.OnItemClickListener {
+public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, MyRefreshLayout.onLoadListener, AdapterView.OnItemClickListener, TextView.OnEditorActionListener {
 
     private AQuery aq;
     private int activeSort = 1;
@@ -77,6 +81,8 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         refreshLayout.setOnRefreshListener(this);
         refreshLayout.setOnLoadListener(this);
         requestData();
+
+        aq.id(R.id.market_search_text).getEditText().setOnEditorActionListener(this);
     }
 
     public void sortByTime() {
@@ -138,6 +144,7 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         params.put("curpage", String.valueOf(current_page));
         params.put("gc_id", String.valueOf(gc_id));
         params.put("order", up[activeSort-1] ? "1" : "2");
+        params.put("keyword", aq.id(R.id.market_search_text).getText().toString());
 
         aq.ajax(CommonDataObject.GOODS_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
@@ -167,6 +174,11 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
                         adapter.notifyDataSetChanged();
                         refreshLayout.setLoading(false);
                         refreshLayout.setRefreshing(false);
+                    }else{
+                        adapter.notifyDataSetChanged();
+                        refreshLayout.setLoading(false);
+                        refreshLayout.setRefreshing(false);
+                        Toast.makeText(MarketActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -207,5 +219,16 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         Goods4IndexList goods = goodsList.get(position);
 
         GoodsUtil.showGoodsDetail(MarketActivity.this,goods.getGoods_id());
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if(actionId == EditorInfo.IME_ACTION_SEARCH  || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && event.getAction() == MotionEvent.ACTION_DOWN){
+            current_page = 1;
+            goodsList.clear();
+            requestData();
+            return true;
+        }
+        return false;
     }
 }

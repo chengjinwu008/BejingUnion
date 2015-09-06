@@ -138,13 +138,14 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
         params.put("key", String.valueOf(activeSort));
         params.put("page", String.valueOf(CommonDataObject.PAGE_SIZE));
         params.put("curpage", String.valueOf(currentPage));
-        params.put("gc_id", String.valueOf(gc_id));
+        params.put("gc_id", String.valueOf(bandId));
         params.put("order", up[activeSort - 1] ? "1" : "2");
 
         aq.ajax(CommonDataObject.GOODS_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
                 try {
+//                    System.out.println(object.toString());
                     if ("200".equals(object.getString("code"))) {
                         JSONArray goods_list = object.getJSONObject("datas").getJSONArray("goods_list");
 
@@ -168,6 +169,11 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
                         adapter.notifyDataSetChanged();
                         refreshLayout.setLoading(false);
                         refreshLayout.setRefreshing(false);
+                    }else{
+                        adapter.notifyDataSetChanged();
+                        refreshLayout.setLoading(false);
+                        refreshLayout.setRefreshing(false);
+                        Toast.makeText(BroadBandActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -187,7 +193,7 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
         aq.ajax(CommonDataObject.CATEGORY_LIST_FOR_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
-                System.out.println(object.toString());
+//                System.out.println(object.toString());
                 try {
                     if (200 == object.getInt("code")) {
                         JSONArray categories = object.getJSONObject("datas").getJSONArray("class_list");
@@ -234,6 +240,9 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
         BroadBandBandItemAdapter adapter = (BroadBandBandItemAdapter) gridView.getAdapter();
 //        String post = adapter.getPost(position);
         categoryNo = position;
+        currentPage = 1;
+        goodsList.clear();
+        adapter.notifyDataSetChanged();
         refreshLayout.setRefreshing(true);
         adapter.changeChosen(position);
         adapter.notifyDataSetChanged();

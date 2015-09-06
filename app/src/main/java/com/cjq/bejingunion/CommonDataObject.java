@@ -36,6 +36,8 @@ public class CommonDataObject {
     public static final String UPLOAD_AGENT_URL =MAIN_URL+ "/app/index.php?act=uploud_image&op=upload_agent_img";
     public static final String UPLOAD_PORTRAIT_URL =MAIN_URL+ "/app/index.php?act=uploud_image&op=upload_user_img";
     public static final String APPLY_PARTNER_URL =MAIN_URL+ "/app/index.php?act=member_index&op=show_vip";
+    public static final String PAY_FOR_POINTS_URL =MAIN_URL+ "/app/index.php?act=member_index&op=recharge_add";
 
     public static final String DETAIL_WAP=MAIN_URL+"/wap/tmpl/product_info.html";
+    public static final String PAY_NOTIFY_URL=MAIN_URL+"/app/api/payment/alipay/notify_url.php";
 }

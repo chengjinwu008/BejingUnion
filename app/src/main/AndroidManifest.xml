@@ -22,9 +22,9 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:screenOrientation="portrait"
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -76,27 +76,84 @@
             android:exported="true" />
 
 
-        <activity android:name=".WelcomeActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.UserSettingActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.ForgetPasswordActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.RegisterActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.MarketActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.BroadBandActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.MobileNumberListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.NewProductsRecommendActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.ContractMachineActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.DetailActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.MyCollectionActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.AddressListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.AddressFormActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.CommonListActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.AddressEditActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.ChangePasswordActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.LoginActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.CommonWebViewActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.EvaluateActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.PartnerFormActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".activities.PayForPointsActivity" android:screenOrientation="portrait"/>
+        <activity
+            android:name=".WelcomeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.UserSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MarketActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.BroadBandActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MobileNumberListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.NewProductsRecommendActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ContractMachineActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.DetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.MyCollectionActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AddressListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AddressFormActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CommonListActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.AddressEditActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.ChangePasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CommonWebViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.EvaluateActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.PartnerFormActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.PayForPointsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.PayActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name="com.alipay.sdk.app.H5PayActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"/>
+
+        <activity
+            android:name="com.alipay.sdk.auth.AuthActivity"
+            android:configChanges="orientation|keyboardHidden|navigation"
+            android:exported="false"
+            android:screenOrientation="behind"/>
     </application>
 
 </manifest>
