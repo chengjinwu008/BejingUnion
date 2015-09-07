@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    >
+
+    <ImageView
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/a14" />
+
+    <RelativeLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <TextView
+            android:padding="5dp"
+            android:id="@+id/evaluation_item_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="史克威尔官方公布了《最终幻想：零式HD》" />
+
+        <TextView
+            android:padding="5dp"
+            android:id="@+id/price4one"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/evaluation_item_title"
+            android:text="单价：" />
+
+        <TextView
+            android:padding="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/evaluation_item_title"
+            android:layout_toRightOf="@+id/price4one"
+            android:text="￥1420"
+            android:textColor="#f00" />
+
+        <TextView
+            android:padding="5dp"
+            android:id="@+id/evaluation_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/price4one"
+            android:text="已有8888人评价了" />
+
+        <TextView
+            android:background="@color/title_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:paddingBottom="3dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+
+            android:paddingTop="3dp"
+
+            android:text="已受理"
+            android:textColor="#fff"
+            android:textSize="16sp" />
+    </RelativeLayout>
+</LinearLayout>

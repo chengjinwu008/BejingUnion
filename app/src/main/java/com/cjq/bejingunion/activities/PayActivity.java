@@ -1,6 +1,7 @@
 package com.cjq.bejingunion.activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,8 +16,11 @@ import com.androidquery.AQuery;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.WarningAlertDialog;
+import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.utils.PayResult;
 import com.cjq.bejingunion.utils.SignUtils;
+import com.unionpay.UPPayAssistEx;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -102,6 +106,9 @@ public class PayActivity extends BaseActivity {
     //商品价格
     private String price;
     private AQuery aq;
+    // “00” – 银联正式环境
+    // “01” – 银联测试环境，该环境中不发生真实交易
+    public String CHINA_BANK_UNION_MODE = "01";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +123,28 @@ public class PayActivity extends BaseActivity {
         price = intent.getStringExtra("price");
 
         aq = new AQuery(this);
-        aq.id(R.id.pay_by_alipay).clicked(this,"pay");
+        aq.id(R.id.pay_by_alipay).clicked(this, "pay");
+    }
+
+    public void payByChinaBank(String tn) {
+        UPPayAssistEx.startPayByJAR(this, com.unionpay.uppay.PayActivity.class, null, null, tn,
+                CHINA_BANK_UNION_MODE);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if( data == null ){
+            return;
+        }
+        String str = data.getExtras().getString("pay_result");
+        if( str.equalsIgnoreCase("success") ){
+            new WarningAlertDialog(this).changeText("支付成功").showCancel(false).show();
+        }else if( str.equalsIgnoreCase("fail") ){
+            new WarningAlertDialog(this).changeText("支付失败").showCancel(false).show();
+        }else if( str.equalsIgnoreCase("cancel") ){
+            new WarningAlertDialog(this).changeText("支付被取消了").showCancel(false).show();
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     /**
@@ -139,7 +167,12 @@ public class PayActivity extends BaseActivity {
             return;
         }
         // 订单
-        String orderInfo = getOrderInfo(name, body, price,orderNumber);
+        String orderInfo = null;
+        try {
+            orderInfo = getOrderInfo(name, body, price, orderNumber);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // 对订单做RSA 签名
         String sign = sign(orderInfo);
@@ -213,7 +246,7 @@ public class PayActivity extends BaseActivity {
     /**
      * create the order info. 创建订单信息
      */
-    public String getOrderInfo(String subject, String body, String price,String orderNumber) {
+    public String getOrderInfo(String subject, String body, String price, String orderNumber) throws Exception {
 
         // 签约合作者身份ID
         String orderInfo = "partner=" + "\"" + PARTNER + "\"";
@@ -234,7 +267,7 @@ public class PayActivity extends BaseActivity {
         orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + CommonDataObject.PAY_NOTIFY_URL
+        orderInfo += "&notify_url=" + "\"" + CommonDataObject.PAY_NOTIFY_URL + "&key=\"" + LoginUtil.getKey(this) + "\"&payment_code=\"alipay\""
                 + "\"";
 
         // 服务接口名称， 固定值

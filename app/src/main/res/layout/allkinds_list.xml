@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
     <RelativeLayout
         android:id="@+id/all_kinds_title_bar"
         android:layout_width="match_parent"
@@ -10,23 +12,23 @@
         android:background="@color/title_bar">
 
         <ImageView
-            android:visibility="gone"
             android:id="@+id/all_kinds_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10dp"
-            android:src="@drawable/return1" />
+            android:src="@drawable/return1"
+            android:visibility="gone" />
 
         <ImageView
-            android:visibility="gone"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/a5" />
+            android:src="@drawable/a5"
+            android:visibility="gone" />
 
         <TextView
             android:id="@+id/all_kinds_title"
@@ -37,21 +39,39 @@
             android:textColor="#fff"
             android:textSize="20sp" />
     </RelativeLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ListView
-            android:id="@+id/all_kinds_kinds_list"
+        <LinearLayout
+            android:gravity="right"
+            android:orientation="vertical"
+            android:id="@+id/left"
             android:layout_width="80dp"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/all_kinds_kinds_list"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content" />
+            <FrameLayout
+                android:background="#bdbdbd"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+            <FrameLayout
+                android:background="#bdbdbd"
+                android:layout_width="1px"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+
 
         <GridView
-            android:numColumns="3"
-            android:layout_toRightOf="@+id/all_kinds_kinds_list"
             android:id="@+id/all_kinds_all_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/left"
+            android:numColumns="3" />
 
-        </RelativeLayout>
+    </RelativeLayout>
 </LinearLayout>

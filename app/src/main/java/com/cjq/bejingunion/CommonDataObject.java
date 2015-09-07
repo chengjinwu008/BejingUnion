@@ -39,5 +39,5 @@ public class CommonDataObject {
     public static final String PAY_FOR_POINTS_URL =MAIN_URL+ "/app/index.php?act=member_index&op=recharge_add";
 
     public static final String DETAIL_WAP=MAIN_URL+"/wap/tmpl/product_info.html";
-    public static final String PAY_NOTIFY_URL=MAIN_URL+"/app/api/payment/alipay/notify_url.php";
+    public static final String PAY_NOTIFY_URL=MAIN_URL+"/app/index.php?act=payment&op=notify";
 }
