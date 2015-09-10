@@ -5,6 +5,7 @@
 
     <com.cjq.bejingunion.view.MyScrollView
         android:id="@+id/index_content"
+        android:scrollbars="none"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 

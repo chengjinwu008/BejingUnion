@@ -19,6 +19,8 @@ import android.view.View;
 import com.androidquery.AQuery;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
+import com.cjq.bejingunion.activities.SuperRegionSelectActivity;
+import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.event.EventShutDown;
 import com.cjq.bejingunion.fragements.CartFragment;
 import com.cjq.bejingunion.fragements.CategoryFragment;
@@ -68,17 +70,31 @@ public class MainActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if(event.getAction() == MotionEvent.ACTION_DOWN && keyCode==KeyEvent.KEYCODE_BACK){
-            new AlertDialog.Builder(this).setMessage("确定要离开吗？").setPositiveButton("退出", new DialogInterface.OnClickListener() {
+//            new AlertDialog.Builder(this).setMessage("确定要离开吗？").setPositiveButton("退出", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    EventBus.getDefault().post(new EventShutDown());
+//                }
+//            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+//                @Override
+//                public void onClick(DialogInterface dialog, int which) {
+//                    dialog.dismiss();
+//                }
+//            }).show();
+
+            new WarningAlertDialog(this).changeText("确定要离开吗").showCancel(true).onOKClick(new Runnable() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void run() {
                     EventBus.getDefault().post(new EventShutDown());
                 }
-            }).setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            }).onCancelClick(new Runnable() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
+                public void run() {
+//                    Intent intent  = new Intent(MainActivity.this, SuperRegionSelectActivity.class);
+//                    startActivity(intent);
+                    // TODO: 2015/9/10 测试代码可以放这里
                 }
-            }).show();
+            });
         }
         return super.onKeyDown(keyCode, event);
     }

@@ -11,7 +11,7 @@
         android:background="@color/title_bar">
 
         <ImageView
-            android:id="@+id/detail_back"
+            android:id="@+id/broadband_detail_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -51,6 +51,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/broadband_detail_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#fff"
@@ -75,6 +76,7 @@
                     android:layout_height="wrap_content"
                     android:text="价格：" />
                 <TextView
+                    android:id="@+id/broadband_detail_price"
                     android:textSize="16sp"
                     android:textColor="#fe0002"
                     android:text="￥700"
@@ -98,6 +100,7 @@
                     android:layout_height="wrap_content"
                     android:text="宽带速率：" />
                 <TextView
+                    android:id="@+id/broadband_detail_v"
                     android:textColor="#000"
                     android:textSize="16sp"
                     android:text="4M"
@@ -121,6 +124,7 @@
                     android:layout_height="wrap_content"
                     android:text="商品详情：" />
                 <TextView
+                    android:id="@+id/broadband_detail_body"
                     android:padding="5dp"
                     android:textColor="#000"
                     android:textSize="16sp"
@@ -129,6 +133,7 @@
                     android:layout_height="match_parent" />
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/broadband_detail_evaluations"
                 android:gravity="center_vertical"
                 android:padding="10dp"
                 android:background="#fff"
@@ -145,6 +150,7 @@
                     android:layout_height="wrap_content"
                     android:text="商品评价：" />
                 <TextView
+                    android:id="@+id/broadband_detail_evaluation_count"
                     android:paddingRight="5dp"
                     android:gravity="right"
                     android:textColor="#bdbdbd"

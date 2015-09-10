@@ -22,6 +22,7 @@ import com.cjq.bejingunion.adapter.BroadBandBandItemAdapter;
 import com.cjq.bejingunion.adapter.BroadBandGridAdapter;
 import com.cjq.bejingunion.entities.BandItem;
 import com.cjq.bejingunion.entities.Goods4IndexList;
+import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.view.MyRefreshLayout;
 
 import org.json.JSONArray;
@@ -72,7 +73,14 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
         aq.id(R.id.broadband_back).clicked(this, "closeUp");
         adapter = new BroadBandGridAdapter(this, goodsList);
         refreshLayout = (MyRefreshLayout) aq.id(R.id.broadband_refresh).getView();
-        aq.id(R.id.broadband_list).getGridView().setAdapter(adapter);
+        aq.id(R.id.broadband_list).adapter(adapter);
+        aq.id(R.id.broadband_list).itemClicked(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Goods4IndexList goods4IndexList =  goodsList.get(position);
+                GoodsUtil.showGoodsDetail(BroadBandActivity.this,goods4IndexList.getGoods_id(), GoodsUtil.TYPE.BROAD_BAND);
+            }
+        });
         initBandList();
 
         refreshLayout.setOnRefreshListener(this);

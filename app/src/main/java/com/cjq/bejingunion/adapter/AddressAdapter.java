@@ -3,6 +3,7 @@ package com.cjq.bejingunion.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +33,20 @@ import java.util.Map;
  * Created by CJQ on 2015/8/25.
  */
 public class AddressAdapter extends SwipeListAdapter {
+    Listener listener;
+
+    public interface Listener{
+        void onContentClick(int i);
+    }
+
+    public Listener getListener() {
+        return listener;
+    }
+
+    public void setListener(Listener listener) {
+        this.listener = listener;
+    }
+
     List<Address4Show> address4ShowList;
 
     public AddressAdapter(List<Address4Show> address4ShowList, Context context) {
@@ -60,10 +75,16 @@ public class AddressAdapter extends SwipeListAdapter {
         aq.id(R.id.address_true_name).text(address4Show.getTrueName());
         aq.id(R.id.address_mobile_number).text(address4Show.getPhoneNumber());
 
+        if(address4Show.ismDefault()){
+            aq.id(R.id.sliding_content).background(R.drawable.blue_border_2dp);
+        }else{
+            aq.id(R.id.sliding_content).backgroundColor(Color.WHITE);
+        }
+
         final View finalConvertView = convertView;
-        aq.id(R.id.sliding_content).clicked(new View.OnClickListener() {
+        aq.id(R.id.sliding_content).longClicked(new View.OnLongClickListener() {
             @Override
-            public void onClick(View v) {
+            public boolean onLongClick(View v) {
                 boolean drewOut = ((SwipeListItemView) finalConvertView).isDrawOut();
                 if (!drewOut) {
                     String addressId = address4Show.getAddressId();
@@ -72,39 +93,53 @@ public class AddressAdapter extends SwipeListAdapter {
                     intent.putExtra("addressId", addressId);
                     ((Activity) context).startActivityForResult(intent, 1);
                 }
+                return false;
+            }
+        });
+
+        aq.id(R.id.sliding_content).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(listener!=null){
+                    listener.onContentClick(position);
+                }else{
+                    aq.id(R.id.sliding_content).longClick();
+                }
             }
         });
 
         aq.id(R.id.sliding_menu).clicked(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String addressId = address4Show.getAddressId();
+                                             @Override
+                                             public void onClick(View v) {
+                                                 String addressId = address4Show.getAddressId();
 
-                try {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("key", LoginUtil.getKey(context));
-                    params.put("address_id", addressId);
+                                                 try {
+                                                     Map<String, String> params = new HashMap<String, String>();
+                                                     params.put("key", LoginUtil.getKey(context));
+                                                     params.put("address_id", addressId);
 
-                    aq.ajax(CommonDataObject.ADDRESS_DELETE_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-                        @Override
-                        public void callback(String url, JSONObject object, AjaxStatus status) {
-                            try {
-                                if (200 == object.getInt("code")) {
-                                    address4ShowList.remove(position);
-                                    notifyDataSetChanged();
-                                }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            super.callback(url, object, status);
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                                                     aq.ajax(CommonDataObject.ADDRESS_DELETE_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+                                                         @Override
+                                                         public void callback(String url, JSONObject object, AjaxStatus status) {
+                                                             try {
+                                                                 if (200 == object.getInt("code")) {
+                                                                     address4ShowList.remove(position);
+                                                                     notifyDataSetChanged();
+                                                                 }
+                                                             } catch (JSONException e) {
+                                                                 e.printStackTrace();
+                                                             }
+                                                             super.callback(url, object, status);
+                                                         }
+                                                     });
+                                                 }catch (Exception e) {
+                                                     e.printStackTrace();
+                                                 }
 
-            }
-        });
+                                             }
+                                         }
+
+        );
 
         return convertView;
     }

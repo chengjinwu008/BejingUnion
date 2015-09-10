@@ -14,9 +14,11 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.BannerAdapter;
 import com.cjq.bejingunion.adapter.DetailChoiceAdapter;
+import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Ad;
 import com.cjq.bejingunion.entities.DetailChoice;
 import com.cjq.bejingunion.entities.DetailItem;
+import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.view.BannerView;
 import com.cjq.bejingunion.view.NumericView;
@@ -44,6 +46,9 @@ public class DetailActivity extends BaseActivity {
     private ListView detailItemListView;
     private DetailChoiceAdapter adapter;
     private int collectionCount;
+    private NumericView count;
+    private String is_virtual;
+    private String is_fcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +59,15 @@ public class DetailActivity extends BaseActivity {
         goods_id = intent.getStringExtra("goods_id");
         aq = new AQuery(this);
 
+        count = (NumericView) aq.id(R.id.detail_bought_count).getView();
+
         nameText = aq.id(R.id.detail_name).getTextView();
         aq.id(R.id.detail_back).clicked(this, "closeUp");
         aq.id(R.id.detail_add_to_collection).clicked(this, "addToCollection");
         aq.id(R.id.detail_show_detail_info).clicked(this, "showDetailWap");
         aq.id(R.id.detail_jump_evaluation).clicked(this, "showEvaluations");
+        aq.id(R.id.detail_pay_immediately).clicked(this, "payImmediately");
+        aq.id(R.id.detail_add_to_cart).clicked(this, "addToCart");
         evaluateCountText = aq.id(R.id.detail_evaluation_count).getTextView();
         collectCountText = aq.id(R.id.detail_collect_count).getTextView();
         detail_banner = (BannerView) aq.id(R.id.detail_banner).getView();
@@ -70,7 +79,7 @@ public class DetailActivity extends BaseActivity {
         aq.ajax(CommonDataObject.GOODS_DETAIL_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
-                System.out.println(object.toString());
+//                System.out.println(object.toString());
                 try {
                     if (200 == object.getInt("code")) {
                         JSONObject goods_info = object.getJSONObject("datas").getJSONObject("goods_info");
@@ -85,6 +94,9 @@ public class DetailActivity extends BaseActivity {
                             Ad ad = new Ad(DetailActivity.this, image, "");
                             adList.add(ad);
                         }
+
+                        is_virtual=goods_info.getString("is_virtual");
+                        is_fcode=goods_info.getString("is_fcode");
 
                         detail_banner.setAdapter(new BannerAdapter(DetailActivity.this, adList));
                         aq.id(R.id.detail_const_price).text(goods_info.getString("goods_price"));
@@ -121,8 +133,6 @@ public class DetailActivity extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-
                 super.callback(url, object, status);
             }
         });
@@ -144,9 +154,6 @@ public class DetailActivity extends BaseActivity {
                     detailItem.setChosenId(id);
                     adapter.notifyDataSetChanged();
                 }
-                break;
-            case 1:
-                // TODO: 2015/8/28 处理评论的返回值
                 break;
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -188,8 +195,47 @@ public class DetailActivity extends BaseActivity {
     }
 
     public void showEvaluations(){
-        Intent intent = new Intent(this,EvaluateActivity.class);
-        intent.putExtra("goods_id",goods_id);
-        startActivityForResult(intent, 1);
+        GoodsUtil.showEvaluations(this,goods_id);
+    }
+
+    public void payImmediately(){
+        int i= count.getNumber();
+        if(i>0){
+            Intent intent = new Intent(this,OrderConfirmActivity.class);
+            intent.putExtra("cart_id",goods_id+"|"+i);
+            intent.putExtra("ifcart",is_fcode);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    public void addToCart(){
+        try {
+            int i= count.getNumber();
+            Map<String,String> params = new HashMap<>();
+            params.put("key",LoginUtil.getKey(this));
+            params.put("goods_id",goods_id);
+            params.put("quantity", String.valueOf(i));
+
+            aq.ajax(CommonDataObject.ADD_TO_CART_URL,params,JSONObject.class,new AjaxCallback<JSONObject>(){
+                @Override
+                public void callback(String url, JSONObject object, AjaxStatus status) {
+                    try {
+                        String msg=null;
+                        if(object.getInt("code")==200){
+                            msg = object.getJSONObject("datas").getString("msg");
+                        }else{
+                            msg = object.getJSONObject("datas").getString("error");
+                        }
+                        new WarningAlertDialog(DetailActivity.this).changeText("msg").showCancel(false);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    super.callback(url, object, status);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

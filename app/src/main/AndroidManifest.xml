@@ -17,7 +17,6 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -144,14 +143,16 @@
         <activity
             android:name=".activities.PayActivity"
             android:screenOrientation="portrait" />
-
         <activity
-            android:name="com.unionpay.uppay.PayActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:excludeFromRecents="true"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustResize" />
+            android:name=".activities.OrderConfirmActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.BroadBandDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.SuperRegionSelectActivity"
+            android:screenOrientation="portrait" />
+
 
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -164,6 +165,13 @@
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"
             android:screenOrientation="behind" />
+        <activity
+            android:name="com.unionpay.uppay.PayActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

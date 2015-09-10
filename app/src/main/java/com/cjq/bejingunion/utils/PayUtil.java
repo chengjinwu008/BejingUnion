@@ -9,12 +9,13 @@ import com.cjq.bejingunion.activities.PayActivity;
  * Created by CJQ on 2015/9/6.
  */
 public class PayUtil {
-    public static void pay(Context context,String name,String body,String price,String orderNumber){
+    public static void pay(Context context,String name,String body,String price,String orderNumber,String type){
         Intent intent = new Intent(context, PayActivity.class);
         intent.putExtra("name",name);
         intent.putExtra("body",body);
         intent.putExtra("price",price);
         intent.putExtra("orderNumber",orderNumber);
+        intent.putExtra("type",type);
 
         context.startActivity(intent);
     }

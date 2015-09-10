@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/title_bar">
+
+        <ImageView
+            android:id="@+id/activities_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/return1" />
+
+        <ImageView
+            android:visibility="gone"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/a5" />
+
+        <TextView
+            android:id="@+id/activities_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="结算"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/order_confirm_choose_address"
+        android:text="《层层恐惧》灵感源于16-18世纪间的绘画与建筑，玩家将深入一位发狂画家的内心深处，探索他扭曲异变的宅邸，挖掘出背后恐怖的真相。 [更多]"
+        android:padding="10dp"
+        android:textColor="#000"
+        android:drawableRight="@drawable/a67"
+        android:background="#fff"
+        android:textSize="14sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <!--<View-->
+        <!--android:background="#bdbdbd"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="1px"/>-->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:textColor="#000"
+            android:text="商品清单"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content" />
+        <CheckBox
+            android:id="@+id/order_confirm_use_points"
+            android:textSize="14sp"
+            android:text="使用积分支付"
+            android:layout_marginRight="10dp"
+            android:gravity="right|center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+    <com.cjq.bejingunion.view.PinnedSectionListView
+        android:id="@+id/order_confirm_goods_list"
+        android:background="#fff"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        />
+    <LinearLayout
+        android:gravity="right"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:text="共"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/order_confirm_count"
+            android:text="12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="件，总价:￥"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/order_confirm_price"
+            android:text="1220.00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:text="元"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/order_confirm_submit"
+            android:layout_marginLeft="10dp"
+            android:background="#891919"
+            android:textColor="#fff"
+            android:gravity="center"
+            android:text="提交订单"
+            android:layout_width="100dp"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+</LinearLayout>

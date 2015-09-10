@@ -42,16 +42,17 @@ public class PayForPointsActivity extends BaseActivity {
             aq.ajax(CommonDataObject.PAY_FOR_POINTS_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
-//                    System.out.println(object.toString());
+                    System.out.println(object.toString());
                     try {
                         if(200==object.getInt("code")){
                             JSONObject data = object.getJSONObject("datas");
                             String name = data.getString("goods_name");
-                            String body = data.getString("goods_msg");
+                            String body = data.getString("goods_description");
                             String orderNumber = data.getString("pay_sn");
                             String price = data.getString("pdr_amount");
+                            String orderType=data.getString("order_type");
 
-                            PayUtil.pay(PayForPointsActivity.this,name,body,price,orderNumber);
+                            PayUtil.pay(PayForPointsActivity.this,name,body,price,orderNumber,orderType);
                             finish();
                         }
                     } catch (JSONException e) {

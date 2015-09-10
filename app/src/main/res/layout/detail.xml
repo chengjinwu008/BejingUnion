@@ -286,6 +286,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <LinearLayout
+            android:id="@+id/detail_pay_immediately"
             android:layout_marginRight="10dp"
             android:background="@drawable/green_corner_2dp"
             android:layout_height="wrap_content"
@@ -310,6 +311,7 @@
                 android:layout_height="wrap_content" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/detail_add_to_cart"
             android:background="@drawable/orange_corner_2dp"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

@@ -29,29 +29,27 @@ import java.util.Map;
 /**
  * Created by CJQ on 2015/8/25.
  */
-public class AddressListActivity extends BaseActivity {
+public class AddressListActivity extends BaseActivity implements AddressAdapter.Listener {
 
     private AQuery aq;
     private ListView list;
     private List<Address4Show> alist;
     private AddressAdapter baseAdapter;
+    private Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.diliver_address_list);
-
+        intent = getIntent();
+        aq = new AQuery(this);
+        aq.id(R.id.address_back).clicked(this, "closeUp");
+        aq.id(R.id.address_add_new).clicked(this, "writeForm");
+        list = aq.id(R.id.address_list).getListView();
 
         try {
             Map<String, String> params = new HashMap<>();
             params.put("key", LoginUtil.getKey(this));
-
-            aq = new AQuery(this);
-
-            aq.id(R.id.address_back).clicked(this, "closeUp");
-            aq.id(R.id.address_add_new).clicked(this, "writeForm");
-            list = aq.id(R.id.address_list).getListView();
-
             aq.ajax(CommonDataObject.ADDRESS_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
@@ -64,22 +62,28 @@ public class AddressListActivity extends BaseActivity {
                             for (int i = 0; i < al.length(); i++) {
                                 JSONObject o = al.getJSONObject(i);
                                 Address4Show address4Show = new Address4Show(o.getString("area_info") + " " + o.getString("address"), o.getString("true_name"), o.getString("mob_phone"), o.getString("address_id"));
+                                address4Show.setAreaId(o.getString("area_id"));
+                                address4Show.setCityId(o.getString("city_id"));
+                                address4Show.setmDefault(o.getInt("is_default")==1);
                                 alist.add(address4Show);
                             }
                             baseAdapter = new AddressAdapter(alist, AddressListActivity.this);
+
+                            if(intent.getBooleanExtra("choose",false)){
+                                baseAdapter.setListener(AddressListActivity.this);
+                            }
+
                             list.setAdapter(baseAdapter);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-
                     super.callback(url, object, status);
                 }
             });
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 
@@ -114,6 +118,14 @@ public class AddressListActivity extends BaseActivity {
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onContentClick(int i) {
+        intent.putExtra("address",alist.get(i));
+
+        setResult(RESULT_OK,intent);
+        finish();
     }
 }
 

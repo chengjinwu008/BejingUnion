@@ -37,6 +37,10 @@ public class CommonDataObject {
     public static final String UPLOAD_PORTRAIT_URL =MAIN_URL+ "/app/index.php?act=uploud_image&op=upload_user_img";
     public static final String APPLY_PARTNER_URL =MAIN_URL+ "/app/index.php?act=member_index&op=show_vip";
     public static final String PAY_FOR_POINTS_URL =MAIN_URL+ "/app/index.php?act=member_index&op=recharge_add";
+    public static final String CONFIRM_ORDER_URL =MAIN_URL+ "/app/index.php?act=member_buy&op=buy_step1";
+    public static final String ADDRESS_HASH_CODE_URL =MAIN_URL+ "/app/index.php?act=member_buy&op=change_address";
+    public static final String SUBMIT_ORDER_URL =MAIN_URL+ "/app/index.php?act=member_buy&op=buy_step2";
+    public static final String ADD_TO_CART_URL =MAIN_URL+ "/app/index.php?act=member_cart&op=cart_add";
 
     public static final String DETAIL_WAP=MAIN_URL+"/wap/tmpl/product_info.html";
     public static final String PAY_NOTIFY_URL=MAIN_URL+"/app/index.php?act=payment&op=notify";

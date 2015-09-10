@@ -16,15 +16,20 @@
             android:layout_marginLeft="10dp"
             android:src="@drawable/return1" />
 
-        <ImageView
-            android:visibility="gone"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+        <TextView
+            android:padding="10dp"
+            android:background="@drawable/white_border_no_background"
+            android:textColor="#fff"
+            android:gravity="center_vertical"
+            android:text="地区"
+            android:drawableRight="@drawable/a10"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/a5" />
+            android:src="@drawable/a5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
 
         <TextView
             android:id="@+id/market_title"

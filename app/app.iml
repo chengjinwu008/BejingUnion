@@ -98,8 +98,8 @@
     <orderEntry type="library" exported="" name="UPPayPluginExStd" level="project" />
     <orderEntry type="library" exported="" name="pushservice-4.5.1.8" level="project" />
     <orderEntry type="library" exported="" name="support-v4-22.2.1" level="project" />
-    <orderEntry type="library" exported="" name="android-async-http-1.4.8" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-22.2.1" level="project" />
+    <orderEntry type="library" exported="" name="android-async-http-1.4.8" level="project" />
     <orderEntry type="library" exported="" name="eventbus2.4" level="project" />
     <orderEntry type="library" exported="" name="alipaySDK-20150818" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-22.2.1" level="project" />

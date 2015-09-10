@@ -4,10 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.Toast;
 
@@ -24,6 +28,7 @@ import com.unionpay.UPPayAssistEx;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.text.NumberFormat;
 
 /**
  * Created by CJQ on 2015/9/6.
@@ -34,20 +39,20 @@ public class PayActivity extends BaseActivity {
     // 商户收款账号
     public static final String SELLER = "1308526928@qq.com";
     // 商户私钥，pkcs8格式
-    public static final String RSA_PRIVATE = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBALziLdVqTPav9ZKp\n" +
-            "5dPrK8qS9G79p8Hv0RxMcyOj9Ni5whZfHehNxv3nzsKI18LACJ/PP0NIhXmqXfo+\n" +
-            "VevRknrqkszFZdOoqdK0qZ7yINPHDCU29UbvzjL6cEON2gHp+dA/8gzeJ+ylZh1L\n" +
-            "3+gR809ixEJ8opW7IE8lg+2n6xWHAgMBAAECgYAvdB+Ru4gkfeaTd02/ZRj2Zt80\n" +
-            "N1P7PFXr5yUSMjHkdR7W4gSwhUHWLnPameijC/3esIGzVLf77hp4MUsC2P8Updbe\n" +
-            "u7VTXkeuR0EqBF6JNOQ+evO+maGYtiBC2tjfZG4zVa7GEQ/zrdiy74ryaESYGfkR\n" +
-            "82Iojip2K+zPi3uikQJBAOaJHgFxuYSXzZ9l7Hpg0M+xu31DkfdrGdMEQTUn3m9K\n" +
-            "9Jdyt3kJ3f03095Id3DTBVFi/saf/w07KSG+1w3t8b8CQQDRv0KqdCPJcIc8y+UB\n" +
-            "p0P7W4rPCctGp0GFcR/yzDGLqv1+JIFaI+BTn8qlFa0PyDwI31hx9EkG4HaYPUCj\n" +
-            "nD45AkEAhAKQhBMzQJIM1PHwcENwTv5fdmNy+lMB/qu5C09BOEmbtf2iwlS8IXwO\n" +
-            "foLQonKz4N7nNaX4zwLJkuFNFFTk0QJAL++oStCURTuEjO6EfiY+MTowtTSl0pXz\n" +
-            "MY4zIQht4l/H44ZwUauVX0dLxwL3NH4sylJRImoULpAqSozlMv9IcQJAR+vqTRrt\n" +
-            "Z5JPrq0UNyafoTfTr41edJ1/+fNmgdxF15tpf8khV+iPgizuCXTSLOLkzc0e2b4c\n" +
-            "mqNd2TuZi0UwEw==";
+    public static final String RSA_PRIVATE = "MIICdgIBADANBgkqhkiG9w0BAQEFAASCAmAwggJcAgEAAoGBAKDF2q1AkBaeus/4\n" +
+            "p6rTfLVBdRIeeNEat57+I4oPk2uGhqRdblsYWb3MU6FWqCo3FwFeEoY67LphNlHz\n" +
+            "5WV5xCnHFJtpBwS9eRJ5MnayYK2HCdioFv1nmtoPcKX0kpAQtf62W9WPHee2ddPb\n" +
+            "0SywJps2Ua4qYoerVowJCayj585NAgMBAAECgYEAiKzq5FJ4q+Iw6lB3KXA1GloV\n" +
+            "Tlv9Vbai11UxnVL0fnqUx/JtuJ+Q2xtzFTt4JrtCoXT5xocdbKzr4uu23neP3KNZ\n" +
+            "WtMrhpYAqcKkb6lV7UgKjbGQ/ECZHxhveAjhL9hO8sMbwMxRe6wwSTmJp8IxqErW\n" +
+            "m7ndN4NMH80PH6U6RsECQQDOAlCq0lF5+EE0qo9Wxp65q0phebdQDf1SplaJLry6\n" +
+            "Ld9zPAcE3nPE7uvIAifDpvZqU8Hls9e9T0wXjJKxysA1AkEAx8lhHiLwAE08ep7/\n" +
+            "DNaGGFTMJBXO1CxvaJc/5XYliwLPYmBY3UtyFFaNdSlI2v6nUl68Gjig/B4xD0Jk\n" +
+            "y4RIuQJAboTRcAMrEMs9eBq0kXI2/xbE7axVys3mhGuWazw2pY8snG6suVD6PMGM\n" +
+            "np2BZbZx5jMPB8NGz1n2UX/pxxYlrQJABVHOXTAO9eMYlic/oUbhASrY2Kkf/bRF\n" +
+            "LyK/18tCiqYDgZoRI6tLmVEIqTL1NqeLKv1MwuH5H11qbv6UknquOQJAM5Ecn4Dx\n" +
+            "qQ5IHJf1z0WdWGYFJFH+ebRL8ffI1X4g8ndMxz+E1Kawj/0d/alluxWNoBJOY3Ks\n" +
+            "cRUqK1IW8d+rsg==";
     // 支付宝公钥
     public static final String RSA_PUBLIC = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCnxj/9qwVfgoUh/y2W89L6BkRAFljhNhgPdyPuBV64bfQNN1PjbCzkIM6qRdKBoLPXmKKMiFYnkd6rAoprih3/PrQEB/VsW8OoM8fxn67UDYuyBTqA23MML9q1+ilIZwBC2AQ2UBVOrFXfFl75p6/B5KsiNG9zpgmLCUYuLkxpLQIDAQAB";
     private static final int SDK_PAY_FLAG = 1;
@@ -69,6 +74,7 @@ public class PayActivity extends BaseActivity {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Toast.makeText(PayActivity.this, "支付成功",
                                 Toast.LENGTH_SHORT).show();
+                        finish();
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
@@ -80,7 +86,7 @@ public class PayActivity extends BaseActivity {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(PayActivity.this, "支付失败",
                                     Toast.LENGTH_SHORT).show();
-
+            
                         }
                     }
                     break;
@@ -109,6 +115,7 @@ public class PayActivity extends BaseActivity {
     // “00” – 银联正式环境
     // “01” – 银联测试环境，该环境中不发生真实交易
     public String CHINA_BANK_UNION_MODE = "01";
+    private String type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,9 +128,26 @@ public class PayActivity extends BaseActivity {
         body = intent.getStringExtra("body");
         orderNumber = intent.getStringExtra("orderNumber");
         price = intent.getStringExtra("price");
+        type = intent.getStringExtra("type");
 
         aq = new AQuery(this);
+
+        SpannableString ss = new SpannableString("订单号：" + orderNumber);
+        int l = ss.length();
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.title_bar)), 4, l, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        aq.id(R.id.pay_order_code).text(ss);
+
+        NumberFormat format = NumberFormat.getInstance();
+        format.setMinimumFractionDigits(2);
+        format.setMaximumFractionDigits(2);
+        format.setMinimumIntegerDigits(1);
+
+        aq.id(R.id.pay_show_money).text(format.format(Double.valueOf(price)));
+
         aq.id(R.id.pay_by_alipay).clicked(this, "pay");
+        aq.id(R.id.pay_by_china_bank).clicked(this, "payByChinaBank");
+        aq.id(R.id.pay_choose_back).clicked(this, "finish");
     }
 
     public void payByChinaBank(String tn) {
@@ -133,15 +157,15 @@ public class PayActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if( data == null ){
+        if (data == null) {
             return;
         }
         String str = data.getExtras().getString("pay_result");
-        if( str.equalsIgnoreCase("success") ){
+        if (str.equalsIgnoreCase("success")) {
             new WarningAlertDialog(this).changeText("支付成功").showCancel(false).show();
-        }else if( str.equalsIgnoreCase("fail") ){
+        } else if (str.equalsIgnoreCase("fail")) {
             new WarningAlertDialog(this).changeText("支付失败").showCancel(false).show();
-        }else if( str.equalsIgnoreCase("cancel") ){
+        } else if (str.equalsIgnoreCase("cancel")) {
             new WarningAlertDialog(this).changeText("支付被取消了").showCancel(false).show();
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -261,13 +285,13 @@ public class PayActivity extends BaseActivity {
         orderInfo += "&subject=" + "\"" + subject + "\"";
 
         // 商品详情
-        orderInfo += "&body=" + "\"" + body + "\"";
+        orderInfo += "&body=" + "\" " + body + "\"";
 
         // 商品金额
         orderInfo += "&total_fee=" + "\"" + price + "\"";
 
         // 服务器异步通知页面路径
-        orderInfo += "&notify_url=" + "\"" + CommonDataObject.PAY_NOTIFY_URL + "&key=\"" + LoginUtil.getKey(this) + "\"&payment_code=\"alipay\""
+        orderInfo += "&notify_url=" + "\"" + CommonDataObject.PAY_NOTIFY_URL + "&key=" + LoginUtil.getKey(this) + "&payment_code=alipay&order_type=" + type
                 + "\"";
 
         // 服务接口名称， 固定值
