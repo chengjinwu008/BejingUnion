@@ -28,7 +28,7 @@ public abstract class SwipeListAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         if(convertView==null){
-            convertView = LayoutInflater.from(context).inflate(R.layout.collection_list_item,null,false);
+            convertView = LayoutInflater.from(context).inflate(R.layout.collection_list_item,parent,false);
         }
         return convertView;
     }
