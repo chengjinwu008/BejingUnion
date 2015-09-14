@@ -69,7 +69,7 @@
                 <EditText
                     android:id="@+id/identify_username"
                     android:background="#0fff"
-                    android:text="你好啊"
+                    android:hint="请输入机主姓名"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -91,7 +91,7 @@
                 <EditText
                     android:id="@+id/identify_ID_card"
                     android:background="#0fff"
-                    android:text="你好啊"
+                    android:hint="请输入机主身份证号"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 

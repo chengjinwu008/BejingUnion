@@ -40,9 +40,10 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
     private String addressId;
     private String offpay_hash;
     private String offpay_hash_batch;
-    private String invoice_id="0";
+    private String invoice_id = "0";
     private String phone_id;
     private String phone_additional_id;
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,13 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
         ifcart = intent.getStringExtra("ifcart");
         phone_id = intent.getStringExtra("phone_id");
         phone_additional_id = intent.getStringExtra("phone_additional_id");
+        phoneNumber = intent.getStringExtra("phoneNumber");
 
-        aq =new AQuery(this);
+        aq = new AQuery(this);
         aq.id(R.id.phone_number_order_confirm_back).clicked(this, "finish");
-        aq.id(R.id.phone_number_confirm_choose_address).clicked(this,"chooseAddress");
-        aq.id(R.id.phone_number_order_confirm_submit).clicked(this,"submit");
+        aq.id(R.id.phone_number_confirm_choose_address).clicked(this, "chooseAddress");
+        aq.id(R.id.phone_number_order_confirm_submit).clicked(this, "submit");
+        aq.id(R.id.phone_number_order_confirm_identify_phone_number).text(phoneNumber);
 
         try {
             Map<String, String> params = new HashMap<>();
@@ -69,17 +72,17 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
                     try {
-//                        System.out.println(object.toString());
+                        System.out.println(object.toString());
                         if (200 == object.getInt("code")) {
                             JSONObject data = object.getJSONObject("datas");
                             freight_hash = data.getString("freight_hash");
                             JSONObject address_info = data.getJSONObject("address_info");
-                            Address4Show address4Show = new Address4Show(null,null,null,address_info.getString("address_id"));
+                            Address4Show address4Show = new Address4Show(null, null, null, address_info.getString("address_id"));
                             address4Show.setCityId(address_info.getString("city_id"));
                             address4Show.setAreaId(address_info.getString("area_id"));
                             requestHashCode(address4Show);
                             String aa = address_info.getString("area_info") + " " + address_info.getString("address") + "\n" + address_info.getString("true_name") + " tel:" + address_info.getString("mob_phone");
-                            aq.id(R.id.order_confirm_choose_address).text(aa);
+                            aq.id(R.id.phone_number_confirm_choose_address).text(aa);
                             vat_hash = data.getString("vat_hash");
                             JSONArray ga = data.getJSONArray("store_cart_list");
                             List<Goods4OrderList> store4ShowList = new ArrayList<Goods4OrderList>();
@@ -93,8 +96,8 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
                                     JSONObject o = gaa.getJSONObject(j);
                                     Goods4OrderList goods4OrderList = new Goods4OrderList(o.getString("goods_image_url"), o.getString("goods_name"), null, o.getInt("goods_num"), o.getString("goods_price"));
                                     store4ShowList.add(goods4OrderList);
-                                    count+=goods4OrderList.getCount();
-                                    price+=goods4OrderList.getCount()*Double.valueOf(goods4OrderList.getPrice4One());
+                                    count += goods4OrderList.getCount();
+                                    price += goods4OrderList.getCount() * Double.valueOf(goods4OrderList.getPrice4One());
                                 }
                             }
 
@@ -102,10 +105,13 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
                             format.setMinimumFractionDigits(2);
                             format.setMaximumFractionDigits(2);
 
-                            aq.id(R.id.order_confirm_count).text(String.valueOf(count));
-                            aq.id(R.id.order_confirm_price).text(format.format(price));
+                            aq.id(R.id.phone_number_order_confirm_count).text(String.valueOf(count));
+                            aq.id(R.id.phone_number_order_confirm_price).text(format.format(price));
 
-                            aq.id(R.id.order_confirm_goods_list).adapter(new OrderListStoreAdapter(PhoneNumberConfirmActivity.this, store4ShowList));
+                            Goods4OrderList goods4OrderList = store4ShowList.get(1);
+                            aq.id(R.id.phone_number_order_confirm_image).image(goods4OrderList.getPortrait(), false, true);
+                            aq.id(R.id.phone_number_order_confirm_name).text(goods4OrderList.getName());
+                            aq.id(R.id.phone_number_order_confirm_one_price).text("￥"+goods4OrderList.getPrice4One());
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -119,27 +125,27 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
         }
     }
 
-    public void submit(){
-        try{
-            Map<String,String> params = new HashMap<>();
-            params.put("key",LoginUtil.getKey(this));
-            params.put("cart_id",cart_id);
-            params.put("ifcart",ifcart);
-            params.put("address_id",addressId);
-            params.put("pay_name","online");
-            params.put("pd_pay",aq.id(R.id.phone_number_order_confirm_use_points).isChecked()?"1":"0");
-            params.put("vat_hash",vat_hash);
-            params.put("offpay_hash",offpay_hash);
-            params.put("offpay_hash_batch",offpay_hash_batch);
-            params.put("invoice_id",invoice_id);
-            params.put("phone_additional_id",phone_additional_id);
-            params.put("phone_id",phone_id);
+    public void submit() {
+        try {
+            Map<String, String> params = new HashMap<>();
+            params.put("key", LoginUtil.getKey(this));
+            params.put("cart_id", cart_id);
+            params.put("ifcart", ifcart);
+            params.put("address_id", addressId);
+            params.put("pay_name", "online");
+            params.put("pd_pay", aq.id(R.id.phone_number_order_confirm_use_points).isChecked() ? "1" : "0");
+            params.put("vat_hash", vat_hash);
+            params.put("offpay_hash", offpay_hash);
+            params.put("offpay_hash_batch", offpay_hash_batch);
+            params.put("invoice_id", invoice_id);
+            params.put("phone_additional_id", phone_additional_id);
+            params.put("phone_id", phone_id);
 
             aq.ajax(CommonDataObject.SUBMIT_ORDER_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
                     try {
-                        if(object.getInt("code")==200){
+                        if (object.getInt("code") == 200) {
                             JSONObject data = object.getJSONObject("datas");
                             PayUtil.pay(PhoneNumberConfirmActivity.this, data.getString("goods_name"), data.getString("goods_description"), data.getString("api_pay_amount"), data.getString("pay_sn"), data.getString("order_type"));
                             finish();
@@ -151,7 +157,7 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
                 }
             });
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -165,20 +171,20 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
     private void requestHashCode(Address4Show address4Show) {
         try {
             addressId = address4Show.getAddressId();
-            Map<String,String> params = new HashMap<>();
+            Map<String, String> params = new HashMap<>();
             params.put("key", LoginUtil.getKey(this));
-            params.put("area_id",address4Show.getAreaId());
-            params.put("city_id",address4Show.getCityId());
-            params.put("address_id",address4Show.getAddressId());
-            params.put("freight_hash",freight_hash);
+            params.put("area_id", address4Show.getAreaId());
+            params.put("city_id", address4Show.getCityId());
+            params.put("address_id", address4Show.getAddressId());
+            params.put("freight_hash", freight_hash);
 
-            aq.ajax(CommonDataObject.ADDRESS_HASH_CODE_URL,params,JSONObject.class,new AjaxCallback<JSONObject>(){
+            aq.ajax(CommonDataObject.ADDRESS_HASH_CODE_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
                     try {
-                        if(object.getInt("code")==200){
-                            JSONObject data =  object.getJSONObject("datas");
-                            offpay_hash= data.getString("offpay_hash");
+                        if (object.getInt("code") == 200) {
+                            JSONObject data = object.getJSONObject("datas");
+                            offpay_hash = data.getString("offpay_hash");
                             offpay_hash_batch = data.getString("offpay_hash_batch");
                         }
                     } catch (JSONException e) {
@@ -207,5 +213,26 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void requestIdentifyInfo(String id){
+        Map<String,String> params = new HashMap<>();
+        params.put("phone_additional_id",id);
+
+        aq.ajax(CommonDataObject.IDENTIFY_INFO, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                try {
+                    if (200 == object.getInt("code")) {
+                        aq.id(R.id.phone_number_order_confirm_identify_name).text(object.getJSONObject("datas").getString("user_name"));
+                        aq.id(R.id.phone_number_confirm_identify_number).text(object.getJSONObject("datas").getString("ID_card"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                super.callback(url, object, status);
+            }
+        });
     }
 }

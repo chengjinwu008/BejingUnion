@@ -41,6 +41,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
+        if(LoginUtil.isAutoLogin(this)){
+            LoginUtil.autoLogin(this);
+        }
         if (savedInstanceState == null)
             PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "rU95anFF579fG7z8N2iHcbZ4");
 
@@ -61,9 +64,6 @@ public class MainActivity extends BaseActivity {
         if (savedInstanceState == null) {
             Intent intent = new Intent(this, WelcomeActivity.class);
             startActivity(intent);
-        }
-        if(LoginUtil.isAutoLogin(this)){
-            LoginUtil.autoLogin(this);
         }
     }
 

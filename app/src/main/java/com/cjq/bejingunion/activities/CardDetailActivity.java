@@ -48,7 +48,7 @@ public class CardDetailActivity extends BaseActivity {
     private String number;
     private String numberId;
     private String price;
-    private long identify_id;
+    private String identify_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +84,7 @@ public class CardDetailActivity extends BaseActivity {
                         is_fcode = goods_info.getString("is_fcode");
 
                         aq.id(R.id.buy_phone_number_detail_image).image(images.getString(0));
-                        price =  goods_info.getString("goods_price");
+                        price = goods_info.getString("goods_price");
                         aq.id(R.id.buy_phone_number_detail_price).text(price);
 
                         aq.id(R.id.buy_phone_number_detail_detail).text(goods_info.getString("mobile_body"));
@@ -137,16 +137,16 @@ public class CardDetailActivity extends BaseActivity {
                 }
                 break;
             case 1:
-                if(resultCode==RESULT_OK){
-                    CardNumber cardNumber =  data.getParcelableExtra("cardNumber");
+                if (resultCode == RESULT_OK) {
+                    CardNumber cardNumber = data.getParcelableExtra("cardNumber");
                     this.number = cardNumber.getNumber();
                     this.numberId = cardNumber.getId();
                     aq.id(R.id.buy_phone_number_detail_phone_number).text(number);
                 }
                 break;
             case 2:
-                if(resultCode==RESULT_OK){
-                    identify_id = data.getLongExtra("id",0);
+                if (resultCode == RESULT_OK) {
+                    identify_id = data.getStringExtra("id");
                     //
                     submit();
                 }
@@ -155,26 +155,31 @@ public class CardDetailActivity extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void submit(){
-        // TODO: 2015/9/11 加参数项
-        Intent intent = new Intent(this,PhoneNumberConfirmActivity.class);
-        intent.putExtra("cart_id",goods_id+"|"+1);
-        intent.putExtra("phone_additional_id",identify_id);
-        intent.putExtra("phone_id",numberId);
-        intent.putExtra("ifcart",is_fcode);
+    private void submit() {
+
+        Intent intent = new Intent(this, PhoneNumberConfirmActivity.class);
+        intent.putExtra("cart_id", goods_id + "|" + 1);
+        intent.putExtra("phone_additional_id", identify_id);
+        intent.putExtra("phone_id", numberId);
+        intent.putExtra("phoneNumber",number);
+        intent.putExtra("ifcart", is_fcode);
         startActivity(intent);
         finish();
     }
 
     public void payImmediately() {
+        if (numberId == null || "".equals(numberId)) {
+            Toast.makeText(this, "不选号码怎么帮您购买卡号呢？", Toast.LENGTH_SHORT).show();
+            return;
+        }
         DetailItem detailItem = (DetailItem) adapter.getItem(0);
-        DetailChoice choice = detailItem.getDetailChoices().get(new Integer(detailItem.getChosenId()));
+        DetailChoice choice = detailItem.getDetailChoices().get(Integer.valueOf(detailItem.getChosenId()));
 
-        GoodsUtil.showIdentify(this,choice.getValue(),price,number,2);
+        GoodsUtil.showIdentify(this, choice.getValue(), price, number, 2);
     }
 
     public void choosePhoneNumber() {
-        Intent intent = new Intent(this,PhoneNumberActivity.class);
-        startActivityForResult(intent,1);
+        Intent intent = new Intent(this, PhoneNumberActivity.class);
+        startActivityForResult(intent, 1);
     }
 }

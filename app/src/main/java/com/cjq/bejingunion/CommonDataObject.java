@@ -41,12 +41,16 @@ public class CommonDataObject {
     public static final String ADDRESS_HASH_CODE_URL =MAIN_URL+ "/app/index.php?act=member_buy&op=change_address";
     public static final String SUBMIT_ORDER_URL =MAIN_URL+ "/app/index.php?act=member_buy&op=buy_step2";
     public static final String ADD_TO_CART_URL =MAIN_URL+ "/app/index.php?act=member_cart&op=cart_add";
+    public static final String CART_LIST_URL =MAIN_URL+ "/app/index.php?act=member_cart&op=cart_list";
     public static final String CARD_LIST_URL =MAIN_URL+ "/app/index.php?act=phone&op=phone_list";
     public static final String COMMON_UPLOAD_IMAGE_URL =MAIN_URL+ "/app/index.php?act=uploud_image&op=upload_img";
     public static final String IDENTIFY_SUBMIT_URL =MAIN_URL+ "/app/index.php?act=phone&op=phone_additional";
     public static final String PAY_BY_POINTS_URL =MAIN_URL+ "/app/index.php?act=member_buy&op=pd_pay"; //积分支付
     public static final String BRAND_LIST =MAIN_URL+ "/app/index.php?act=member_brand&op=brand_list"; //品牌列表
+    public static final String IDENTIFY_INFO =MAIN_URL+ "/app/index.php?act=phone&op=phone_additional_info"; //认证信息回显
 
     public static final String DETAIL_WAP=MAIN_URL+"/wap/tmpl/product_info.html";
     public static final String PAY_NOTIFY_URL=MAIN_URL+"/app/index.php?act=payment&op=notify";
+    public static final String IDENTIFY_NOTIFY1=MAIN_URL+"/app/index.php?act=goods&op=news_info&article_id=42";
+    public static final String IDENTIFY_NOTIFY2=MAIN_URL+"/app/index.php?act=goods&op=news_info&article_id=43";
 }

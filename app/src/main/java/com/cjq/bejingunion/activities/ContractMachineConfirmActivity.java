@@ -43,6 +43,7 @@ public class ContractMachineConfirmActivity extends BaseActivity {
     private String invoice_id="0";
     private String phone_id;
     private String phone_additional_id;
+    private String phoneNumber;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +55,15 @@ public class ContractMachineConfirmActivity extends BaseActivity {
         ifcart = intent.getStringExtra("ifcart");
         phone_id = intent.getStringExtra("phone_id");
         phone_additional_id = intent.getStringExtra("phone_additional_id");
+        phoneNumber = intent.getStringExtra("phoneNumber");
 
         aq =new AQuery(this);
         aq.id(R.id.contract_machine_order_confirm_back).clicked(this, "finish");
         aq.id(R.id.contract_machine_confirm_choose_address).clicked(this,"chooseAddress");
         aq.id(R.id.contract_machine_order_confirm_submit).clicked(this,"submit");
+        aq.id(R.id.contract_machine_confirm_identify_phone_number).text(phoneNumber);
+
+        requestIdentifyInfo(phone_additional_id);
 
         try {
             Map<String, String> params = new HashMap<>();
@@ -79,7 +84,7 @@ public class ContractMachineConfirmActivity extends BaseActivity {
                             address4Show.setAreaId(address_info.getString("area_id"));
                             requestHashCode(address4Show);
                             String aa = address_info.getString("area_info") + " " + address_info.getString("address") + "\n" + address_info.getString("true_name") + " tel:" + address_info.getString("mob_phone");
-                            aq.id(R.id.order_confirm_choose_address).text(aa);
+                            aq.id(R.id.contract_machine_confirm_choose_address).text(aa);
                             vat_hash = data.getString("vat_hash");
                             JSONArray ga = data.getJSONArray("store_cart_list");
                             List<Goods4OrderList> store4ShowList = new ArrayList<Goods4OrderList>();
@@ -102,10 +107,13 @@ public class ContractMachineConfirmActivity extends BaseActivity {
                             format.setMinimumFractionDigits(2);
                             format.setMaximumFractionDigits(2);
 
-                            aq.id(R.id.order_confirm_count).text(String.valueOf(count));
-                            aq.id(R.id.order_confirm_price).text(format.format(price));
+                            aq.id(R.id.contract_machine_order_confirm_count).text(String.valueOf(count));
+                            aq.id(R.id.contract_machine_order_confirm_price).text(format.format(price));
 
-                            aq.id(R.id.order_confirm_goods_list).adapter(new OrderListStoreAdapter(ContractMachineConfirmActivity.this, store4ShowList));
+                            Goods4OrderList goods =  store4ShowList.get(1);
+                            aq.id(R.id.contract_machine_order_confirm_image).image(goods.getPortrait(),false,true);
+                            aq.id(R.id.contract_machine_order_confirm_name).text(goods.getName());
+                            aq.id(R.id.contract_machine_order_confirm_one_price).text("￥"+goods.getPrice4One());
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -207,5 +215,26 @@ public class ContractMachineConfirmActivity extends BaseActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void requestIdentifyInfo(String id){
+        Map<String,String> params = new HashMap<>();
+        params.put("phone_additional_id",id);
+
+        aq.ajax(CommonDataObject.IDENTIFY_INFO,params,JSONObject.class,new AjaxCallback<JSONObject>(){
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                try {
+                    if(200==object.getInt("code")){
+                        aq.id(R.id.contract_machine_confirm_identify_name).text(object.getJSONObject("datas").getString("user_name"));
+                        aq.id(R.id.contract_machine_confirm_identify_number).text(object.getJSONObject("datas").getString("ID_card"));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                super.callback(url, object, status);
+            }
+        });
     }
 }

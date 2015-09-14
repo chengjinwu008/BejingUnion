@@ -252,7 +252,7 @@ public class DetailActivity extends BaseActivity {
                         } else {
                             msg = object.getJSONObject("datas").getString("error");
                         }
-                        new WarningAlertDialog(DetailActivity.this).changeText("msg").showCancel(false);
+                        new WarningAlertDialog(DetailActivity.this).changeText(msg).showCancel(false);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

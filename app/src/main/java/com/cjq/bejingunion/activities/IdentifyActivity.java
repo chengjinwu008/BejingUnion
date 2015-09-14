@@ -10,6 +10,7 @@ import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.URLSpan;
 import android.view.View;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -51,11 +52,11 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
         aq.id(R.id.identify_back).clicked(this, "finish");
         aq.id(R.id.identify_submit).clicked(this, "submit");
         SpannableString spannableString = new SpannableString("根据国家工信部《电话用户真实身份信息登记规定》（工业和信息化部令第25号）文件要求，用户通过网络办理新号码须上传身份证照片并通过实名验证,收货时须再出示本人身份证原并提供身份证复印件以做备案");
-        URLSpan urlSpan = new URLSpan("http://www.baidu.com");
+        URLSpan urlSpan = new URLSpan(CommonDataObject.IDENTIFY_NOTIFY1);
         spannableString.setSpan(urlSpan, 7, 37, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         SpannableString spannableString1 = new SpannableString("我已经同意《入网协议》");
-        URLSpan urlSpan1 = new URLSpan("http://www.baidu.com");
+        URLSpan urlSpan1 = new URLSpan(CommonDataObject.IDENTIFY_NOTIFY2);
         spannableString1.setSpan(urlSpan1, 5, 11, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         aq.id(R.id.identify_text1).text(spannableString).getTextView().setMovementMethod(LinkMovementMethod.getInstance());
@@ -71,6 +72,11 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void submit() {
+        if(!aq.id(R.id.identify_check_box).isChecked()){
+            Toast.makeText(this,"不同意入网协议吗？",Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         try {
             Map<String, String> params = new HashMap<>();
 
@@ -89,6 +95,7 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
             aq.ajax(CommonDataObject.IDENTIFY_SUBMIT_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
+                    System.out.println(object.toString());
                     try {
                         if (object.getInt("code") == 200) {
                             String id = object.getJSONObject("datas").getString("phone_additional_id");

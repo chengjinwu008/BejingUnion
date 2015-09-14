@@ -205,6 +205,7 @@ public class ContractMachineDetailActivity extends BaseActivity {
         Intent intent = new Intent(this, ContractMachineConfirmActivity.class);
         intent.putExtra("cart_id", goods_id + "|" + 1);
         intent.putExtra("phone_additional_id",identifyxid);
+        intent.putExtra("phoneNumber",number);
         intent.putExtra("phone_id",numberId);
         intent.putExtra("ifcart", is_fcode);
         startActivity(intent);
@@ -251,6 +252,10 @@ public class ContractMachineDetailActivity extends BaseActivity {
     }
 
     public void payImmediately() {
+        if (numberId == null || "".equals(numberId)) {
+            Toast.makeText(this, "不选号码怎么帮您购买卡号呢？", Toast.LENGTH_SHORT).show();
+            return;
+        }
         DetailItem item = null;
         for (int i = 0; i < adapter.getCount(); i++) {
             DetailItem detailItem = (DetailItem) adapter.getItem(i);
