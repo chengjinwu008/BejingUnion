@@ -34,20 +34,24 @@ public class SuperRegionSelectActivity extends BaseActivity implements AdapterVi
 
     private AQuery aq;
 
-    String provinceName="";
-    String areaName="";
-    String cityName="";
+    String provinceName = "";
+    String areaName = "";
+    String cityName = "";
 
     private int provinceId = 0;
     private int areaId = 0;
     private int cityId = 0;
     private List<Area4Show> area4ShowList;
     private AreaAdapter adapter;
+    private int level;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_list);
+
+        Intent intent = getIntent();
+        level = intent.getIntExtra("level", 3);
 
         aq = new AQuery(this);
         aq.id(R.id.common_list_back).clicked(this, "closeUp");
@@ -92,32 +96,42 @@ public class SuperRegionSelectActivity extends BaseActivity implements AdapterVi
             //选省
             provinceId = Integer.parseInt(area4ShowList.get(position).getId());
             provinceName = area4ShowList.get(position).getText();
-            requestList(provinceId);
+            if (level > 1)
+                requestList(provinceId);
+            else
+                complete();
         } else if (areaId == 0) {
             //选区
             areaId = Integer.parseInt(area4ShowList.get(position).getId());
             areaName = area4ShowList.get(position).getText();
-            requestList(areaId);
+            if (level > 2)
+                requestList(areaId);
+            else
+                complete();
         } else {
             //选市
             cityId = Integer.parseInt(area4ShowList.get(position).getId());
             cityName = area4ShowList.get(position).getText();
             //选完收工
-
-            AreaInfo areaInfo = new AreaInfo();
-            areaInfo.setAreaId(areaId);
-            areaInfo.setAreaName(areaName);
-            areaInfo.setProvinceId(provinceId);
-            areaInfo.setProvinceName(provinceName);
-            areaInfo.setCityId(cityId);
-            areaInfo.setCityName(cityName);
-
-            Intent intent = new Intent();
-            intent.putExtra("areaInfo", areaInfo);
-            setResult(RESULT_OK, intent);
-            finish();
+            if (level == 3)
+                complete();
         }
-        aq.id(R.id.common_list_title).text(provinceName+" "+areaName+" "+cityName);
+        aq.id(R.id.common_list_title).text(provinceName + " " + areaName + " " + cityName);
+    }
+
+    private void complete() {
+        AreaInfo areaInfo = new AreaInfo();
+        areaInfo.setAreaId(areaId);
+        areaInfo.setAreaName(areaName);
+        areaInfo.setProvinceId(provinceId);
+        areaInfo.setProvinceName(provinceName);
+        areaInfo.setCityId(cityId);
+        areaInfo.setCityName(cityName);
+
+        Intent intent = new Intent();
+        intent.putExtra("areaInfo", areaInfo);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
 

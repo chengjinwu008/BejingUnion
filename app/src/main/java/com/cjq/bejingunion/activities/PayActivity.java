@@ -17,6 +17,8 @@ import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.androidquery.AQuery;
+import com.androidquery.callback.AjaxCallback;
+import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
@@ -26,9 +28,15 @@ import com.cjq.bejingunion.utils.PayResult;
 import com.cjq.bejingunion.utils.SignUtils;
 import com.unionpay.UPPayAssistEx;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.xml.sax.helpers.ParserFactory;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.NumberFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by CJQ on 2015/9/6.
@@ -100,8 +108,6 @@ public class PayActivity extends BaseActivity {
                     break;
             }
         }
-
-        ;
     };
     //商品名称
     private String name;
@@ -147,7 +153,39 @@ public class PayActivity extends BaseActivity {
 
         aq.id(R.id.pay_by_alipay).clicked(this, "pay");
         aq.id(R.id.pay_by_china_bank).clicked(this, "payByChinaBank");
+        aq.id(R.id.pay_by_points).clicked(this, "payByPoints");
         aq.id(R.id.pay_choose_back).clicked(this, "finish");
+    }
+
+    public void payByPoints(){
+
+        try {
+            Map<String,String> params = new HashMap<>();
+            params.put("key",LoginUtil.getKey(this));
+            params.put("order_type","r");
+            params.put("pay_sn", orderNumber);
+
+            aq.ajax(CommonDataObject.PAY_BY_POINTS_URL,params, JSONObject.class,new AjaxCallback<JSONObject>(){
+                @Override
+                public void callback(String url, JSONObject object, AjaxStatus status) {
+                    try {
+                        if(object.getInt("code")==200){
+                            Toast.makeText(PayActivity.this,object.getJSONObject("datas").getString("msg"),Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else{
+                            Toast.makeText(PayActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    super.callback(url, object, status);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void payByChinaBank(String tn) {

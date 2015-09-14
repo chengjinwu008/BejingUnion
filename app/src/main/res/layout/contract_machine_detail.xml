@@ -11,7 +11,7 @@
         android:background="@color/title_bar">
 
         <ImageView
-            android:id="@+id/detail_back"
+            android:id="@+id/contract_machine_detail_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -53,14 +53,14 @@
             android:orientation="vertical">
 
             <com.cjq.bejingunion.view.BannerView
-                android:id="@+id/detail_banner"
+                android:id="@+id/contract_machine_detail_banner"
                 android:layout_width="match_parent"
                 android:layout_height="180dp"/>
 
             <TextView
                 android:textSize="20sp"
                 android:textColor="#000"
-                android:id="@+id/detail_name"
+                android:id="@+id/contract_machine_detail_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="15dp"
@@ -94,7 +94,7 @@
                 <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="199.9"
-                    android:id="@+id/detail_const_price"
+                    android:id="@+id/contract_machine_detail_const_price"
                     android:textColor="#fe0100"
                     android:textSize="18sp"/>
                 <ImageView
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"/>
             <com.cjq.bejingunion.view.AllListView
-                android:id="@+id/detail_item"
+                android:id="@+id/contract_machine_detail_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <FrameLayout
@@ -136,7 +136,7 @@
                 <TextView android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="30"
-                    android:id="@+id/detail_const_2_detail"
+                    android:id="@+id/contract_machine_detail_const_2_detail"
                     android:textColor="#000"
                     android:textSize="18sp"/>
                 <ImageView
@@ -159,16 +159,22 @@
                 android:layout_height="wrap_content"
                 android:background="#fff"
                 >
+
                 <TextView android:layout_width="100dp"
                     android:gravity="right"
                     android:layout_height="wrap_content"
-                    android:text="购买数量:"
+                    android:text="选择号码:"
+                    android:id="@+id/detail_const_3"
                     android:textSize="18sp"
                     android:textColor="#000"/>
-                <com.cjq.bejingunion.view.NumericView
-                    android:id="@+id/detail_bought_count"
-                    android:layout_width="100dp"
-                    android:layout_height="30dp"/>
+                <TextView android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="right"
+                    android:drawableRight="@drawable/a67"
+                    android:hint="--点击选择手机号--"
+                    android:id="@+id/contract_machine_detail_const_3_detail"
+                    android:textColor="#000"
+                    android:textSize="14sp"/>
                 <ImageView
                     android:visibility="gone"
                     android:textSize="18sp"
@@ -182,6 +188,36 @@
                 android:background="#bdbdbd"
                 android:layout_width="match_parent"
                 android:layout_height="1px"/>
+            <!--<LinearLayout-->
+                <!--android:orientation="horizontal" android:layout_width="match_parent"-->
+                <!--android:padding="10dp"-->
+                <!--android:gravity="center_vertical"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:background="#fff"-->
+                <!-->-->
+                <!--<TextView android:layout_width="100dp"-->
+                    <!--android:gravity="right"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:text="购买数量:"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:textColor="#000"/>-->
+                <!--<com.cjq.bejingunion.view.NumericView-->
+                    <!--android:id="@+id/detail_bought_count"-->
+                    <!--android:layout_width="100dp"-->
+                    <!--android:layout_height="30dp"/>-->
+                <!--<ImageView-->
+                    <!--android:visibility="gone"-->
+                    <!--android:textSize="18sp"-->
+                    <!--android:layout_gravity="end"-->
+                    <!--android:src="@drawable/a11"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--/>-->
+            <!--</LinearLayout>-->
+            <!--<FrameLayout-->
+                <!--android:background="#bdbdbd"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="1px"/>-->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -190,7 +226,7 @@
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/detail_show_detail_info"
+                    android:id="@+id/contract_machine_detail_show_detail_info"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -210,7 +246,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/detail_jump_evaluation"
+                    android:id="@+id/contract_machine_detail_jump_evaluation"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -228,7 +264,7 @@
                         android:text="商品评价" />
 
                     <TextView
-                        android:id="@+id/detail_evaluation_count"
+                        android:id="@+id/contract_machine_detail_evaluation_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="（20）"
@@ -236,7 +272,7 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/detail_add_to_collection"
+                    android:id="@+id/contract_machine_detail_add_to_collection"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="15dp"
@@ -254,7 +290,7 @@
                         android:text="收藏" />
 
                     <TextView
-                        android:id="@+id/detail_collect_count"
+                        android:id="@+id/contract_machine_detail_collect_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="（2000）"
@@ -271,54 +307,55 @@
         android:layout_width="match_parent"
         android:layout_height="50dp">
         <LinearLayout
-            android:id="@+id/detail_pay_immediately"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/green_corner_2dp"
-            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:id="@+id/contract_machine_detail_pay_immediately"
+            android:background="@color/title_bar"
+            android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:gravity="center"
             android:paddingTop="2dp"
             android:paddingBottom="2dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
             >
-            <ImageView
-                android:scaleType="centerInside"
-                android:src="@drawable/cash"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
+            <!--<ImageView-->
+                <!--android:scaleType="centerInside"-->
+                <!--android:src="@drawable/cash"-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp" />-->
             <TextView
                 android:text=" 立即购买"
+                android:gravity="center"
                 android:textSize="20sp"
                 android:textColor="#fff"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
         </LinearLayout>
-        <LinearLayout
-            android:id="@+id/detail_add_to_cart"
-            android:background="@drawable/orange_corner_2dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_width="wrap_content"
-            android:gravity="center"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            >
-            <ImageView
-                android:scaleType="centerInside"
-                android:src="@drawable/buy"
-                android:layout_width="30dp"
-                android:layout_height="30dp" />
-            <TextView
-                android:text="加入购物车"
-                android:textSize="20sp"
-                android:textColor="#fff"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+        <!--<LinearLayout-->
+            <!--android:id="@+id/detail_add_to_cart"-->
+            <!--android:background="@drawable/orange_corner_2dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:gravity="center"-->
+            <!--android:paddingTop="2dp"-->
+            <!--android:paddingBottom="2dp"-->
+            <!--android:paddingLeft="10dp"-->
+            <!--android:paddingRight="10dp"-->
+            <!-->-->
+            <!--<ImageView-->
+                <!--android:scaleType="centerInside"-->
+                <!--android:src="@drawable/buy"-->
+                <!--android:layout_width="30dp"-->
+                <!--android:layout_height="30dp" />-->
+            <!--<TextView-->
+                <!--android:text="加入购物车"-->
+                <!--android:textSize="20sp"-->
+                <!--android:textColor="#fff"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content" />-->
+        <!--</LinearLayout>-->
     </LinearLayout>
 </RelativeLayout>
 

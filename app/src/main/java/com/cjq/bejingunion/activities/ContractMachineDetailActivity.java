@@ -14,14 +14,13 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.BannerAdapter;
 import com.cjq.bejingunion.adapter.DetailChoiceAdapter;
-import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Ad;
+import com.cjq.bejingunion.entities.CardNumber;
 import com.cjq.bejingunion.entities.DetailChoice;
 import com.cjq.bejingunion.entities.DetailItem;
 import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.view.BannerView;
-import com.cjq.bejingunion.view.NumericView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,12 +31,11 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.PriorityBlockingQueue;
 
 /**
  * Created by CJQ on 2015/8/20.
  */
-public class DetailActivity extends BaseActivity {
+public class ContractMachineDetailActivity extends BaseActivity {
 
     private String goods_id;
     private AQuery aq;
@@ -48,33 +46,35 @@ public class DetailActivity extends BaseActivity {
     private ListView detailItemListView;
     private DetailChoiceAdapter adapter;
     private int collectionCount;
-    private NumericView count;
     private String is_virtual;
     private String is_fcode;
-    private Map<String, String> ids=new HashMap<>();
+    private String number;
+    private String numberId;
+    private String price;
+    private String identifyxid;
+    private Map<String,String> ids=new HashMap<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.detail);
+        setContentView(R.layout.contract_machine_detail);
 
         Intent intent = getIntent();
         goods_id = intent.getStringExtra("goods_id");
         aq = new AQuery(this);
 
-        count = (NumericView) aq.id(R.id.detail_bought_count).getView();
+        nameText = aq.id(R.id.contract_machine_detail_name).getTextView();
+        aq.id(R.id.contract_machine_detail_back).clicked(this, "closeUp");
+        aq.id(R.id.contract_machine_detail_add_to_collection).clicked(this, "addToCollection");
+        aq.id(R.id.contract_machine_detail_show_detail_info).clicked(this, "showDetailWap");
+        aq.id(R.id.contract_machine_detail_jump_evaluation).clicked(this, "showEvaluations");
+        aq.id(R.id.contract_machine_detail_pay_immediately).clicked(this, "payImmediately");
+        aq.id(R.id.contract_machine_detail_const_3_detail).clicked(this, "choosePhoneNumber");
 
-        nameText = aq.id(R.id.detail_name).getTextView();
-        aq.id(R.id.detail_back).clicked(this, "closeUp");
-        aq.id(R.id.detail_add_to_collection).clicked(this, "addToCollection");
-        aq.id(R.id.detail_show_detail_info).clicked(this, "showDetailWap");
-        aq.id(R.id.detail_jump_evaluation).clicked(this, "showEvaluations");
-        aq.id(R.id.detail_pay_immediately).clicked(this, "payImmediately");
-        aq.id(R.id.detail_add_to_cart).clicked(this, "addToCart");
-        evaluateCountText = aq.id(R.id.detail_evaluation_count).getTextView();
-        collectCountText = aq.id(R.id.detail_collect_count).getTextView();
-        detail_banner = (BannerView) aq.id(R.id.detail_banner).getView();
-        detailItemListView = aq.id(R.id.detail_item).getListView();
+        evaluateCountText = aq.id(R.id.contract_machine_detail_evaluation_count).getTextView();
+        collectCountText = aq.id(R.id.contract_machine_detail_collect_count).getTextView();
+        detail_banner = (BannerView) aq.id(R.id.contract_machine_detail_banner).getView();
+        detailItemListView = aq.id(R.id.contract_machine_detail_item).getListView();
 
         requestData();
     }
@@ -98,26 +98,27 @@ public class DetailActivity extends BaseActivity {
 
                         for (int i = 0; i < images.length(); i++) {
                             String image = images.getString(i);
-                            Ad ad = new Ad(DetailActivity.this, image, "");
+                            Ad ad = new Ad(ContractMachineDetailActivity.this, image, "");
                             adList.add(ad);
                         }
 
                         ids.clear();
-                        JSONObject aids = object.getJSONObject("datas").getJSONObject("spec_list");
+                        JSONObject aids =  object.getJSONObject("datas").getJSONObject("spec_list");
                         Iterator<String> keys = aids.keys();
-                        while (keys.hasNext()) {
-                            String k = keys.next();
-                            ids.put(k, aids.getString(k));
+                        while (keys.hasNext()){
+                            String k =  keys.next();
+                            ids.put(k,aids.getString(k));
                         }
 
                         is_virtual = goods_info.getString("is_virtual");
                         is_fcode = goods_info.getString("is_fcode");
 
-                        detail_banner.setAdapter(new BannerAdapter(DetailActivity.this, adList));
-                        aq.id(R.id.detail_const_price).text(goods_info.getString("goods_price"));
-                        aq.id(R.id.detail_const_2_detail).text(goods_info.getString("goods_storage"));
-                        NumericView numericView = (NumericView) aq.id(R.id.detail_bought_count).getView();
-                        numericView.plus();
+                        detail_banner.setAdapter(new BannerAdapter(ContractMachineDetailActivity.this, adList));
+
+                        price = goods_info.getString("goods_price");
+                        aq.id(R.id.contract_machine_detail_const_price).text(price);
+                        aq.id(R.id.contract_machine_detail_const_2_detail).text(goods_info.getString("goods_storage"));
+
 
                         JSONArray spec_info = goods_info.getJSONArray("spec_info");
                         List<DetailItem> detailItems = new ArrayList<DetailItem>();
@@ -137,7 +138,7 @@ public class DetailActivity extends BaseActivity {
                             detailItems.add(detailItem);
                         }
 
-                        adapter = new DetailChoiceAdapter(detailItems, DetailActivity.this);
+                        adapter = new DetailChoiceAdapter(detailItems, ContractMachineDetailActivity.this);
 
                         detailItemListView.setAdapter(adapter);
                         collectionCount = goods_info.getInt("goods_collect");
@@ -169,19 +170,45 @@ public class DetailActivity extends BaseActivity {
                     detailItem.setChosenId(id);
 
                     StringBuilder builder = new StringBuilder();
-                    for (int i = 0; i < adapter.getCount(); i++) {
+                    for(int i = 0;i<adapter.getCount();i++){
                         DetailItem item = (DetailItem) adapter.getItem(i);
                         builder.append(item.getDetailChoices().get(Integer.valueOf(item.getChosenId())).getId()).append("|");
                     }
                     String idString = builder.toString().substring(0, builder.length() - 1);
 
                     goods_id = ids.get(idString);
+
 //                    adapter.notifyDataSetChanged();
                     requestData();
                 }
                 break;
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    CardNumber cardNumber = data.getParcelableExtra("cardNumber");
+                    this.number = cardNumber.getNumber();
+                    this.numberId = cardNumber.getId();
+                    aq.id(R.id.contract_machine_detail_const_3_detail).text(number);
+                }
+                break;
+            case 2:
+                if (resultCode == RESULT_OK) {
+                    identifyxid = data.getStringExtra("id");
+                    //
+                    submit();
+                }
+                break;
         }
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void submit() {
+        Intent intent = new Intent(this, ContractMachineConfirmActivity.class);
+        intent.putExtra("cart_id", goods_id + "|" + 1);
+        intent.putExtra("phone_additional_id",identifyxid);
+        intent.putExtra("phone_id",numberId);
+        intent.putExtra("ifcart", is_fcode);
+        startActivity(intent);
+        finish();
     }
 
     public void addToCollection() {
@@ -198,9 +225,9 @@ public class DetailActivity extends BaseActivity {
                             //添加收藏成功
                             collectionCount++;
                             collectCountText.setText("(" + collectionCount + ")");
-                            Toast.makeText(DetailActivity.this, getString(R.string.add_to_collection_succeed), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ContractMachineDetailActivity.this, getString(R.string.add_to_collection_succeed), Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(DetailActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ContractMachineDetailActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -224,43 +251,33 @@ public class DetailActivity extends BaseActivity {
     }
 
     public void payImmediately() {
-        int i = count.getNumber();
-        if (i > 0) {
-            Intent intent = new Intent(this, OrderConfirmActivity.class);
-            intent.putExtra("cart_id", goods_id + "|" + i);
-            intent.putExtra("ifcart", is_fcode);
-            startActivity(intent);
-            finish();
+        DetailItem item = null;
+        for (int i = 0; i < adapter.getCount(); i++) {
+            DetailItem detailItem = (DetailItem) adapter.getItem(i);
+            if ("套餐选择".equals(detailItem.getName())) {
+                item = detailItem;
+                break;
+            }
         }
+        DetailChoice choice = null;
+        if (item != null) {
+            choice = item.getDetailChoices().get(Integer.valueOf(item.getChosenId()));
+        }
+
+        if (choice != null)
+            GoodsUtil.showIdentify(this, choice.getValue(), price, number, 2);
+        else
+            GoodsUtil.showIdentify(this, null, price, number, 2);
+
+//        Intent intent = new Intent(this, OrderConfirmActivity.class);
+//        intent.putExtra("cart_id", goods_id + "|" + 1);
+//        intent.putExtra("ifcart", is_fcode);
+//        startActivity(intent);
+//        finish();
     }
 
-    public void addToCart() {
-        try {
-            int i = count.getNumber();
-            Map<String, String> params = new HashMap<>();
-            params.put("key", LoginUtil.getKey(this));
-            params.put("goods_id", goods_id);
-            params.put("quantity", String.valueOf(i));
-
-            aq.ajax(CommonDataObject.ADD_TO_CART_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-                @Override
-                public void callback(String url, JSONObject object, AjaxStatus status) {
-                    try {
-                        String msg = null;
-                        if (object.getInt("code") == 200) {
-                            msg = object.getJSONObject("datas").getString("msg");
-                        } else {
-                            msg = object.getJSONObject("datas").getString("error");
-                        }
-                        new WarningAlertDialog(DetailActivity.this).changeText("msg").showCancel(false);
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                    super.callback(url, object, status);
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public void choosePhoneNumber() {
+        Intent intent = new Intent(this, PhoneNumberActivity.class);
+        startActivityForResult(intent, 1);
     }
 }

@@ -101,4 +101,16 @@
         android:text="银联支付"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/pay_by_points"
+        android:layout_marginTop="5dp"
+        android:padding="10dp"
+        android:background="#fff"
+        android:gravity="center_vertical"
+        android:drawablePadding="10dp"
+        android:drawableRight="@drawable/a67"
+        android:drawableLeft="@drawable/a37"
+        android:text="积分支付"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 </LinearLayout>

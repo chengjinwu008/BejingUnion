@@ -24,6 +24,8 @@ public class BroadBandDetailActivity extends BaseActivity {
 
     private AQuery aq;
     private String goods_id;
+    private String is_virtual;
+    private String is_fcode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class BroadBandDetailActivity extends BaseActivity {
         params.put("goods_id", goods_id);
         aq.id(R.id.broadband_detail_evaluations).clicked(this, "showEvaluations");
         aq.id(R.id.broadband_detail_back).clicked(this, "finish");
+        aq.id(R.id.broadband_detail_new).clicked(this, "openNewBroadBand");
+        aq.id(R.id.broadband_detail_old).clicked(this, "renewBroadBand");
 
         aq.ajax(CommonDataObject.GOODS_DETAIL_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
@@ -50,6 +54,9 @@ public class BroadBandDetailActivity extends BaseActivity {
                         String body = data.getString("mobile_body");
                         String evaluationCount = data.getString("evaluation_count");
                         String price = data.getString("goods_price");
+
+                        is_virtual = data.getString("is_virtual");
+                        is_fcode = data.getString("is_fcode");
 
                         aq.id(R.id.broadband_detail_name).text(name);
                         aq.id(R.id.broadband_detail_price).text("￥" + price);
@@ -67,5 +74,21 @@ public class BroadBandDetailActivity extends BaseActivity {
 
     public void showEvaluations() {
         GoodsUtil.showEvaluations(this, goods_id);
+    }
+
+    public void openNewBroadBand() {
+        Intent intent = new Intent(this, BroadbandOrderConfirmActivity.class);
+        intent.putExtra("cart_id", goods_id + "|" + 1);
+        intent.putExtra("ifcart", is_fcode);
+        startActivity(intent);
+        finish();
+    }
+
+    public void renewBroadBand() {
+        Intent intent = new Intent(this, BroadbandOrderConfirmActivity2.class);
+        intent.putExtra("cart_id", goods_id + "|" + 1);
+        intent.putExtra("ifcart", is_fcode);
+        startActivity(intent);
+        finish();
     }
 }

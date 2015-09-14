@@ -152,7 +152,37 @@
         <activity
             android:name=".activities.SuperRegionSelectActivity"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.CardDetailActivity"
+            android:screenOrientation="portrait" />
 
+        <activity
+            android:name=".activities.PhoneNumberActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.BroadbandOrderConfirmActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.BroadbandOrderConfirmActivity2"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.IdentifyActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.PhoneNumberConfirmActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ContractMachineDetailActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.ContractMachineConfirmActivity"
+            android:screenOrientation="portrait" />
 
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"

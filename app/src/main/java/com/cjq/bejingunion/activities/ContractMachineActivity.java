@@ -3,7 +3,9 @@ package com.cjq.bejingunion.activities;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.TypedValue;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -16,10 +18,12 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.adapter.BrandAdapter;
 import com.cjq.bejingunion.adapter.BroadBandBandItemAdapter;
 import com.cjq.bejingunion.adapter.MarketGridAdapter;
 import com.cjq.bejingunion.entities.BandItem;
 import com.cjq.bejingunion.entities.Goods4IndexList;
+import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.view.MyRefreshLayout;
 import com.cjq.bejingunion.view.RightSlideMenu;
 
@@ -35,7 +39,7 @@ import java.util.Map;
 /**
  * Created by CJQ on 2015/8/20.
  */
-public class ContractMachineActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, MyRefreshLayout.onLoadListener {
+public class ContractMachineActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, MyRefreshLayout.onLoadListener, AdapterView.OnItemClickListener {
 
     private AQuery aq;
     private RightSlideMenu menu;
@@ -47,6 +51,9 @@ public class ContractMachineActivity extends BaseActivity implements SwipeRefres
     private BaseAdapter adapter;
     private MyRefreshLayout refreshLayout;
     private ImageView[] sortViews;
+    private GridView contractMachineList;
+    private String band_id;
+    private List<BandItem> brandList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +66,12 @@ public class ContractMachineActivity extends BaseActivity implements SwipeRefres
         aq.id(R.id.contract_machine_draw_category_out).clicked(this, "drawMenuOutSwitch");
 
         menu = (RightSlideMenu) aq.id(R.id.contract_machine_menu_layout).getView();
-        GridView contractMachineList=aq.id(R.id.contract_machine_grid_list).getGridView();
+        contractMachineList=aq.id(R.id.contract_machine_grid_list).getGridView();
         adapter=new MarketGridAdapter(this,goodsList);
 
         refreshLayout = (MyRefreshLayout) aq.id(R.id.contract_machine_refresh).getView();
         contractMachineList.setAdapter(adapter);
+        contractMachineList.setOnItemClickListener(this);
 
         sortViews = new ImageView[4];
         sortViews[0]=aq.id(R.id.contract_machine_sort1).getImageView();
@@ -85,15 +93,41 @@ public class ContractMachineActivity extends BaseActivity implements SwipeRefres
 
     private void initCategory() {
         Map<String,String> params = new HashMap<>();
-        params.put("gc_id", String.valueOf(gc_id));
+//        params.put("gc_id", String.valueOf(gc_id));
 
-        // TODO: 2015/8/24 生成品牌菜单
+        //生成品牌菜单
 
-        aq.ajax(CommonDataObject.CATEGORY_LIST_FOR_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+        aq.ajax(CommonDataObject.BRAND_LIST, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
                 System.out.println(object.toString());
+                try {
+                    if(object.getInt("code")==200){
+                        JSONArray a = object.getJSONObject("datas").getJSONArray("brand_list");
+                        brandList = new ArrayList<BandItem>();
+                        for (int i=0;i<a.length();i++){
+
+                            JSONObject o = a.getJSONObject(i);
+                            BandItem bandItem =new BandItem(o.getString("brand_name"),o.getString("brand_id"));
+
+                            brandList.add(bandItem);
+                        }
+                        aq.id(R.id.contract_machine_menu_list).adapter(new BrandAdapter(brandList,ContractMachineActivity.this));
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
                 super.callback(url, object, status);
+            }
+        });
+
+        aq.id(R.id.contract_machine_menu_list).itemClicked(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                BandItem bandItem =  brandList.get(position);
+                band_id = bandItem.getPost();
+                menu.animateMenu();
+                onRefresh();
             }
         });
     }
@@ -106,6 +140,8 @@ public class ContractMachineActivity extends BaseActivity implements SwipeRefres
         params.put("curpage", String.valueOf(current_page));
         params.put("gc_id", String.valueOf(gc_id));
         params.put("order", up[activeSort - 1] ? "1" : "2");
+        params.put("keyword", aq.id(R.id.contract_machine_search_text).getText().toString());
+        params.put("brand_id", band_id);
 
         aq.ajax(CommonDataObject.GOODS_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
@@ -219,5 +255,17 @@ public class ContractMachineActivity extends BaseActivity implements SwipeRefres
         refreshLayout.setLoading(true);
         current_page++;
         requestData();
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        try{
+            Goods4IndexList goods4IndexList = goodsList.get(position);
+
+            GoodsUtil.showGoodsDetail(this,goods4IndexList.getGoods_id(), GoodsUtil.TYPE.CONTRACT_MACHINE);
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }

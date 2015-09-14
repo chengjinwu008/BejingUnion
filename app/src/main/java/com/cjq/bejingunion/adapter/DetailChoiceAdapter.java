@@ -55,7 +55,7 @@ public class DetailChoiceAdapter extends BaseAdapter {
         for (DetailChoice c : item.getDetailChoices().values()) {
             choices.add(c);
         }
-        aq.id(R.id.detail_item_type_name).text(item.getName());
+        aq.id(R.id.detail_item_type_name).text(item.getName()+":");
         if (item.getDetailChoices().size() > 0)
             aq.id(R.id.detail_item_chosen_name).text(item.getDetailChoices().get(Integer.parseInt(item.getChosenId())).getValue());
         else

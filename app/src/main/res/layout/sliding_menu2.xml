@@ -18,7 +18,7 @@
             android:padding="10dp">
 
             <EditText
-                android:id="@+id/market_search_text"
+                android:id="@+id/contract_machine_search_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/search_background"
@@ -182,6 +182,8 @@
             android:layout_height="match_parent">
 
             <ListView
+                android:divider="@android:color/transparent"
+                android:listSelector="@android:color/transparent"
                 android:id="@+id/contract_machine_menu_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
