@@ -17,12 +17,26 @@ public class NumericView extends FrameLayout {
     private int number = 0;
     private TextView num;
 
+    public interface OnNumberChangeListener {
+        public void change(int number);
+    }
+
+    private OnNumberChangeListener listener;
+
+    public OnNumberChangeListener getListener() {
+        return listener;
+    }
+
+    public void setListener(OnNumberChangeListener listener) {
+        this.listener = listener;
+    }
+
     public int getNumber() {
         return number;
     }
 
     public NumericView(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public NumericView(Context context, AttributeSet attrs) {
@@ -35,27 +49,38 @@ public class NumericView extends FrameLayout {
     }
 
     private void init(Context context) {
-        View view = LayoutInflater.from(context).inflate(R.layout.num_util,null,false);
+        View view = LayoutInflater.from(context).inflate(R.layout.num_util, null, false);
 
         AQuery aq = new AQuery(view);
 
-        aq.id(R.id.num_util_minus).clicked(this,"minus");
-        aq.id(R.id.num_util_plus).clicked(this,"plus");
+        aq.id(R.id.num_util_minus).clicked(this, "minus");
+        aq.id(R.id.num_util_plus).clicked(this, "plus");
 
         num = (TextView) view.findViewById(R.id.num_util_num);
 
         addView(view);
     }
 
-    public void minus(){
-        if(number>0){
+    public void minus() {
+        if (number > 0) {
             number--;
             num.setText(String.valueOf(number));
+            if (listener != null)
+                listener.change(number);
         }
     }
 
-    public void plus(){
+    public void plus() {
         number++;
         num.setText(String.valueOf(number));
+        if (listener != null)
+            listener.change(number);
+    }
+
+    public void setNumber(int number) {
+        if (number > 0) {
+            this.number = number;
+            num.setText(String.valueOf(number));
+        }
     }
 }

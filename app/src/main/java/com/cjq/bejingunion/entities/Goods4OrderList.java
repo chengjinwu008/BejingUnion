@@ -10,6 +10,24 @@ public class Goods4OrderList {
     int count;
     String price4One;
     boolean isStore;
+    String cart_id;
+    String goods_id;
+
+    public String getGoods_id() {
+        return goods_id;
+    }
+
+    public void setGoods_id(String goods_id) {
+        this.goods_id = goods_id;
+    }
+
+    public String getCart_id() {
+        return cart_id;
+    }
+
+    public void setCart_id(String cart_id) {
+        this.cart_id = cart_id;
+    }
 
     public boolean isStore() {
         return isStore;

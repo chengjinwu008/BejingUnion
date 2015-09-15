@@ -162,7 +162,7 @@ public class CardDetailActivity extends BaseActivity {
         intent.putExtra("phone_additional_id", identify_id);
         intent.putExtra("phone_id", numberId);
         intent.putExtra("phoneNumber",number);
-        intent.putExtra("ifcart", is_fcode);
+        intent.putExtra("ifcart", "0");
         startActivity(intent);
         finish();
     }

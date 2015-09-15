@@ -79,7 +79,7 @@ public class BroadBandDetailActivity extends BaseActivity {
     public void openNewBroadBand() {
         Intent intent = new Intent(this, BroadbandOrderConfirmActivity.class);
         intent.putExtra("cart_id", goods_id + "|" + 1);
-        intent.putExtra("ifcart", is_fcode);
+        intent.putExtra("ifcart", "0");
         startActivity(intent);
         finish();
     }

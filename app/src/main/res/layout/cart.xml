@@ -39,7 +39,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <com.cjq.bejingunion.view.SwipeListView
+        <ListView
+            android:listSelector="@android:color/transparent"
             android:id="@+id/cart_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
@@ -51,6 +52,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true">
             <CheckBox
+                android:visibility="gone"
                 android:layout_marginLeft="10dp"
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
@@ -58,6 +60,7 @@
                 android:button="@drawable/cart_check_box"
                 android:id="@+id/checkBox" />
             <TextView
+                android:visibility="gone"
                 android:layout_marginLeft="20dp"
                 android:textColor="#fff"
                 android:text="全选"
@@ -98,13 +101,13 @@
                         android:text="￥1999999.00"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/textView7" />
+                        android:id="@+id/cart_price" />
                 </LinearLayout>
 
                 <TextView
                     android:padding="3dp"
-                    android:text="(共几件，不含运费)"
-                    android:textSize="18sp"
+                    android:text="(长按商品进行删除)"
+                    android:textSize="14sp"
                     android:textColor="#fff"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -112,6 +115,7 @@
 
             </LinearLayout>
             <TextView
+                android:id="@+id/cart_pay"
                 android:background="@drawable/blue_5dp_corner"
                 android:textSize="18sp"
                 android:paddingBottom="5dp"

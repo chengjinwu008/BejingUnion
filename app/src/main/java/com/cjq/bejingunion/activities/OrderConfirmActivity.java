@@ -57,12 +57,13 @@ public class OrderConfirmActivity extends BaseActivity {
             Map<String, String> params = new HashMap<>();
             params.put("key", LoginUtil.getKey(this));
             params.put("cart_id", cart_id);
+            params.put("ifcart", ifcart);
 
             aq.ajax(CommonDataObject.CONFIRM_ORDER_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
                     try {
-//                        System.out.println(object.toString());
+                        System.out.println(object.toString());
                         if (200 == object.getInt("code")) {
                             JSONObject data = object.getJSONObject("datas");
                             freight_hash = data.getString("freight_hash");
@@ -110,10 +111,7 @@ public class OrderConfirmActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
 //        aq.ajax(CommonDataObject.ADDRESS_LIST_URL,)
-
     }
 
     public void chooseAddress() {

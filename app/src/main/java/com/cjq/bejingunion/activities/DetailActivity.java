@@ -18,10 +18,12 @@ import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Ad;
 import com.cjq.bejingunion.entities.DetailChoice;
 import com.cjq.bejingunion.entities.DetailItem;
+import com.cjq.bejingunion.event.EventCartListChange;
 import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.view.BannerView;
 import com.cjq.bejingunion.view.NumericView;
+import com.ypy.eventbus.EventBus;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -228,7 +230,7 @@ public class DetailActivity extends BaseActivity {
         if (i > 0) {
             Intent intent = new Intent(this, OrderConfirmActivity.class);
             intent.putExtra("cart_id", goods_id + "|" + i);
-            intent.putExtra("ifcart", is_fcode);
+            intent.putExtra("ifcart", "0");
             startActivity(intent);
             finish();
         }
@@ -249,6 +251,7 @@ public class DetailActivity extends BaseActivity {
                         String msg = null;
                         if (object.getInt("code") == 200) {
                             msg = object.getJSONObject("datas").getString("msg");
+                            EventBus.getDefault().post(new EventCartListChange());
                         } else {
                             msg = object.getJSONObject("datas").getString("error");
                         }

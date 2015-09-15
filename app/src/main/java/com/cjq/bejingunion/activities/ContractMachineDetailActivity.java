@@ -207,7 +207,7 @@ public class ContractMachineDetailActivity extends BaseActivity {
         intent.putExtra("phone_additional_id",identifyxid);
         intent.putExtra("phoneNumber",number);
         intent.putExtra("phone_id",numberId);
-        intent.putExtra("ifcart", is_fcode);
+        intent.putExtra("ifcart", "0");
         startActivity(intent);
         finish();
     }
