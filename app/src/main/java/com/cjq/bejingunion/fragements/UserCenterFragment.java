@@ -21,6 +21,7 @@ import com.cjq.bejingunion.activities.MyCollectionActivity;
 import com.cjq.bejingunion.activities.OrderListActivity;
 import com.cjq.bejingunion.activities.PayForPointsActivity;
 import com.cjq.bejingunion.activities.UserSettingActivity;
+import com.cjq.bejingunion.event.EventCartChange;
 import com.cjq.bejingunion.event.EventPayComplete;
 import com.cjq.bejingunion.event.EventPortraitChange;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -46,9 +47,14 @@ public class UserCenterFragment extends Fragment {
         aq.id(R.id.user_center_user_portrait).image(e.getImage(), true, false);
     }
 
-    public void onEventMainThread(EventPayComplete e){
+    public void onEventMainThread(EventPayComplete e) {
         requestOrderCount();
     }
+
+    public void onEventMainThread(EventCartChange e) {
+        requestOrderCount();
+    }
+
 
     @Nullable
     @Override

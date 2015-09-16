@@ -30,6 +30,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.event.EventLogout;
 import com.cjq.bejingunion.event.EventPortraitChange;
 import com.cjq.bejingunion.utils.FileUploader;
 import com.cjq.bejingunion.utils.LoginUtil;

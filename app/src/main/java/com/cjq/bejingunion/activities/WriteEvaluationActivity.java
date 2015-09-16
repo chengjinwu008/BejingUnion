@@ -37,6 +37,7 @@ public class WriteEvaluationActivity extends BaseActivity {
 
         aq = new AQuery(this);
         aq.id(R.id.do_write_evaluation).clicked(this,"doWriteEvaluation");
+        aq.id(R.id.write_evaluate_back).clicked(this,"finish");
         Map<String,String> params = new HashMap<>();
         try {
             params.put("goods_id",id);

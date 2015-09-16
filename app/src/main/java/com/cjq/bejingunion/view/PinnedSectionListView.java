@@ -470,7 +470,6 @@ public class PinnedSectionListView extends ListView {
 
             return true;
         }
-
         // call super if this was not our pinned view
         return super.dispatchTouchEvent(ev);
     }

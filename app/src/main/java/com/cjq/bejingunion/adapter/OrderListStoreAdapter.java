@@ -60,9 +60,9 @@ public class OrderListStoreAdapter extends BaseAdapter implements PinnedSectionL
 
         AQuery aq = new AQuery(convertView);
         if(goods4OrderList.isStore()){
-            aq.id(R.id.order_list_item_name1).text(goods4OrderList.getName());
+            aq.id(R.id.order_list_item_name1).text("").text(goods4OrderList.getName());
         }else{
-            aq.id(R.id.order_list_item_name).text(goods4OrderList.getName());
+            aq.id(R.id.order_list_item_name).text("").text(goods4OrderList.getName());
             aq.id(R.id.order_list_item_cover).image(goods4OrderList.getPortrait(), false, false);
             aq.id(R.id.order_list_item_description).text(goods4OrderList.getDescription());
             SpannableString count = new SpannableString("数量："+goods4OrderList.getCount());
@@ -81,8 +81,7 @@ public class OrderListStoreAdapter extends BaseAdapter implements PinnedSectionL
     @Override
     public int getItemViewType(int position) {
         Goods4OrderList goods4OrderList = store4Shows.get(position);
-
-        return goods4OrderList.isStore()?1:2;
+        return goods4OrderList.isStore()?0:1;
     }
 
     @Override
@@ -92,6 +91,6 @@ public class OrderListStoreAdapter extends BaseAdapter implements PinnedSectionL
 
     @Override
     public boolean isItemViewTypePinned(int viewType) {
-        return viewType==2;
+        return viewType==0;
     }
 }

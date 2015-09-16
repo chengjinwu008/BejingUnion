@@ -134,6 +134,8 @@ public class AddressFormActivity extends BaseActivity {
 
                             setResult(RESULT_OK, intent);
                             finish();
+                        }else{
+                            Toast.makeText(AddressFormActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

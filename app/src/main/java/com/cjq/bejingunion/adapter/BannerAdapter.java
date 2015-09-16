@@ -44,7 +44,7 @@ public class BannerAdapter extends PagerAdapter {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(0!=Integer.parseInt(ads.get(position).getId())){
+                if(ads.get(position).getId().equals("") || ads.get(position).getId().equals("0")){
                     GoodsUtil.showGoodsDetail(context,ads.get(position).getId());
                 }
             }

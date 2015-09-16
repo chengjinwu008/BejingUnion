@@ -126,7 +126,6 @@ public class OrderListActivity extends BaseActivity implements MyRefreshLayout.o
         curpage++;
         requestData();
         refreshLayout.setLoading(true);
-        requestData();
     }
 
     @Override

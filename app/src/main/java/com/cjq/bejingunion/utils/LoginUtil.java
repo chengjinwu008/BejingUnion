@@ -65,6 +65,7 @@ public class LoginUtil {
             editor.putBoolean("auto", false);
             editor.apply();
             EventBus.getDefault().post(new EventLogout());
+            EventBus.getDefault().post(new EventLoginIn());
         }
     }
 

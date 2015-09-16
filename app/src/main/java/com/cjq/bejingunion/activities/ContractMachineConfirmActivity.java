@@ -2,6 +2,7 @@ package com.cjq.bejingunion.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
@@ -78,13 +79,15 @@ public class ContractMachineConfirmActivity extends BaseActivity {
                         if (200 == object.getInt("code")) {
                             JSONObject data = object.getJSONObject("datas");
                             freight_hash = data.getString("freight_hash");
-                            JSONObject address_info = data.getJSONObject("address_info");
-                            Address4Show address4Show = new Address4Show(null,null,null,address_info.getString("address_id"));
-                            address4Show.setCityId(address_info.getString("city_id"));
-                            address4Show.setAreaId(address_info.getString("area_id"));
-                            requestHashCode(address4Show);
-                            String aa = address_info.getString("area_info") + " " + address_info.getString("address") + "\n" + address_info.getString("true_name") + " tel:" + address_info.getString("mob_phone");
-                            aq.id(R.id.contract_machine_confirm_choose_address).text(aa);
+                            if (data.has("address_info")) {
+                                JSONObject address_info = data.getJSONObject("address_info");
+                                Address4Show address4Show = new Address4Show(null, null, null, address_info.getString("address_id"));
+                                address4Show.setCityId(address_info.getString("city_id"));
+                                address4Show.setAreaId(address_info.getString("area_id"));
+                                requestHashCode(address4Show);
+                                String aa = address_info.getString("area_info") + " " + address_info.getString("address") + "\n" + address_info.getString("true_name") + " tel:" + address_info.getString("mob_phone");
+                                aq.id(R.id.contract_machine_confirm_choose_address).text(aa);
+                            }
                             vat_hash = data.getString("vat_hash");
                             JSONArray ga = data.getJSONArray("store_cart_list");
                             List<Goods4OrderList> store4ShowList = new ArrayList<Goods4OrderList>();
@@ -151,6 +154,9 @@ public class ContractMachineConfirmActivity extends BaseActivity {
                             JSONObject data = object.getJSONObject("datas");
                             PayUtil.pay(ContractMachineConfirmActivity.this, data.getString("goods_name"), data.getString("goods_description"), data.getString("api_pay_amount"), data.getString("pay_sn"), data.getString("order_type"));
                             finish();
+                        }
+                        else{
+                            Toast.makeText(ContractMachineConfirmActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

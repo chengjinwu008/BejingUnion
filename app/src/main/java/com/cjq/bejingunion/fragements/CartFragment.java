@@ -174,7 +174,7 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
         StringBuilder builder = new StringBuilder();
         for (Goods4OrderList l : goods4OrderLists) {
             price += Double.parseDouble(l.getPrice4One()) * l.getCount();
-            builder.append(l.getCart_id()).append("|").append(1).append(",");
+            builder.append(l.getCart_id()).append("|").append(l.getCount()).append(",");
         }
 
         String ss = null;
