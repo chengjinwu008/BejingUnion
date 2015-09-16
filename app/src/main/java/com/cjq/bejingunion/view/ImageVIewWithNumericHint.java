@@ -11,22 +11,22 @@ import android.widget.ImageView;
 /**
  * Created by CJQ on 2015/8/25.
  */
-public class ImageVIewWithNumericHint extends ImageView {
+public class ImageViewWithNumericHint extends ImageView {
 
-    private int number = 1;
+    private int number = 0;
     private Paint paint;
 
-    public ImageVIewWithNumericHint(Context context) {
+    public ImageViewWithNumericHint(Context context) {
         super(context);
         init();
     }
 
-    public ImageVIewWithNumericHint(Context context, AttributeSet attrs) {
+    public ImageViewWithNumericHint(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
     }
 
-    public ImageVIewWithNumericHint(Context context, AttributeSet attrs, int defStyleAttr) {
+    public ImageViewWithNumericHint(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init();
     }
@@ -44,19 +44,19 @@ public class ImageVIewWithNumericHint extends ImageView {
         super.onDraw(canvas);
         if (number > 0) {
             String showNumber = String.valueOf(number);
-            if(number>10){
-                showNumber = String.valueOf(9);
+            if(number>100){
+                showNumber = String.valueOf(99)+"+";
             }
             int width = getMeasuredWidth() - 10;
             int h = 10;
             paint.setColor(Color.RED);
             canvas.drawCircle(width, h, 10, paint);
             paint.setColor(Color.WHITE);
-            canvas.drawText(String.valueOf(number),width-2,h+4,paint);
+            canvas.drawText(showNumber,width-showNumber.length()*3,h+4,paint);
         }
     }
 
-    public void setNumber(int number) {
+    public void setNumber(Integer number) {
         this.number = number;
         invalidate();
     }

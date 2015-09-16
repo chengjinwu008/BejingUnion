@@ -20,6 +20,7 @@ import com.cjq.bejingunion.activities.OrderConfirmActivity;
 import com.cjq.bejingunion.adapter.CartListAdapter;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Goods4OrderList;
+import com.cjq.bejingunion.event.EventCartChange;
 import com.cjq.bejingunion.event.EventCartListChange;
 import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -45,6 +46,10 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
     private List<Goods4OrderList> goods4OrderLists;
 
     public void onEventMainThread(EventCartListChange e) {
+        requestData();
+    }
+    
+    public void onEventMainThread(EventCartChange e) {
         requestData();
     }
 

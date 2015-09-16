@@ -7,8 +7,9 @@
     >
 
     <ImageView
+        android:id="@+id/order_item_image"
         android:layout_width="80dp"
-        android:layout_height="80dp"
+        android:layout_height="60dp"
         android:src="@drawable/a14" />
 
     <RelativeLayout
@@ -18,7 +19,7 @@
 
         <TextView
             android:padding="3dp"
-            android:id="@+id/evaluation_item_title"
+            android:id="@+id/order_item_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="史克威尔官方公布了《最终幻想：零式HD》" />
@@ -28,24 +29,17 @@
             android:id="@+id/price4one"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/evaluation_item_title"
+            android:layout_below="@+id/order_item_name"
             android:text="单价：" />
 
         <TextView
+            android:id="@+id/order_item_price"
             android:padding="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/evaluation_item_title"
+            android:layout_below="@+id/order_item_name"
             android:layout_toRightOf="@+id/price4one"
             android:text="￥1420"
             android:textColor="#f00" />
-
-        <TextView
-            android:padding="3dp"
-            android:id="@+id/evaluation_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/price4one"
-            android:text="已有8888人评价了" />
     </RelativeLayout>
 </LinearLayout>

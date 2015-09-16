@@ -49,6 +49,13 @@ public class CommonDataObject {
     public static final String PAY_BY_POINTS_URL =MAIN_URL+ "/app/index.php?act=member_buy&op=pd_pay"; //积分支付
     public static final String BRAND_LIST =MAIN_URL+ "/app/index.php?act=member_brand&op=brand_list"; //品牌列表
     public static final String IDENTIFY_INFO =MAIN_URL+ "/app/index.php?act=phone&op=phone_additional_info"; //认证信息回显
+    public static final String ORDER_COUNT_URL =MAIN_URL+ "/app/index.php?act=member_order&op=order_count"; //订单数量
+    public static final String MSG_LIST_URL =MAIN_URL+ "/app/index.php?act=member_information&op=systemmsg";
+    public static final String MSG_DEL_URL =MAIN_URL+ "/app/index.php?act=member_information&op=dropbatchmsg";
+    public static final String EVALUATION_LIST =MAIN_URL+ "/app/index.php?act=member_order&op=goods_comment_list";
+    public static final String EVALUATION_INFO_URL =MAIN_URL+ "/app/index.php?act=member_order&op=goods_comment_info";
+    public static final String EVALUATION_ADD_URL =MAIN_URL+ "/app/index.php?act=member_order&op=goods_comment_add";
+    public static final String ORDER_LIST =MAIN_URL+ "/app/index.php?act=member_order&op=order_list";
 
     public static final String DETAIL_WAP=MAIN_URL+"/wap/tmpl/product_info.html";
     public static final String PAY_NOTIFY_URL=MAIN_URL+"/app/index.php?act=payment&op=notify";

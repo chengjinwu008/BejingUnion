@@ -6,6 +6,7 @@
     android:padding="10dp">
 
     <ImageView
+        android:id="@+id/evaluate_item_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:src="@drawable/a14" />
@@ -31,6 +32,7 @@
             android:text="单价：" />
 
         <TextView
+            android:id="@+id/evaluate_price"
             android:padding="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,6 +50,7 @@
             android:text="已有8888人评价了" />
 
         <TextView
+            android:id="@+id/evaluation_go_write_evaluation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/evaluation_count"

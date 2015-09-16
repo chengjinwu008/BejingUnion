@@ -1,37 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal" android:layout_width="match_parent"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/profile_image"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_margin="10dp"
-        android:src="@drawable/a3"
-        app:border_width="0dp"
-        app:border_color="#FF000000"/>
-    <RelativeLayout
+
+    <TextView
+        android:id="@+id/sliding_menu"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:background="#f00"
+        android:gravity="center"
+        android:tag="Bottom4"
+        android:text="删除"
+        android:textColor="#fff"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/sliding_content"
         android:layout_width="match_parent"
-        android:paddingLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:paddingRight="10dp"
-        android:layout_height="match_parent">
-        <TextView
-            android:paddingBottom="10dp"
-            android:id="@+id/msg_item_username"
-            android:text="系统消息"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:text="时间"
-            android:layout_alignParentRight="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:text="这里是内容！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！"
-            android:layout_below="@id/msg_item_username"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:tag="Hover">
+
+        <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/profile_image"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/a3"
+            app:border_color="#FF000000"
+            app:border_width="0dp" />
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
-</LinearLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <TextView
+                android:id="@+id/msg_item_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:text="系统消息" />
+
+            <TextView
+                android:id="@+id/msg_item_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:text="时间" />
+
+            <TextView
+                android:id="@+id/msg_item_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/msg_item_username"
+                android:text="这里是内容！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！" />
+        </RelativeLayout>
+    </LinearLayout>
+</com.daimajia.swipe.SwipeLayout>

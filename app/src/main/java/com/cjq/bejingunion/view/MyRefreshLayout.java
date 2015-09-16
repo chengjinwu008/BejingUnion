@@ -17,6 +17,11 @@ import com.cjq.bejingunion.R;
  */
 public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.OnScrollListener {
 
+    private float mXDown;
+    private float mLastX;
+    private boolean ss;
+    private boolean f=false;
+
     public void setOnLoadListener(onLoadListener mOnLoadListener) {
         this.mOnLoadListener = mOnLoadListener;
     }
@@ -70,11 +75,21 @@ public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.O
     public boolean dispatchTouchEvent(MotionEvent ev) {
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
+                mXDown =ev.getRawX();
+                mLastX =ev.getRawX();
                 mYDown = ev.getRawY();
                 mLastY = mYDown;
+                f=false;
                 break;
             case MotionEvent.ACTION_MOVE:
                 mLastY = ev.getRawY();
+                mLastX = ev.getRawX();
+//                if(!f){
+//                    ss = Math.abs(mLastX - mXDown) <= Math.abs(mLastY - mYDown);
+//                    f=true;
+//                }
+
+
                 break;
             case MotionEvent.ACTION_UP:
 //                if (canLoad()) {
@@ -115,13 +130,18 @@ public class MyRefreshLayout extends SwipeRefreshLayout implements AbsListView.O
     }
 
     @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return /*ss && */super.onInterceptTouchEvent(ev);
+    }
+
+    @Override
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
         if (canLoad()) {
             loadData();
         }
     }
 
-    public void setLoading(boolean loading) {
+    public void setLoading(Boolean loading) {
         this.isLoading = loading;
         if (isLoading) {
 //            mListView.addFooterView(mFooterView);

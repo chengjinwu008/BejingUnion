@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -13,7 +12,7 @@
         android:background="@color/title_bar">
 
         <ImageView
-            android:id="@+id/address_back"
+            android:id="@+id/msg_list_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -28,22 +27,29 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
-            android:src="@android:drawable/ic_menu_add" />
+            android:src="@android:drawable/ic_menu_add"
+            android:visibility="gone" />
 
         <TextView
-            android:id="@+id/address_title"
+            android:id="@+id/msg_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="收货地址"
+            android:text="系统消息(长按删除)"
             android:textColor="#fff"
             android:textSize="20sp" />
     </RelativeLayout>
 
-    <com.cjq.bejingunion.view.SwipeListView
-        android:choiceMode="none"
-        android:listSelector="@android:color/transparent"
-        android:id="@+id/address_list"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <com.cjq.bejingunion.view.MyRefreshLayout
+        android:id="@+id/msg_list_refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <com.cjq.bejingunion.view.AllListView
+            android:id="@+id/msg_list_list"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </com.cjq.bejingunion.view.MyRefreshLayout>
+
 </LinearLayout>

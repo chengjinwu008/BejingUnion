@@ -143,7 +143,8 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp">
 
-                        <com.cjq.bejingunion.view.ImageVIewWithNumericHint
+                        <com.cjq.bejingunion.view.ImageViewWithNumericHint
+                            android:id="@+id/user_center_n0"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginBottom="5dp"
@@ -152,7 +153,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="宽带" />
+                            android:text="待付款" />
                     </LinearLayout>
 
                     <FrameLayout
@@ -172,7 +173,8 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp">
 
-                        <com.cjq.bejingunion.view.ImageVIewWithNumericHint
+                        <com.cjq.bejingunion.view.ImageViewWithNumericHint
+                            android:id="@+id/user_center_n10"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginBottom="5dp"
@@ -181,7 +183,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="卡号" />
+                            android:text="待收货" />
                     </LinearLayout>
 
                     <FrameLayout
@@ -201,7 +203,8 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp">
 
-                        <com.cjq.bejingunion.view.ImageVIewWithNumericHint
+                        <com.cjq.bejingunion.view.ImageViewWithNumericHint
+                            android:id="@+id/user_center_n30"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginBottom="5dp"
@@ -210,7 +213,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="合约机" />
+                            android:text="已完成" />
                     </LinearLayout>
 
                     <FrameLayout
@@ -230,7 +233,8 @@
                         android:paddingBottom="10dp"
                         android:paddingTop="10dp">
 
-                        <com.cjq.bejingunion.view.ImageVIewWithNumericHint
+                        <com.cjq.bejingunion.view.ImageViewWithNumericHint
+                            android:id="@+id/user_center_n40"
                             android:layout_width="30dp"
                             android:layout_height="30dp"
                             android:layout_marginBottom="5dp"
@@ -239,7 +243,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="商城订单" />
+                            android:text="已取消" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -320,6 +324,7 @@
                     android:background="#cdcdcd" />
 
                 <LinearLayout
+                    android:id="@+id/user_center_jump_msg_list"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"

@@ -23,10 +23,12 @@ import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
+import com.cjq.bejingunion.event.EventCartChange;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.utils.PayResult;
 import com.cjq.bejingunion.utils.SignUtils;
 import com.unionpay.UPPayAssistEx;
+import com.ypy.eventbus.EventBus;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -127,7 +129,7 @@ public class PayActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_choose);
-
+        EventBus.getDefault().post(new EventCartChange());
         Intent intent = getIntent();
 
         name = intent.getStringExtra("name");

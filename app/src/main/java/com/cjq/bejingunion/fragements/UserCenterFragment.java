@@ -15,7 +15,10 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.activities.AddressListActivity;
 import com.cjq.bejingunion.activities.ChangePasswordActivity;
+import com.cjq.bejingunion.activities.EvaluationListActivity;
+import com.cjq.bejingunion.activities.MessageActivity;
 import com.cjq.bejingunion.activities.MyCollectionActivity;
+import com.cjq.bejingunion.activities.OrderListActivity;
 import com.cjq.bejingunion.activities.PayForPointsActivity;
 import com.cjq.bejingunion.activities.UserSettingActivity;
 import com.cjq.bejingunion.event.EventPortraitChange;
@@ -62,6 +65,12 @@ public class UserCenterFragment extends Fragment {
             aq.id(R.id.user_center_my_address).clicked(this, "jumpMyAddress");
             aq.id(R.id.user_center_change_password).clicked(this, "showChangePassword");
             aq.id(R.id.user_center_jump_pay_points).clicked(this, "jumpPayPoints");
+            aq.id(R.id.user_center_jump_msg_list).clicked(this, "jumpMsgList");
+            aq.id(R.id.user_center_jump_evaluation).clicked(this, "jumpEvaluationList");
+            aq.id(R.id.user_center_broadband_order_list).clicked(this, "jumpOrderListActivity");
+            aq.id(R.id.user_center_card_number_order_list).clicked(this, "jumpOrderListActivity2");
+            aq.id(R.id.user_center_contract_mobile_order_list).clicked(this, "jumpOrderListActivity3");
+            aq.id(R.id.user_center_market_order_list).clicked(this, "jumpOrderListActivity4");
 
             aq.ajax(CommonDataObject.USER_INFO_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
@@ -96,12 +105,80 @@ public class UserCenterFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        requestOrderCount();
+    }
+
+    public void jumpOrderListActivity() {
+        Intent intent = new Intent(getActivity(), OrderListActivity.class);
+
+        intent.putExtra("order_state", "10");
+
+        startActivity(intent);
+    }
+
+    public void jumpOrderListActivity2() {
+        Intent intent = new Intent(getActivity(), OrderListActivity.class);
+
+        intent.putExtra("order_state", "30");
+
+        startActivity(intent);
+    }
+
+    public void jumpOrderListActivity3() {
+        Intent intent = new Intent(getActivity(), OrderListActivity.class);
+
+        intent.putExtra("order_state", "40");
+
+        startActivity(intent);
+    }
+
+    public void jumpOrderListActivity4() {
+        Intent intent = new Intent(getActivity(), OrderListActivity.class);
+
+        intent.putExtra("order_state", "0");
+
+        startActivity(intent);
     }
 
     @Override
     public void onDestroyView() {
         EventBus.getDefault().unregister(this);
         super.onDestroyView();
+    }
+
+    private void requestOrderCount() {
+        try {
+            Map<String, String> params = new HashMap<>();
+            params.put("key", LoginUtil.getKey(getActivity()));
+
+            aq.ajax(CommonDataObject.ORDER_COUNT_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+                @Override
+                public void callback(String url, JSONObject object, AjaxStatus status) {
+
+                    try {
+                        if (200 == object.getInt("code")) {
+                            int n0 = object.getJSONObject("datas").getInt("0");
+                            int n10 = object.getJSONObject("datas").getInt("10");
+                            int n30 = object.getJSONObject("datas").getInt("30");
+                            int n40 = object.getJSONObject("datas").getInt("40");
+
+                            aq.id(R.id.user_center_n0).invoke("setNumber", new Class[]{Integer.class}, n10);
+                            aq.id(R.id.user_center_n10).invoke("setNumber", new Class[]{Integer.class}, n30);
+                            aq.id(R.id.user_center_n30).invoke("setNumber", new Class[]{Integer.class}, n40);
+                            aq.id(R.id.user_center_n40).invoke("setNumber", new Class[]{Integer.class}, n0);
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+
+                    super.callback(url, object, status);
+                }
+            });
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void showChangePassword() {
@@ -128,6 +205,16 @@ public class UserCenterFragment extends Fragment {
 
     public void jumpPayPoints() {
         Intent intent = new Intent(getActivity(), PayForPointsActivity.class);
+        startActivity(intent);
+    }
+
+    public void jumpEvaluationList() {
+        Intent intent = new Intent(getActivity(), EvaluationListActivity.class);
+        startActivity(intent);
+    }
+
+    public void jumpMsgList() {
+        Intent intent = new Intent(getActivity(), MessageActivity.class);
         startActivity(intent);
     }
 

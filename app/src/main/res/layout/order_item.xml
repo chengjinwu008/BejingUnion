@@ -3,6 +3,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
     <TextView
+        android:id="@+id/order_number"
         android:padding="10dp"
         android:text="订单编号：6546516516846131284"
         android:layout_width="match_parent"
@@ -13,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="1px"/>
     <com.cjq.bejingunion.view.AllListView
+        android:id="@+id/order_goods_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <RelativeLayout
@@ -31,7 +33,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="￥0.0"
-            android:id="@+id/textView2"
+            android:id="@+id/order_price"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/textView1"
             android:layout_toEndOf="@+id/textView1" />
@@ -44,10 +46,10 @@
             android:paddingBottom="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="详情"
+            android:text="取消订单"
             android:background="@drawable/border_white_box_5dp_corner"
             android:id="@+id/textView3"
-            android:layout_alignTop="@+id/textView2"
+            android:layout_alignTop="@+id/order_price"
             android:layout_alignParentRight="true"
             android:layout_alignParentEnd="true" />
 

@@ -185,6 +185,18 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".activities.MessageActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.EvaluationListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".activities.OrderListActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
             android:configChanges="orientation|keyboardHidden|navigation"
             android:exported="false"

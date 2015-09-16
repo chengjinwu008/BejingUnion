@@ -1,5 +1,6 @@
 package com.cjq.bejingunion.fragements;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.activities.MarketActivity;
 import com.cjq.bejingunion.adapter.Category1Adapter;
 import com.cjq.bejingunion.entities.Category4Show;
 
@@ -37,6 +39,7 @@ public class CategoryFragment extends Fragment implements AdapterView.OnItemClic
     private String id;
     private ListView list1;
     private GridView list2;
+    private List<Category4Show> category4ShowList;
 
     @Nullable
     @Override
@@ -47,6 +50,18 @@ public class CategoryFragment extends Fragment implements AdapterView.OnItemClic
         list1= aq.id(R.id.all_kinds_kinds_list).getListView();
         list2= aq.id(R.id.all_kinds_all_list).getGridView();
         list1.setOnItemClickListener(this);
+
+        list2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent intent = new Intent(getActivity(), MarketActivity.class);
+                intent.putExtra("brand_id",category4ShowList.get(position).getId());
+
+                startActivity(intent);
+            }
+        });
+
         Map<String,String> params = new HashMap<>();
         params.put("gc_id","4");
 
@@ -108,7 +123,7 @@ public class CategoryFragment extends Fragment implements AdapterView.OnItemClic
                     if (200 == object.getInt("code")) {
                         JSONArray a = object.getJSONObject("datas").getJSONArray("class_list");
 
-                        List<Category4Show> category4ShowList = new ArrayList<Category4Show>();
+                        category4ShowList = new ArrayList<Category4Show>();
                         for (int i = 0; i < a.length(); i++) {
                             JSONObject o = a.getJSONObject(i);
                             Category4Show category4Show = new Category4Show(o.getString("gc_name"), o.getString("gc_id"), false);
