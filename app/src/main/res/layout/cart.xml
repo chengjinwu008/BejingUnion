@@ -11,6 +11,7 @@
         android:background="@color/title_bar">
 
         <ImageView
+            android:visibility="gone"
             android:id="@+id/cart_back"
             android:layout_width="40dp"
             android:layout_height="40dp"

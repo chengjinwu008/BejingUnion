@@ -1,6 +1,7 @@
 package com.cjq.bejingunion.adapter;
 
 import android.content.Context;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +48,7 @@ public class OrderItemAdapter extends BaseAdapter  {
         AQuery aq = new AQuery(convertView);
         Goods4OrderList  g = goods4OrderListList.get(position);
 
-        aq.id(R.id.order_item_image).image(g.getPortrait(),false,true);
+        aq.id(R.id.order_item_image).image(g.getPortrait(),false,true, (int)TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,80,context.getResources().getDisplayMetrics()),R.drawable.nopic10);
         aq.id(R.id.order_item_name).text(g.getName());
         aq.id(R.id.order_item_price).text(g.getPrice4One());
 

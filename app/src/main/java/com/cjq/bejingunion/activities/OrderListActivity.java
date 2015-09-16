@@ -14,6 +14,7 @@ import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.OrderAdapter;
 import com.cjq.bejingunion.entities.Goods4OrderList;
 import com.cjq.bejingunion.entities.Order;
+import com.cjq.bejingunion.event.EventPayComplete;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.view.MyRefreshLayout;
 
@@ -37,6 +38,10 @@ public class OrderListActivity extends BaseActivity implements MyRefreshLayout.o
     private List<Order> orderList;
     private BaseAdapter adapter;
     private MyRefreshLayout refreshLayout;
+
+    public void onEventMainThread(EventPayComplete e){
+        onRefresh();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +84,7 @@ public class OrderListActivity extends BaseActivity implements MyRefreshLayout.o
                                 JSONObject o = a.getJSONObject(i);
                                 JSONArray aa = o.getJSONObject("order_list").getJSONArray("extend_order_goods");
 
-                                Order order = new Order(o.getString("pay_sn"), o.getString("pay_amount"), "10".equals(order_state), null);
+                                Order order = new Order(o.getString("pay_sn"), o.getString("pay_amount"),Integer.parseInt(order_state), null);
 
                                 List<Goods4OrderList> goods4OrderLists = new ArrayList<Goods4OrderList>();
                                 for (int j = 0; j < aa.length(); j++) {
@@ -92,6 +97,8 @@ public class OrderListActivity extends BaseActivity implements MyRefreshLayout.o
                                 if(!"".equals(o.getString("phone_number"))){
                                     order.setPhoneNumber(o.getString("phone_number"));
                                 }
+
+                                order.setOrder_id(o.getJSONObject("order_list").getString("order_id"));
 
                                 orderList.add(order);
                             }

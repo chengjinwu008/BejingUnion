@@ -47,7 +47,6 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
     private BaseAdapter adapter;
     private MyRefreshLayout refreshLayout;
     private ImageView[] sortViews;
-    private String brand_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +54,7 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         setContentView(R.layout.market);
         Intent intent = getIntent();
 
-        brand_id = intent.getStringExtra("brand_id");
+        gc_id = intent.getIntExtra("brand_id",4);
 
         aq = new AQuery(this);
 
@@ -148,7 +147,7 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         params.put("gc_id", String.valueOf(gc_id));
         params.put("order", up[activeSort-1] ? "1" : "2");
         params.put("keyword", aq.id(R.id.market_search_text).getText().toString());
-        params.put("brand_id",brand_id);
+//        params.put("brand_id",brand_id);
 
         aq.ajax(CommonDataObject.GOODS_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override

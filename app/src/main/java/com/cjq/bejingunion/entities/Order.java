@@ -11,7 +11,20 @@ public class Order {
     String price;
     String time;
     String phoneNumber;
-    boolean paied;
+    int paied;
+    String order_id;
+
+    public int getPaied() {
+        return paied;
+    }
+
+    public String getOrder_id() {
+        return order_id;
+    }
+
+    public void setOrder_id(String order_id) {
+        this.order_id = order_id;
+    }
 
     public String getPhoneNumber() {
         return phoneNumber;
@@ -31,7 +44,7 @@ public class Order {
 
     List<Goods4OrderList> goods4OrderListList;
 
-    public Order(String orderNum, String price, boolean paied, List<Goods4OrderList> goods4OrderListList) {
+    public Order(String orderNum, String price, int paied, List<Goods4OrderList> goods4OrderListList) {
         this.orderNum = orderNum;
         this.price = price;
         this.paied = paied;
@@ -54,11 +67,11 @@ public class Order {
         this.price = price;
     }
 
-    public boolean isPaied() {
+    public int isPaied() {
         return paied;
     }
 
-    public void setPaied(boolean paied) {
+    public void setPaied(int paied) {
         this.paied = paied;
     }
 

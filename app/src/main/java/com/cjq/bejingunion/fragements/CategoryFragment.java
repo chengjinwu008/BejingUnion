@@ -56,7 +56,7 @@ public class CategoryFragment extends Fragment implements AdapterView.OnItemClic
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 Intent intent = new Intent(getActivity(), MarketActivity.class);
-                intent.putExtra("brand_id",category4ShowList.get(position).getId());
+                intent.putExtra("brand_id",Integer.parseInt(category4ShowList.get(position).getId()));
 
                 startActivity(intent);
             }

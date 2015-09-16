@@ -1,5 +1,6 @@
 package com.cjq.bejingunion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.androidquery.AQuery;
@@ -28,6 +29,7 @@ import java.util.Map;
 public class EvaluationListActivity extends BaseActivity {
 
     private AQuery aq;
+    private ArrayList<Goods4IndexList> goods4IndexLists;
 
     public void onEventMainThread(EventEvaluationChange e){
         requestData();
@@ -41,7 +43,8 @@ public class EvaluationListActivity extends BaseActivity {
         aq = new AQuery(this);
 
         aq.id(R.id.common_list_title).text("待评论列表");
-        aq.id(R.id.common_list_back).clicked(this,"finish");
+        aq.id(R.id.common_list_back).clicked(this, "finish");
+        aq.id(R.id.evaluation_go_write_evaluation).clicked(this,"jumpWriteEvaluation");
         requestData();
     }
 
@@ -57,7 +60,7 @@ public class EvaluationListActivity extends BaseActivity {
 //                        System.out.println(object.toString());
                         if(200==object.getInt("code")){
                             JSONArray a = object.getJSONArray("datas");
-                            List<Goods4IndexList> goods4IndexLists = new ArrayList<Goods4IndexList>();
+                            goods4IndexLists = new ArrayList<Goods4IndexList>();
                             for(int i=0;i<a.length();i++){
                                 JSONObject o = a.getJSONObject(i);
 

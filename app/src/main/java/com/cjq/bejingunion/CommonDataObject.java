@@ -56,6 +56,7 @@ public class CommonDataObject {
     public static final String EVALUATION_INFO_URL =MAIN_URL+ "/app/index.php?act=member_order&op=goods_comment_info";
     public static final String EVALUATION_ADD_URL =MAIN_URL+ "/app/index.php?act=member_order&op=goods_comment_add";
     public static final String ORDER_LIST =MAIN_URL+ "/app/index.php?act=member_order&op=order_list";
+    public static final String ORDER_RECEIVE_CONFIRM =MAIN_URL+ "/app/index.php?act=member_order&op=order_receive";
 
     public static final String DETAIL_WAP=MAIN_URL+"/wap/tmpl/product_info.html";
     public static final String PAY_NOTIFY_URL=MAIN_URL+"/app/index.php?act=payment&op=notify";

@@ -1,23 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
+    android:paddingTop="5dp"
+    android:paddingBottom="5dp"
     android:layout_height="match_parent">
     <TextView
+        android:background="#fff"
         android:id="@+id/order_number"
         android:padding="10dp"
         android:text="订单编号：6546516516846131284"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-    <FrameLayout
+    <View
         android:layout_marginLeft="10dp"
         android:background="#bdbdbd"
         android:layout_width="match_parent"
         android:layout_height="1px"/>
     <com.cjq.bejingunion.view.AllListView
+        android:background="#fff"
         android:id="@+id/order_goods_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+
+    <TextView
+        android:background="#fff"
+        android:id="@+id/order_phone_number"
+        android:padding="10dp"
+        android:text="手机号码：6546516516846131284"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <RelativeLayout
+        android:background="#fff"
         android:padding="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -39,6 +53,7 @@
             android:layout_toEndOf="@+id/textView1" />
 
         <TextView
+            android:visibility="gone"
             android:textColor="#000"
             android:paddingLeft="16dp"
             android:paddingRight="16dp"
@@ -54,6 +69,7 @@
             android:layout_alignParentEnd="true" />
 
         <TextView
+            android:layout_alignParentRight="true"
             android:layout_marginRight="5dp"
             android:textColor="#fff"
             android:paddingLeft="16dp"
@@ -64,7 +80,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="去付款"
-            android:id="@+id/textView27"
+            android:id="@+id/order_item_pay"
+            android:layout_alignTop="@+id/textView3"
+            android:layout_toLeftOf="@+id/textView3"
+            android:layout_toStartOf="@+id/textView3" />
+
+        <TextView
+            android:visibility="gone"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="5dp"
+            android:textColor="#fff"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="@drawable/blue_5dp_corner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="确认收货"
+            android:id="@+id/order_item_confirm"
             android:layout_alignTop="@+id/textView3"
             android:layout_toLeftOf="@+id/textView3"
             android:layout_toStartOf="@+id/textView3" />

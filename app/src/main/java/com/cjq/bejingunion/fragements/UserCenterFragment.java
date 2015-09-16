@@ -21,6 +21,7 @@ import com.cjq.bejingunion.activities.MyCollectionActivity;
 import com.cjq.bejingunion.activities.OrderListActivity;
 import com.cjq.bejingunion.activities.PayForPointsActivity;
 import com.cjq.bejingunion.activities.UserSettingActivity;
+import com.cjq.bejingunion.event.EventPayComplete;
 import com.cjq.bejingunion.event.EventPortraitChange;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.ypy.eventbus.EventBus;
@@ -43,6 +44,10 @@ public class UserCenterFragment extends Fragment {
 
     public void onEventMainThread(EventPortraitChange e) {
         aq.id(R.id.user_center_user_portrait).image(e.getImage(), true, false);
+    }
+
+    public void onEventMainThread(EventPayComplete e){
+        requestOrderCount();
     }
 
     @Nullable
@@ -136,7 +141,7 @@ public class UserCenterFragment extends Fragment {
     public void jumpOrderListActivity4() {
         Intent intent = new Intent(getActivity(), OrderListActivity.class);
 
-        intent.putExtra("order_state", "0");
+        intent.putExtra("order_state", "20");
 
         startActivity(intent);
     }
@@ -158,7 +163,7 @@ public class UserCenterFragment extends Fragment {
 
                     try {
                         if (200 == object.getInt("code")) {
-                            int n0 = object.getJSONObject("datas").getInt("0");
+                            int n0 = object.getJSONObject("datas").getInt("20");
                             int n10 = object.getJSONObject("datas").getInt("10");
                             int n30 = object.getJSONObject("datas").getInt("30");
                             int n40 = object.getJSONObject("datas").getInt("40");

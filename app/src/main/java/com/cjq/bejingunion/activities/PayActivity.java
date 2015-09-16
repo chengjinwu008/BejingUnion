@@ -24,6 +24,7 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.event.EventCartChange;
+import com.cjq.bejingunion.event.EventPayComplete;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.utils.PayResult;
 import com.cjq.bejingunion.utils.SignUtils;
@@ -84,6 +85,7 @@ public class PayActivity extends BaseActivity {
                     if (TextUtils.equals(resultStatus, "9000")) {
                         Toast.makeText(PayActivity.this, "支付成功",
                                 Toast.LENGTH_SHORT).show();
+                        EventBus.getDefault().post(new EventPayComplete());
                         finish();
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
@@ -96,7 +98,6 @@ public class PayActivity extends BaseActivity {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
                             Toast.makeText(PayActivity.this, "支付失败",
                                     Toast.LENGTH_SHORT).show();
-            
                         }
                     }
                     break;
@@ -173,6 +174,7 @@ public class PayActivity extends BaseActivity {
                     try {
                         if(object.getInt("code")==200){
                             Toast.makeText(PayActivity.this,object.getJSONObject("datas").getString("msg"),Toast.LENGTH_SHORT).show();
+                            EventBus.getDefault().post(new EventPayComplete());
                             finish();
                         }else{
                             Toast.makeText(PayActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
@@ -203,6 +205,7 @@ public class PayActivity extends BaseActivity {
         String str = data.getExtras().getString("pay_result");
         if (str.equalsIgnoreCase("success")) {
             new WarningAlertDialog(this).changeText("支付成功").showCancel(false).show();
+            EventBus.getDefault().post(new EventPayComplete());
         } else if (str.equalsIgnoreCase("fail")) {
             new WarningAlertDialog(this).changeText("支付失败").showCancel(false).show();
         } else if (str.equalsIgnoreCase("cancel")) {

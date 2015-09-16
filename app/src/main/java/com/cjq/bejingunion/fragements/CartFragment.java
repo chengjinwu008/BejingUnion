@@ -22,6 +22,7 @@ import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Goods4OrderList;
 import com.cjq.bejingunion.event.EventCartChange;
 import com.cjq.bejingunion.event.EventCartListChange;
+import com.cjq.bejingunion.event.EventLoginIn;
 import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.ypy.eventbus.EventBus;
@@ -53,6 +54,10 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
         requestData();
     }
 
+    public void onEventMainThread(EventLoginIn e) {
+        requestData();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -62,12 +67,12 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
         aq.id(R.id.cart_list).getListView().setOnItemLongClickListener(this);
         aq.id(R.id.cart_pay).clicked(this, "pay");
 
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                requestData();
-            }
-        }, 2000);
+//        mHandler.postDelayed(new Runnable() {
+//            @Override
+//            public void run() {
+//                requestData();
+//            }
+//        }, 2000);
         return view;
     }
 
