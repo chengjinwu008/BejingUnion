@@ -86,7 +86,7 @@
 
     </LinearLayout>
     <EditText
-        android:singleLine="true"
+        android:singleLine="false"
         android:imeOptions="actionDone"
         android:id="@+id/broadband_order_confirm_more_info2"
         android:padding="10dp"

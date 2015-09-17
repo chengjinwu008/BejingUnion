@@ -73,6 +73,8 @@ public class BroadbandOrderConfirmActivity2 extends BaseActivity {
                             if (data.has("address_info")) {
                                 JSONObject address_info = data.getJSONObject("address_info");
                                 address4Show = new Address4Show(null, null, null, address_info.getString("address_id"));
+                                address4Show.setCityId(address_info.getString("city_id"));
+                                address4Show.setAreaId(address_info.getString("area_id"));
                                 String aa = address_info.getString("area_info") + " " + address_info.getString("address") + "\n" + address_info.getString("true_name") + " tel:" + address_info.getString("mob_phone");
 //                            aq.id(R.id.broadband_order_confirm_choose_address).text(aa);
                                 vat_hash = data.getString("vat_hash");

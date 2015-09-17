@@ -41,6 +41,7 @@ public class PhoneNumberActivity extends BaseActivity implements AdapterView.OnI
 
         aq = new AQuery(this);
         aq.id(R.id.phone_number_list_select_city).clicked(this, "selectCity");
+        aq.id(R.id.phone_number_back).clicked(this, "finish");
         aq.id(R.id.phone_number_list_list).itemClicked(this);
         requestList(0, 0);
     }
