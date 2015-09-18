@@ -66,6 +66,7 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
 
         if(activeSort != intent.getIntExtra("activeOrder",1)){
             changeArrow(intent.getIntExtra("activeOrder",1));
+
         }
 
         aq.id(R.id.market_search_text).getView().clearFocus();
@@ -159,7 +160,7 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
 
                         int size = goods_list.length();
                         if (size == 0) {
-                            Toast.makeText(MarketActivity.this, "没有下一页了", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MarketActivity.this, "没有更多的内容了", Toast.LENGTH_SHORT).show();
                             current_page--;
                             refreshLayout.setLoading(false);
                             refreshLayout.setRefreshing(false);

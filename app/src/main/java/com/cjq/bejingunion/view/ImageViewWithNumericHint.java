@@ -36,7 +36,7 @@ public class ImageViewWithNumericHint extends ImageView {
         paint.setColor(Color.RED);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
-        paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 8, getResources().getDisplayMetrics()));
+        paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
     }
 
     @Override
@@ -47,10 +47,12 @@ public class ImageViewWithNumericHint extends ImageView {
             if(number>100){
                 showNumber = String.valueOf(99)+"+";
             }
-            int width = getMeasuredWidth() - 10;
-            int h = 10;
+            int i=12;
+            int width = getMeasuredWidth() - i;
+            int h = i;
+
             paint.setColor(Color.RED);
-            canvas.drawCircle(width, h, 10, paint);
+            canvas.drawCircle(width, h, i, paint);
             paint.setColor(Color.WHITE);
             canvas.drawText(showNumber,width-showNumber.length()*3,h+4,paint);
         }

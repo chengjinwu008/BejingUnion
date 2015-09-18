@@ -1,5 +1,6 @@
 package com.cjq.bejingunion.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -50,8 +51,7 @@ public class ForgetPasswordActivity extends BaseActivity {
     }
 
     public void doSubmit(){
-        // TODO: 2015/8/20 找回密码等接口出来
-        String phone = aq.id(R.id.find_phone_number).getText().toString();
+        final String phone = aq.id(R.id.find_phone_number).getText().toString();
         String verify = aq.id(R.id.find_verify).getText().toString();
 
         Map<String,String> params = new HashMap<>();
@@ -63,10 +63,10 @@ public class ForgetPasswordActivity extends BaseActivity {
             public void callback(String url, JSONObject object, AjaxStatus status) {
                 try {
                     if(200==object.getInt("code")){
-                        //// TODO: 2015/8/21 成功，跳转页面修改
+                        Intent intent = new Intent(ForgetPasswordActivity.this,FindChangePasswordActivity.class);
+                        intent.putExtra("phoneNumber",phone);
+                        startActivity(intent);
                         finish();
-
-
                     }else{
                         Toast.makeText(ForgetPasswordActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
                     }
@@ -75,7 +75,6 @@ public class ForgetPasswordActivity extends BaseActivity {
                 super.callback(url, object, status);
             }
         });
-
     }
 
     public void getVerifyCode() {

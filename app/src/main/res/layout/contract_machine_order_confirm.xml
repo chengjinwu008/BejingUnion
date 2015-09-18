@@ -141,6 +141,7 @@
 </LinearLayout>
 
     <CheckBox
+        android:visibility="invisible"
         android:id="@+id/contract_machine_order_confirm_use_points"
         android:textSize="14sp"
         android:text="使用积分支付"

@@ -81,7 +81,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="时间" />
+                    android:text="销量" />
 
                 <ImageView
                     android:id="@+id/broadband_sort1"
@@ -137,7 +137,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="销量" />
+                    android:text="价格" />
 
                 <ImageView
                     android:id="@+id/broadband_sort3"
@@ -165,7 +165,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:padding="10dp"
-                    android:text="价格" />
+                    android:text="时间" />
 
                 <ImageView
                     android:id="@+id/broadband_sort4"

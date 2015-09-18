@@ -118,8 +118,8 @@ public class DetailActivity extends BaseActivity {
                         detail_banner.setAdapter(new BannerAdapter(DetailActivity.this, adList));
                         aq.id(R.id.detail_const_price).text(goods_info.getString("goods_price"));
                         aq.id(R.id.detail_const_2_detail).text(goods_info.getString("goods_storage"));
-                        NumericView numericView = (NumericView) aq.id(R.id.detail_bought_count).getView();
-                        numericView.plus();
+//                        NumericView numericView = (NumericView) aq.id(R.id.detail_bought_count).getView();
+//                        numericView.plus();
 
                         JSONArray spec_info = goods_info.getJSONArray("spec_info");
                         List<DetailItem> detailItems = new ArrayList<DetailItem>();

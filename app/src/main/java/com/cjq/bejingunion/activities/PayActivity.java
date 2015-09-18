@@ -192,7 +192,11 @@ public class PayActivity extends BaseActivity {
         }
     }
 
-    public void payByChinaBank(String tn) {
+    public void payByChinaBank() {
+
+        // TODO: 2015/9/17 请求tn
+        String tn="";
+
         UPPayAssistEx.startPayByJAR(this, com.unionpay.uppay.PayActivity.class, null, null, tn,
                 CHINA_BANK_UNION_MODE);
     }

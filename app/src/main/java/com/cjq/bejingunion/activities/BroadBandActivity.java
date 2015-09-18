@@ -159,7 +159,7 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
 
                         int size = goods_list.length();
                         if (size == 0) {
-                            Toast.makeText(BroadBandActivity.this, "没有下一页了", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(BroadBandActivity.this, "没有更多的内容了", Toast.LENGTH_SHORT).show();
                             currentPage--;
                             refreshLayout.setLoading(false);
                             refreshLayout.setRefreshing(false);
@@ -250,7 +250,7 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
         categoryNo = position;
         currentPage = 1;
         goodsList.clear();
-        adapter.notifyDataSetChanged();
+        BroadBandActivity.this.adapter.notifyDataSetChanged();
         refreshLayout.setRefreshing(true);
         adapter.changeChosen(position);
         adapter.notifyDataSetChanged();

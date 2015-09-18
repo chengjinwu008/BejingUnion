@@ -23,6 +23,7 @@ import com.cjq.bejingunion.entities.Goods4OrderList;
 import com.cjq.bejingunion.event.EventCartChange;
 import com.cjq.bejingunion.event.EventCartListChange;
 import com.cjq.bejingunion.event.EventLoginIn;
+import com.cjq.bejingunion.event.EventLogout;
 import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.ypy.eventbus.EventBus;
@@ -49,13 +50,21 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
     public void onEventMainThread(EventCartListChange e) {
         requestData();
     }
-    
+
     public void onEventMainThread(EventCartChange e) {
         requestData();
     }
 
     public void onEventMainThread(EventLoginIn e) {
         requestData();
+    }
+
+    public void onEventMainThread(EventLogout e) {
+
+        goods4OrderLists = null;
+        aq.id(R.id.cart_price).text(String.valueOf(0.00));
+
+        aq.id(R.id.cart_list).adapter(new CartListAdapter(getActivity(), new ArrayList<Goods4OrderList>(), CartFragment.this));
     }
 
     @Nullable

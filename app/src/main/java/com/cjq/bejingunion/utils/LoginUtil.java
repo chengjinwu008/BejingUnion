@@ -40,6 +40,8 @@ public class LoginUtil {
                     if ("200".equals(object.getString("code"))) {
                         if (remember) {
                             saveLoginInfo(context,object.getJSONObject("datas").getString("username"),object.getJSONObject("datas").getString("key"),password);
+                        }else{
+                            saveLoginInfoNotAuto(context, object.getJSONObject("datas").getString("username"), object.getJSONObject("datas").getString("key"), password);
                         }
                         EventBus.getDefault().post(new EventLoginIn());
                     } else {
@@ -51,6 +53,16 @@ public class LoginUtil {
                 }
             }
         });
+    }
+
+    private static void saveLoginInfoNotAuto(Context context, String username, String key, String password) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("key", key);
+        editor.putString("password", password);
+        editor.putString("user_name", username);
+        editor.putBoolean("auto", false);
+        editor.apply();
     }
 
     public static void logout(Context context) {
@@ -65,7 +77,7 @@ public class LoginUtil {
             editor.putBoolean("auto", false);
             editor.apply();
             EventBus.getDefault().post(new EventLogout());
-            EventBus.getDefault().post(new EventLoginIn());
+//            EventBus.getDefault().post(new EventLoginIn());
         }
     }
 
@@ -129,9 +141,9 @@ public class LoginUtil {
     public static void saveLoginInfo(Context context, String username, String key, String password) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("user_name", username);
         editor.putString("key", key);
         editor.putString("password", password);
+        editor.putString("user_name", username);
         editor.putBoolean("auto", true);
         editor.apply();
     }
@@ -142,5 +154,17 @@ public class LoginUtil {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.remove("key");
         editor.apply();
+    }
+
+    public static void firstOpenSet(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("first", false);
+        editor.apply();
+    }
+
+    public static boolean firstOpen(Context context){
+        SharedPreferences sharedPreferences = context.getSharedPreferences("user", Activity.MODE_PRIVATE);
+        return sharedPreferences.getBoolean("first",true);
     }
 }

@@ -146,10 +146,11 @@
 
                         <com.cjq.bejingunion.view.ImageViewWithNumericHint
                             android:id="@+id/user_center_n0"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="5dp"
                             android:layout_marginBottom="5dp"
-                            android:src="@drawable/blue_point" />
+                            android:src="@drawable/purse" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -176,10 +177,11 @@
 
                         <com.cjq.bejingunion.view.ImageViewWithNumericHint
                             android:id="@+id/user_center_n10"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="5dp"
                             android:layout_marginBottom="5dp"
-                            android:src="@drawable/blue_point" />
+                            android:src="@drawable/daishouhuo" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -206,10 +208,11 @@
 
                         <com.cjq.bejingunion.view.ImageViewWithNumericHint
                             android:id="@+id/user_center_n30"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="5dp"
                             android:layout_marginBottom="5dp"
-                            android:src="@drawable/blue_point" />
+                            android:src="@drawable/yiwancheng" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -236,10 +239,11 @@
 
                         <com.cjq.bejingunion.view.ImageViewWithNumericHint
                             android:id="@+id/user_center_n40"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:padding="5dp"
                             android:layout_marginBottom="5dp"
-                            android:src="@drawable/blue_point" />
+                            android:src="@drawable/daifahuo" />
 
                         <TextView
                             android:layout_width="wrap_content"

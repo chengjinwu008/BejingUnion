@@ -54,6 +54,7 @@ public class OrderConfirmActivity extends BaseActivity {
         aq = new AQuery(this);
         aq.id(R.id.order_confirm_choose_address).clicked(this, "chooseAddress");
         aq.id(R.id.order_confirm_submit).clicked(this, "submit");
+        aq.id(R.id.order_confirm_back).clicked(this, "finish");
         try {
             Map<String, String> params = new HashMap<>();
             params.put("key", LoginUtil.getKey(this));

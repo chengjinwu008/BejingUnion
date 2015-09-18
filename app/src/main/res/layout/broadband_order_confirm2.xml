@@ -97,6 +97,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp" />
     <CheckBox
+        android:visibility="invisible"
         android:id="@+id/broadband_order_confirm_use_points2"
         android:textSize="14sp"
         android:text="使用积分支付"

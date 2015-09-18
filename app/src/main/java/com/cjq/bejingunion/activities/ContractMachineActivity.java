@@ -153,7 +153,7 @@ public class ContractMachineActivity extends BaseActivity implements SwipeRefres
 
                         int size = goods_list.length();
                         if (size == 0) {
-                            Toast.makeText(ContractMachineActivity.this, "没有下一页了", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ContractMachineActivity.this, "没有更多的内容了", Toast.LENGTH_SHORT).show();
                             current_page--;
                             refreshLayout.setLoading(false);
                             refreshLayout.setRefreshing(false);

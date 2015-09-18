@@ -2,6 +2,7 @@ package com.cjq.bejingunion.view;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,6 +20,7 @@ public class MyTitleLinearLayout extends LinearLayout {
     private int top;
     private int top2;
     private int top3;
+    private int ttop;
 
     public MyTitleLinearLayout(Context context) {
         this(context, null);
@@ -41,6 +43,7 @@ public class MyTitleLinearLayout extends LinearLayout {
             topTitle = getChildAt(1);
             content = getChildAt(2);
             bottom = getBottom();
+            ttop= getTop();
 
             top = (int) topContent.getY();
             top2 = (int) topTitle.getY();
@@ -115,9 +118,17 @@ public class MyTitleLinearLayout extends LinearLayout {
 //        content.layout(x, y + top + topTitle.getHeight(), content.getWidth(), bottom);
 
         content.setX(x);
+
+
         content.setY(y+top3);
 
-        int height = bottom-(y+top3);
+        int height;
+        if(y!=0){
+            height = (int) (bottom-content.getY()-(y+top3));
+        }else{
+            height = (int) (bottom-content.getY()-(y));
+        }
+
 
         LayoutParams params = (LayoutParams) content.getLayoutParams();
         params.height = height;

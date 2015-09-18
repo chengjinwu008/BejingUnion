@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:id="@+id/background"
+    android:background="#f00"
+    android:gravity="center_horizontal|bottom"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:background="@drawable/blue_5dp_corner"
+        android:layout_marginBottom="70dp"
+        android:padding="10dp"
+        android:text="进入应用"
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

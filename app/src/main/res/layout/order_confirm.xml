@@ -9,7 +9,7 @@
         android:background="@color/title_bar">
 
         <ImageView
-            android:id="@+id/activities_back"
+            android:id="@+id/order_confirm_back"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -63,6 +63,7 @@
             android:layout_weight="1"
             android:layout_height="wrap_content" />
         <CheckBox
+            android:visibility="invisible"
             android:id="@+id/order_confirm_use_points"
             android:textSize="14sp"
             android:text="使用积分支付"

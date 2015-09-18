@@ -104,6 +104,8 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
                             intent.putExtra("id", id);
                             setResult(RESULT_OK, intent);
                             finish();
+                        }else{
+                            Toast.makeText(IdentifyActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

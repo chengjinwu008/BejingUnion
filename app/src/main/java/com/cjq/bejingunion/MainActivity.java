@@ -1,25 +1,15 @@
 package com.cjq.bejingunion;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AlertDialog;
-import android.util.Log;
 import android.util.Pair;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.androidquery.AQuery;
 import com.baidu.android.pushservice.PushConstants;
 import com.baidu.android.pushservice.PushManager;
-import com.cjq.bejingunion.activities.SuperRegionSelectActivity;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.event.EventShutDown;
 import com.cjq.bejingunion.fragements.CartFragment;
@@ -28,7 +18,6 @@ import com.cjq.bejingunion.fragements.IndexFragment;
 import com.cjq.bejingunion.fragements.UserCenterFragmentMain;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.view.FragmentView;
-import com.cjq.bejingunion.view.ImageSelectorView;
 import com.ypy.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -41,7 +30,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        if(LoginUtil.isAutoLogin(this)){
+        if (LoginUtil.isAutoLogin(this)) {
             LoginUtil.autoLogin(this);
         }
         if (savedInstanceState == null)
@@ -61,15 +50,25 @@ public class MainActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if (savedInstanceState == null) {
-            Intent intent = new Intent(this, WelcomeActivity.class);
+
+        //loading
+//        if (savedInstanceState == null) {
+//            Intent intent = new Intent(this, WelcomeActivity.class);
+//            startActivity(intent);
+//        }
+
+        //leading
+
+        if (LoginUtil.firstOpen(this)) {
+            Intent intent = new Intent(this, LeadingActivity.class);
             startActivity(intent);
+            LoginUtil.firstOpenSet(this);
         }
     }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_DOWN && keyCode==KeyEvent.KEYCODE_BACK){
+        if (event.getAction() == MotionEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
 //            new AlertDialog.Builder(this).setMessage("确定要离开吗？").setPositiveButton("退出", new DialogInterface.OnClickListener() {
 //                @Override
 //                public void onClick(DialogInterface dialog, int which) {

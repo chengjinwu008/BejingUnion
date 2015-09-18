@@ -14,7 +14,7 @@ import com.cjq.bejingunion.R;
  * Created by CJQ on 2015/8/13.
  */
 public class NumericView extends FrameLayout {
-    private int number = 0;
+    private int number = 1;
     private TextView num;
 
     public interface OnNumberChangeListener {
@@ -62,7 +62,7 @@ public class NumericView extends FrameLayout {
     }
 
     public void minus() {
-        if (number > 0) {
+        if (number > 1) {
             number--;
             num.setText(String.valueOf(number));
             if (listener != null)

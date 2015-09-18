@@ -130,7 +130,7 @@
                         android:layout_height="wrap_content"
                         android:layout_toRightOf="@+id/imageViewPoint"
                         android:padding="5dp"
-                        android:text="促销活动" />
+                        android:text="新品推荐" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -246,6 +246,7 @@
     </com.cjq.bejingunion.view.MyScrollView>
 
     <LinearLayout
+        android:visibility="invisible"
         android:onClick="clickNothing"
         android:id="@+id/index_title_bar"
         android:layout_width="match_parent"
