@@ -127,6 +127,7 @@ public class ContractMachineConfirmActivity extends BaseActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
+            finish();
         }
     }
 

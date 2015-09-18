@@ -125,6 +125,7 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
+            finish();
         }
 
         requestIdentifyInfo(phone_additional_id);

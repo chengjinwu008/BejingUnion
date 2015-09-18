@@ -120,6 +120,7 @@ public class BroadbandOrderConfirmActivity2 extends BaseActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
+            finish();
         }
     }
 

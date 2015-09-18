@@ -114,6 +114,7 @@ public class OrderConfirmActivity extends BaseActivity {
 
         } catch (Exception e) {
             e.printStackTrace();
+            finish();
         }
 //        aq.ajax(CommonDataObject.ADDRESS_LIST_URL,)
     }
