@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
@@ -131,7 +132,7 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-        new WarningAlertDialog(getActivity()).changeText("确定要删除改商品吗").onOKClick(new Runnable() {
+        new WarningAlertDialog(getActivity()).changeText("确定要删除该商品吗").onOKClick(new Runnable() {
             @Override
             public void run() {
                 Map<String, String> params = new HashMap<String, String>();
@@ -144,7 +145,9 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
                             try {
                                 if (200 == object.getInt("code")) {
                                     Toast.makeText(getActivity(), object.getJSONObject("datas").getString("msg"), Toast.LENGTH_SHORT).show();
-                                    goods4OrderLists.remove(position);
+//                                    goods4OrderLists.remove(position);
+//                                    ((BaseAdapter)aq.id(R.id.cart_list).getListView().getAdapter()).notifyDataSetChanged();
+                                    requestData();
                                 } else {
                                     Toast.makeText(getActivity(), object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
                                 }

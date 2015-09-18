@@ -109,7 +109,7 @@ public class UserSettingActivity extends BaseActivity implements View.OnFocusCha
                             is_agent = member_info.getInt("is_agent");
                             is_apply_agent = member_info.getInt("is_apply_agent");
 
-                            aq.id(R.id.user_setting_showing_nick_name).text(nickName);
+                            aq.id(R.id.user_setting_showing_nick_name).text(nickName.equals("")?mobile:nickName);
                             aq.id(R.id.user_center_setting_portrait).image(avator, true, false);
                             aq.id(R.id.user_setting_edit_nickname).text(nickName);
                             aq.id(R.id.user_setting_username).text(member_info.getString("user_name"));

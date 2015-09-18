@@ -155,7 +155,7 @@ public class PayActivity extends BaseActivity {
         aq.id(R.id.pay_show_money).text(format.format(Double.valueOf(price)));
 
         aq.id(R.id.pay_by_alipay).clicked(this, "pay");
-        aq.id(R.id.pay_by_china_bank).clicked(this, "payByChinaBank");
+//        aq.id(R.id.pay_by_china_bank).clicked(this, "payByChinaBank");
         aq.id(R.id.pay_by_points).clicked(this, "payByPoints");
         aq.id(R.id.pay_choose_back).clicked(this, "finish");
     }

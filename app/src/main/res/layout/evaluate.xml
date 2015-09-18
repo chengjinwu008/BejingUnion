@@ -30,7 +30,7 @@
             android:layout_marginRight="10dp"
             android:scaleType="centerCrop"
             android:src="@drawable/penwrite"
-            android:visibility="visible"
+            android:visibility="gone"
             />
 
         <TextView
