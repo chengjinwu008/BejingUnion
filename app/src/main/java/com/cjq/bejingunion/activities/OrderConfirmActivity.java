@@ -104,6 +104,9 @@ public class OrderConfirmActivity extends BaseActivity {
                             aq.id(R.id.order_confirm_price).text(format.format(price));
 
                             aq.id(R.id.order_confirm_goods_list).adapter(new OrderListStoreAdapter(OrderConfirmActivity.this, store4ShowList));
+                        }else{
+                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

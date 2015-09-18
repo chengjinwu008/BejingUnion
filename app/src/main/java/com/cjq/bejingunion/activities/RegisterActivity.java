@@ -49,7 +49,7 @@ public class RegisterActivity extends BaseActivity {
         aq.id(R.id.sign_up_back).clicked(this, "closeUp");
         String s = "我已阅读并同意《用户协议》";
         SpannableString string = new SpannableString(s);
-        URLSpan span = new URLSpan("http://www.baidu.com");
+        URLSpan span = new URLSpan(CommonDataObject.IDENTIFY_NOTIFY3);
         string.setSpan(span, 7, 13, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         aq.id(R.id.sign_up_agree).text(string).getCheckBox().setMovementMethod(LinkMovementMethod.getInstance());
         aq.id(R.id.find_get_verify).clicked(this, "getVerifyCode");

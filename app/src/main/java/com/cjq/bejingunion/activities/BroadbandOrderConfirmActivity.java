@@ -108,6 +108,9 @@ public class BroadbandOrderConfirmActivity extends BaseActivity {
                             aq .id(R.id.broadband_order_confirm_one_price).text("￥"+goods4OrderList.getPrice4One());
                             aq .id(R.id.broadband_order_confirm_name).text(goods4OrderList.getName());
 //                            goods4OrderList.getDescription();
+                        }else{
+                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

@@ -62,4 +62,5 @@ public class CommonDataObject {
     public static final String PAY_NOTIFY_URL=MAIN_URL+"/app/index.php?act=payment&op=notify";
     public static final String IDENTIFY_NOTIFY1=MAIN_URL+"/app/index.php?act=goods&op=news_info&article_id=42";
     public static final String IDENTIFY_NOTIFY2=MAIN_URL+"/app/index.php?act=goods&op=news_info&article_id=43";
+    public static final String IDENTIFY_NOTIFY3=MAIN_URL+"/app/index.php?act=goods&op=news_info&article_id=44";
 }

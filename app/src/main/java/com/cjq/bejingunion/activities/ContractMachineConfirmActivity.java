@@ -117,6 +117,9 @@ public class ContractMachineConfirmActivity extends BaseActivity {
                             aq.id(R.id.contract_machine_order_confirm_image).image(goods.getPortrait(),false,true);
                             aq.id(R.id.contract_machine_order_confirm_name).text(goods.getName());
                             aq.id(R.id.contract_machine_order_confirm_one_price).text("￥"+goods.getPrice4One());
+                        }else{
+                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

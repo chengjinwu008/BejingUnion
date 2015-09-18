@@ -214,6 +214,7 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
                         }
                         int ww = (int) (TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, width, getResources().getDisplayMetrics()) * bandItems.size());
                         gridView.setAdapter(new BroadBandBandItemAdapter(bandItems, BroadBandActivity.this));
+                        ((BroadBandBandItemAdapter)gridView.getAdapter()).changeChosen(0);
                         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ww, ViewGroup.LayoutParams.MATCH_PARENT);
 
                         params.topMargin = 10;

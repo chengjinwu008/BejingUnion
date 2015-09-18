@@ -115,6 +115,9 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
                             aq.id(R.id.phone_number_order_confirm_image).image(goods4OrderList.getPortrait(), false, true);
                             aq.id(R.id.phone_number_order_confirm_name).text(goods4OrderList.getName());
                             aq.id(R.id.phone_number_order_confirm_one_price).text("￥" + goods4OrderList.getPrice4One());
+                        }else{
+                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            finish();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

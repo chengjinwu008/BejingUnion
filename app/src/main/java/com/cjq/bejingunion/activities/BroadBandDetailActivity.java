@@ -60,7 +60,7 @@ public class BroadBandDetailActivity extends BaseActivity {
 
                         aq.id(R.id.broadband_detail_name).text(name);
                         aq.id(R.id.broadband_detail_price).text("￥" + price);
-                        aq.id(R.id.broadband_detail_v).text(v + "M");
+                        aq.id(R.id.broadband_detail_v).text(v);
                         aq.id(R.id.broadband_detail_body).text(body);
                         aq.id(R.id.broadband_detail_evaluation_count).text("已有" + evaluationCount + "人评论");
                     }
