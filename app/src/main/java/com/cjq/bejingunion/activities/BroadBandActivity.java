@@ -20,6 +20,7 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.BroadBandBandItemAdapter;
 import com.cjq.bejingunion.adapter.BroadBandGridAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.entities.BandItem;
 import com.cjq.bejingunion.entities.Goods4IndexList;
 import com.cjq.bejingunion.utils.GoodsUtil;
@@ -159,7 +160,8 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
 
                         int size = goods_list.length();
                         if (size == 0) {
-                            Toast.makeText(BroadBandActivity.this, "没有更多的内容了", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(BroadBandActivity.this, "没有更多的内容了", Toast.LENGTH_SHORT).show();
+                            MyToast.showText(BroadBandActivity.this, "没有更多的内容了", R.drawable.a2);
                             currentPage--;
                             refreshLayout.setLoading(false);
                             refreshLayout.setRefreshing(false);
@@ -181,7 +183,8 @@ public class BroadBandActivity extends BaseActivity implements AdapterView.OnIte
                         adapter.notifyDataSetChanged();
                         refreshLayout.setLoading(false);
                         refreshLayout.setRefreshing(false);
-                        Toast.makeText(BroadBandActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(BroadBandActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                        MyToast.showText(BroadBandActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

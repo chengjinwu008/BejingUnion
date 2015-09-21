@@ -11,6 +11,7 @@ import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.OrderListStoreAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.entities.Address4Show;
 import com.cjq.bejingunion.entities.Goods4OrderList;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -116,7 +117,7 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
                             aq.id(R.id.phone_number_order_confirm_name).text(goods4OrderList.getName());
                             aq.id(R.id.phone_number_order_confirm_one_price).text("￥" + goods4OrderList.getPrice4One());
                         }else{
-                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(PhoneNumberConfirmActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                             finish();
                         }
                     } catch (JSONException e) {
@@ -159,7 +160,8 @@ public class PhoneNumberConfirmActivity extends BaseActivity {
                             PayUtil.pay(PhoneNumberConfirmActivity.this, data.getString("goods_name"), data.getString("goods_description"), data.getString("api_pay_amount"), data.getString("pay_sn"), data.getString("order_type"));
                             finish();
                         }else{
-                            Toast.makeText(PhoneNumberConfirmActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(PhoneNumberConfirmActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(PhoneNumberConfirmActivity.this, object.getJSONObject("datas").getString("error"),R.drawable.a2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

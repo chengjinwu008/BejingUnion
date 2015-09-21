@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.androidquery.AQuery;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 
@@ -160,7 +161,8 @@ public class ImageSelectorView extends LinearLayout{
 
     public void addImage(final String path){
         if(images.contains(path)){
-            Toast.makeText(getContext(),"不要添加重复的图片，谢谢！",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(getContext(),"不要添加重复的图片，谢谢！",Toast.LENGTH_SHORT).show();
+            MyToast.showText(context, "不要添加重复的图片，谢谢！", R.drawable.a2);
         }else{
             images.add(path);
 

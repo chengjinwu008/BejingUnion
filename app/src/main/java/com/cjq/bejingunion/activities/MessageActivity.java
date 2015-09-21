@@ -14,6 +14,7 @@ import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.MsgAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Evaluation;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -132,10 +133,12 @@ public class MessageActivity extends BaseActivity implements MyRefreshLayout.onL
                 public void callback(String url, JSONObject object, AjaxStatus status) {
                     try {
                         if (200 == object.getInt("code")) {
-                            Toast.makeText(MessageActivity.this, object.getJSONObject("datas").getString("msg"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MessageActivity.this, object.getJSONObject("datas").getString("msg"), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(MessageActivity.this, object.getJSONObject("datas").getString("msg"), R.drawable.gou);
                             evaluationList.remove(i);
+                            adapter.notifyDataSetChanged();
                         } else {
-                            Toast.makeText(MessageActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(MessageActivity.this, object.getJSONObject("datas").getString("error"),R.drawable.a2);
                         }
                     } catch (JSONException e1) {
                         e1.printStackTrace();

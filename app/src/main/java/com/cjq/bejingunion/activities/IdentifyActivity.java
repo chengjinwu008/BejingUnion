@@ -18,6 +18,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.utils.FileUploader;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.view.ImageSelectorView;
@@ -73,7 +74,8 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
 
     public void submit() {
         if(!aq.id(R.id.identify_check_box).isChecked()){
-            Toast.makeText(this,"不同意入网协议吗？",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this,"不同意入网协议吗？",Toast.LENGTH_SHORT).show();
+            MyToast.showText(this, "不同意入网协议吗？", R.drawable.a2);
             return;
         }
 
@@ -105,7 +107,8 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
                             setResult(RESULT_OK, intent);
                             finish();
                         }else{
-                            Toast.makeText(IdentifyActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(IdentifyActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(IdentifyActivity.this,object.getJSONObject("datas").getString("error"), R.drawable.a2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

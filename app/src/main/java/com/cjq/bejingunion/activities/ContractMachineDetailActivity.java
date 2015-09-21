@@ -14,6 +14,7 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.BannerAdapter;
 import com.cjq.bejingunion.adapter.DetailChoiceAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.entities.Ad;
 import com.cjq.bejingunion.entities.CardNumber;
 import com.cjq.bejingunion.entities.DetailChoice;
@@ -226,9 +227,11 @@ public class ContractMachineDetailActivity extends BaseActivity {
                             //添加收藏成功
                             collectionCount++;
                             collectCountText.setText("(" + collectionCount + ")");
-                            Toast.makeText(ContractMachineDetailActivity.this, getString(R.string.add_to_collection_succeed), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ContractMachineDetailActivity.this, getString(R.string.add_to_collection_succeed), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(ContractMachineDetailActivity.this, getString(R.string.add_to_collection_succeed));
                         } else {
-                            Toast.makeText(ContractMachineDetailActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ContractMachineDetailActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(ContractMachineDetailActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -253,7 +256,8 @@ public class ContractMachineDetailActivity extends BaseActivity {
 
     public void payImmediately() {
         if (numberId == null || "".equals(numberId)) {
-            Toast.makeText(this, "不选号码怎么帮您购买卡号呢？", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "不选号码怎么帮您购买卡号呢？", Toast.LENGTH_SHORT).show();
+            MyToast.showText(ContractMachineDetailActivity.this, "不选号码怎么帮您购买卡号呢？", R.drawable.a2);
             return;
         }
         DetailItem item = null;

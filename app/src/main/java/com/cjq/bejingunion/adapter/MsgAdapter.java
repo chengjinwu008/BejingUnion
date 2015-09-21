@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
@@ -26,13 +27,12 @@ import java.util.Map;
 /**
  * Created by CJQ on 2015/9/15.
  */
-public class MsgAdapter extends SwipeListAdapter {
+public class MsgAdapter extends BaseAdapter {
 
     List<Evaluation> evaluationList;
     Context context;
 
     public MsgAdapter(Context context, List<Evaluation> evaluationList) {
-        super(context);
         this.context = context;
         this.evaluationList = evaluationList;
     }
@@ -48,19 +48,20 @@ public class MsgAdapter extends SwipeListAdapter {
     }
 
     @Override
+    public long getItemId(int position) {
+        return 0;
+    }
+
+    @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.msg_item, parent, false);
         }
-        SwipeLayout swipeLayout = (SwipeLayout) convertView;
-        swipeLayout.setShowMode(SwipeLayout.ShowMode.PullOut);
 
         final Evaluation e = evaluationList.get(position);
         final AQuery a = new AQuery(convertView);
         a.id(R.id.msg_item_username).text(e.getUsername());
         a.id(R.id.msg_item_content).text(e.getContent());
-
-        swipeLayout.addDrag(SwipeLayout.DragEdge.Right, a.id(R.id.sliding_menu).getView());
 
         DateFormat dateFormat = DateFormat.getDateTimeInstance();
 

@@ -14,6 +14,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.utils.FileUploader;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.view.ImageSelectorView;
@@ -83,7 +84,8 @@ public class PartnerFormActivity extends BaseActivity implements View.OnClickLis
                             setResult(RESULT_OK);
                             finish();
                         }else{
-                            Toast.makeText(PartnerFormActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(PartnerFormActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(PartnerFormActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

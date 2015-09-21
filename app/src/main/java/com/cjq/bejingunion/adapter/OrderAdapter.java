@@ -12,6 +12,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.entities.Order;
 import com.cjq.bejingunion.event.EventPayComplete;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -102,10 +103,10 @@ public class OrderAdapter extends BaseAdapter {
                             public void callback(String url, JSONObject object, AjaxStatus status) {
                                 try {
                                     if(200==object.getInt("code")){
-                                        Toast.makeText(context,object.getJSONObject("datas").getString("msg"),Toast.LENGTH_SHORT).show();
+                                        MyToast.showText(context, object.getJSONObject("datas").getString("msg"));
                                         EventBus.getDefault().post(new EventPayComplete());
                                     }else{
-                                        Toast.makeText(context,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                                        MyToast.showText(context, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();

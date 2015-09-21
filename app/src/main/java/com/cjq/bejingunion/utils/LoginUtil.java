@@ -10,7 +10,9 @@ import com.androidquery.AQuery;
 import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.CommonDataObject;
+import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.activities.LoginActivity;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.event.EventLoginIn;
 import com.cjq.bejingunion.event.EventLogout;
 import com.ypy.eventbus.EventBus;
@@ -45,7 +47,8 @@ public class LoginUtil {
                         }
                         EventBus.getDefault().post(new EventLoginIn());
                     } else {
-                        Toast.makeText(context, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(context, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                        MyToast.showText(context, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                     }
                     super.callback(url, object, status);
                 } catch (JSONException e) {

@@ -14,6 +14,7 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.BannerAdapter;
 import com.cjq.bejingunion.adapter.DetailChoiceAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Ad;
 import com.cjq.bejingunion.entities.DetailChoice;
@@ -200,9 +201,11 @@ public class DetailActivity extends BaseActivity {
                             //添加收藏成功
                             collectionCount++;
                             collectCountText.setText("(" + collectionCount + ")");
-                            Toast.makeText(DetailActivity.this, getString(R.string.add_to_collection_succeed), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(DetailActivity.this, getString(R.string.add_to_collection_succeed), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(DetailActivity.this,R.string.add_to_collection_succeed);
                         } else {
-                            Toast.makeText(DetailActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(DetailActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(DetailActivity.this, object.getJSONObject("datas").getString("error"),R.drawable.a2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -252,10 +255,12 @@ public class DetailActivity extends BaseActivity {
                         if (object.getInt("code") == 200) {
                             msg = object.getJSONObject("datas").getString("msg");
                             EventBus.getDefault().post(new EventCartListChange());
+                            MyToast.showText(DetailActivity.this,msg);
                         } else {
                             msg = object.getJSONObject("datas").getString("error");
+                            MyToast.showText(DetailActivity.this,msg,R.drawable.a2);
                         }
-                        new WarningAlertDialog(DetailActivity.this).changeText(msg).showCancel(false);
+//                        new WarningAlertDialog(DetailActivity.this).changeText(msg).showCancel(false);
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }

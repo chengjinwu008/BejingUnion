@@ -10,6 +10,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.entities.Address4Show;
 import com.cjq.bejingunion.entities.Goods4OrderList;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -109,7 +110,8 @@ public class BroadbandOrderConfirmActivity extends BaseActivity {
                             aq .id(R.id.broadband_order_confirm_name).text(goods4OrderList.getName());
 //                            goods4OrderList.getDescription();
                         }else{
-                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(BroadbandOrderConfirmActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                             finish();
                         }
                     } catch (JSONException e) {
@@ -148,7 +150,7 @@ public class BroadbandOrderConfirmActivity extends BaseActivity {
                             PayUtil.pay(BroadbandOrderConfirmActivity.this, data.getString("goods_name"), data.getString("goods_description"), data.getString("api_pay_amount"), data.getString("pay_sn"), data.getString("order_type"));
                             finish();
                         }else{
-                            Toast.makeText(BroadbandOrderConfirmActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(BroadbandOrderConfirmActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

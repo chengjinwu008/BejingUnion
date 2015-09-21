@@ -11,6 +11,7 @@ import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.OrderListStoreAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.entities.Address4Show;
 import com.cjq.bejingunion.entities.Goods4OrderList;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -105,7 +106,8 @@ public class OrderConfirmActivity extends BaseActivity {
 
                             aq.id(R.id.order_confirm_goods_list).adapter(new OrderListStoreAdapter(OrderConfirmActivity.this, store4ShowList));
                         }else{
-                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(OrderConfirmActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                             finish();
                         }
                     } catch (JSONException e) {
@@ -151,7 +153,8 @@ public class OrderConfirmActivity extends BaseActivity {
                             PayUtil.pay(OrderConfirmActivity.this, data.getString("goods_name"), data.getString("goods_description"), data.getString("api_pay_amount"), data.getString("pay_sn"), data.getString("order_type"));
                             finish();
                         }else{
-                            Toast.makeText(OrderConfirmActivity.this,object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(OrderConfirmActivity.this,object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(OrderConfirmActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

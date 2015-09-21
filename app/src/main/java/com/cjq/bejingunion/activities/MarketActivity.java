@@ -20,6 +20,7 @@ import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.MarketGridAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.entities.Goods4IndexList;
 import com.cjq.bejingunion.utils.GoodsUtil;
 import com.cjq.bejingunion.view.MyRefreshLayout;
@@ -160,7 +161,8 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
 
                         int size = goods_list.length();
                         if (size == 0) {
-                            Toast.makeText(MarketActivity.this, "没有更多的内容了", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(MarketActivity.this, "没有更多的内容了", Toast.LENGTH_SHORT).show();
+                            MyToast.showText(MarketActivity.this, "没有更多的内容了", R.drawable.a2);
                             current_page--;
                             refreshLayout.setLoading(false);
                             refreshLayout.setRefreshing(false);
@@ -182,7 +184,8 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
                         adapter.notifyDataSetChanged();
                         refreshLayout.setLoading(false);
                         refreshLayout.setRefreshing(false);
-                        Toast.makeText(MarketActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(MarketActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                        MyToast.showText(MarketActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();

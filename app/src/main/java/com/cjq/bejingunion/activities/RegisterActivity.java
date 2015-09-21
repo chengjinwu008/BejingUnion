@@ -16,6 +16,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.event.EventLoginIn;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.ypy.eventbus.EventBus;
@@ -62,7 +63,9 @@ public class RegisterActivity extends BaseActivity {
     public void getVerifyCode() {
         String phone = aq.id(R.id.sign_up_mobile_phone_number).getText().toString();
         if ("".equals(phone)) {
-            Toast.makeText(this, "没有输入手机号，怎么获取短信验证码呢？", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "没有输入手机号，怎么获取短信验证码呢？", Toast.LENGTH_SHORT).show();
+            MyToast.showText(RegisterActivity.this, "没有输入手机号，怎么获取短信验证码呢？", R.drawable.a2);
+
         } else {
 
             verify.setBackgroundColor(getResources().getColor(R.color.fake));
@@ -78,7 +81,8 @@ public class RegisterActivity extends BaseActivity {
                     try {
                         if ("200".equals(object.getString("code"))) {
                             //接收发送请求成功，即将发送验证码
-                            Toast.makeText(RegisterActivity.this, "短信验证码发送成功，请注意接收", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RegisterActivity.this, "短信验证码发送成功，请注意接收", Toast.LENGTH_SHORT).show();
+                            MyToast.showText(RegisterActivity.this, "短信验证码发送成功，请注意接收");
                             timer.execute(new Runnable() {
                                 @Override
                                 public void run() {
@@ -112,7 +116,7 @@ public class RegisterActivity extends BaseActivity {
                                 }
                             });
                         } else {
-                            Toast.makeText(RegisterActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(RegisterActivity.this, object.getJSONObject("datas").getString("error"),R.drawable.a2);
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
@@ -144,13 +148,17 @@ public class RegisterActivity extends BaseActivity {
         String verify = aq.id(R.id.sign_up_verify).getText().toString();
 
         if ("".equals(username)) {
-            Toast.makeText(RegisterActivity.this, "手机号不能为空", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this, "手机号不能为空", Toast.LENGTH_SHORT).show();
+            MyToast.showText(RegisterActivity.this, "手机号不能为空", R.drawable.a2);
         } else if ("".equals(password)) {
-            Toast.makeText(RegisterActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this, "密码不能为空", Toast.LENGTH_SHORT).show();
+            MyToast.showText(RegisterActivity.this, "密码不能为空", R.drawable.a2);
         } else if ("".equals(verify)) {
-            Toast.makeText(RegisterActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this, "验证码不能为空", Toast.LENGTH_SHORT).show();
+            MyToast.showText(RegisterActivity.this, "验证码不能为空", R.drawable.a2);
         } else if (!aq.id(R.id.sign_up_agree).isChecked()) {
-            Toast.makeText(RegisterActivity.this, "请阅读并同意注册协议", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(RegisterActivity.this, "请阅读并同意注册协议", Toast.LENGTH_SHORT).show();
+            MyToast.showText(RegisterActivity.this, "请阅读并同意注册协议", R.drawable.a2);
         } else {
             Map<String, String> params = new HashMap<>();
             params.put("username", username);
@@ -169,7 +177,8 @@ public class RegisterActivity extends BaseActivity {
                             EventBus.getDefault().post(new EventLoginIn());
                             finish();
                         }else{
-                            Toast.makeText(RegisterActivity.this,object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RegisterActivity.this,object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(RegisterActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

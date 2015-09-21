@@ -10,6 +10,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -55,10 +56,12 @@ public class FindChangePasswordActivity extends BaseActivity{
                     System.out.println(object.toString());
                     try {
                         if(200==object.getInt("code")){
-                            Toast.makeText(FindChangePasswordActivity.this,object.getJSONObject("datas").getString("msg"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(FindChangePasswordActivity.this,object.getJSONObject("datas").getString("msg"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(FindChangePasswordActivity.this,object.getJSONObject("datas").getString("msg"));
                             finish();
                         }else{
-                            Toast.makeText(FindChangePasswordActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(FindChangePasswordActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(FindChangePasswordActivity.this,object.getJSONObject("datas").getString("error"),R.drawable.a2);
                         }
                         super.callback(url, object, status);
                     } catch (JSONException e) {
@@ -67,7 +70,8 @@ public class FindChangePasswordActivity extends BaseActivity{
                 }
             });
         }else{
-            Toast.makeText(FindChangePasswordActivity.this,"两次输入的密码不一致",Toast.LENGTH_SHORT).show();
+//            Toast.makeText(FindChangePasswordActivity.this,"两次输入的密码不一致",Toast.LENGTH_SHORT).show();
+            MyToast.showText(FindChangePasswordActivity.this,"两次输入的密码不一致", R.drawable.a2);
         }
     }
 

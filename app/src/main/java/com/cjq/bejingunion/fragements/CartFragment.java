@@ -19,6 +19,7 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.activities.OrderConfirmActivity;
 import com.cjq.bejingunion.adapter.CartListAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Goods4OrderList;
 import com.cjq.bejingunion.event.EventCartChange;
@@ -144,12 +145,13 @@ public class CartFragment extends Fragment implements AdapterView.OnItemLongClic
                         public void callback(String url, JSONObject object, AjaxStatus status) {
                             try {
                                 if (200 == object.getInt("code")) {
-                                    Toast.makeText(getActivity(), object.getJSONObject("datas").getString("msg"), Toast.LENGTH_SHORT).show();
+                                    MyToast.showText(getActivity(), object.getJSONObject("datas").getString("msg"));
 //                                    goods4OrderLists.remove(position);
 //                                    ((BaseAdapter)aq.id(R.id.cart_list).getListView().getAdapter()).notifyDataSetChanged();
                                     requestData();
                                 } else {
-                                    Toast.makeText(getActivity(), object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(getActivity(), object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                                    MyToast.showText(getActivity(), object.getJSONObject("datas").getString("error"),R.drawable.a2);
                                 }
                             } catch (JSONException e) {
                                 e.printStackTrace();

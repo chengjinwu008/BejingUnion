@@ -13,6 +13,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,7 +69,8 @@ public class ForgetPasswordActivity extends BaseActivity {
                         startActivity(intent);
                         finish();
                     }else{
-                        Toast.makeText(ForgetPasswordActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(ForgetPasswordActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                        MyToast.showText(ForgetPasswordActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                     }
                 } catch (JSONException e) {
                 }
@@ -80,7 +82,8 @@ public class ForgetPasswordActivity extends BaseActivity {
     public void getVerifyCode() {
         String phone = aq.id(R.id.find_phone_number).getText().toString();
         if ("".equals(phone)) {
-            Toast.makeText(this, "没有输入手机号，怎么获取短信验证码呢？", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "没有输入手机号，怎么获取短信验证码呢？", Toast.LENGTH_SHORT).show();
+            MyToast.showText(ForgetPasswordActivity.this, "没有输入手机号，怎么获取短信验证码呢？", R.drawable.a2);
         } else {
             verify.setBackgroundColor(getResources().getColor(R.color.fake));
             verify.setEnabled(false);
@@ -95,7 +98,8 @@ public class ForgetPasswordActivity extends BaseActivity {
                     try {
                         if ("200".equals(object.getString("code"))) {
                             //接收发送请求成功，即将发送验证码
-                            Toast.makeText(ForgetPasswordActivity.this, "短信验证码发送成功，请注意接收", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ForgetPasswordActivity.this, "短信验证码发送成功，请注意接收", Toast.LENGTH_SHORT).show();
+                            MyToast.showText(ForgetPasswordActivity.this, "短信验证码发送成功，请注意接收");
                             timer.execute(new Runnable() {
                                 @Override
                                 public void run() {
@@ -129,7 +133,8 @@ public class ForgetPasswordActivity extends BaseActivity {
                                 }
                             });
                         } else {
-                            Toast.makeText(ForgetPasswordActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ForgetPasswordActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(ForgetPasswordActivity.this, object.getJSONObject("datas").getString("error"),R.drawable.a2);
                             mHandler.post(new Runnable() {
                                 @Override
                                 public void run() {

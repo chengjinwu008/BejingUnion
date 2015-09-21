@@ -11,6 +11,7 @@ import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.OrderListStoreAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.entities.Address4Show;
 import com.cjq.bejingunion.entities.Goods4OrderList;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -118,7 +119,8 @@ public class ContractMachineConfirmActivity extends BaseActivity {
                             aq.id(R.id.contract_machine_order_confirm_name).text(goods.getName());
                             aq.id(R.id.contract_machine_order_confirm_one_price).text("￥"+goods.getPrice4One());
                         }else{
-                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(ContractMachineConfirmActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                             finish();
                         }
                     } catch (JSONException e) {
@@ -160,7 +162,8 @@ public class ContractMachineConfirmActivity extends BaseActivity {
                             finish();
                         }
                         else{
-                            Toast.makeText(ContractMachineConfirmActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ContractMachineConfirmActivity.this, object.getJSONObject("datas").getString("error"), Toast.LENGTH_SHORT).show();
+                            MyToast.showText(ContractMachineConfirmActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

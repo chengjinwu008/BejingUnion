@@ -30,6 +30,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.event.EventLogout;
 import com.cjq.bejingunion.event.EventPortraitChange;
 import com.cjq.bejingunion.utils.FileUploader;
@@ -294,11 +295,13 @@ public class UserSettingActivity extends BaseActivity implements View.OnFocusCha
                     try {
                         if(200==object.getInt("code"))
                         {
-                            Toast.makeText(UserSettingActivity.this,object.getJSONObject("datas").getString("msg"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(UserSettingActivity.this,object.getJSONObject("datas").getString("msg"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(UserSettingActivity.this,object.getJSONObject("datas").getString("msg"));
                             changed=false;
                             aq.id(R.id.user_setting_commit).gone();
                         }else{
-                            Toast.makeText(UserSettingActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(UserSettingActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(UserSettingActivity.this, object.getJSONObject("datas").getString("error"),R.drawable.a2);
                         }
                         super.callback(url, object, status);
                     } catch (JSONException e1) {
@@ -488,7 +491,8 @@ public class UserSettingActivity extends BaseActivity implements View.OnFocusCha
             if(resultCode==RESULT_OK){
                 aq.id(R.id.user_setting_become_partner_text).text("代理商申请中……").textColor(Color.parseColor("#BDBDBD"));
                 aq.id(R.id.user_setting_become_partner).clicked(this, null);
-                Toast.makeText(this,"代理商申请已经提交，请耐心等待审核结果",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "代理商申请已经提交，请耐心等待审核结果", Toast.LENGTH_SHORT).show();
+                MyToast.showText(this, "代理商申请已经提交，请耐心等待审核结果");
             }
         }
         super.onActivityResult(requestCode, resultCode, data);

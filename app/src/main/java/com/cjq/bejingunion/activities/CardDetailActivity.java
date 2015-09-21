@@ -14,6 +14,7 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.BannerAdapter;
 import com.cjq.bejingunion.adapter.DetailChoiceAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Ad;
 import com.cjq.bejingunion.entities.CardNumber;
@@ -169,7 +170,8 @@ public class CardDetailActivity extends BaseActivity {
 
     public void payImmediately() {
         if (numberId == null || "".equals(numberId)) {
-            Toast.makeText(this, "不选号码怎么帮您购买卡号呢？", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "不选号码怎么帮您购买卡号呢？", Toast.LENGTH_SHORT).show();
+            MyToast.showText(this, "不选号码怎么帮您购买卡号呢？", R.drawable.a2);
             return;
         }
         DetailItem detailItem = (DetailItem) adapter.getItem(0);

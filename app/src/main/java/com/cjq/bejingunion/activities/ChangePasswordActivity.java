@@ -10,6 +10,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.utils.LoginUtil;
 
 import org.json.JSONException;
@@ -52,7 +53,8 @@ public class ChangePasswordActivity extends BaseActivity {
 
         if(LoginUtil.getPassword(this).equals(op)){
             if("".equals(p.trim())){
-                Toast.makeText(this, R.string.empty_password_is_not_allowed,Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, R.string.empty_password_is_not_allowed,Toast.LENGTH_SHORT).show();
+                MyToast.showText(this, R.string.empty_password_is_not_allowed, R.drawable.a2);
             }else{
                 if(p.trim().equals(rp.trim())){
 
@@ -76,12 +78,14 @@ public class ChangePasswordActivity extends BaseActivity {
                         }
                     });
                 }else{
-                    Toast.makeText(this, R.string.p_not_equals_to_rp,Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(this, R.string.p_not_equals_to_rp,Toast.LENGTH_SHORT).show();
+                    MyToast.showText(this, R.string.p_not_equals_to_rp, R.drawable.a2);
                 }
             }
 
         }else{
-            Toast.makeText(this, R.string.wrong_origin_password,Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.wrong_origin_password,Toast.LENGTH_SHORT).show();
+            MyToast.showText(this, R.string.wrong_origin_password, R.drawable.a2);
         }
     }
 }

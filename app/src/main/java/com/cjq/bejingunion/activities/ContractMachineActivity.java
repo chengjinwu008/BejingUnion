@@ -21,6 +21,7 @@ import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.BrandAdapter;
 import com.cjq.bejingunion.adapter.BroadBandBandItemAdapter;
 import com.cjq.bejingunion.adapter.MarketGridAdapter;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.entities.BandItem;
 import com.cjq.bejingunion.entities.Goods4IndexList;
 import com.cjq.bejingunion.utils.GoodsUtil;
@@ -153,7 +154,8 @@ public class ContractMachineActivity extends BaseActivity implements SwipeRefres
 
                         int size = goods_list.length();
                         if (size == 0) {
-                            Toast.makeText(ContractMachineActivity.this, "没有更多的内容了", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ContractMachineActivity.this, "没有更多的内容了", Toast.LENGTH_SHORT).show();
+                            MyToast.showText(ContractMachineActivity.this, "没有更多的内容了", R.drawable.a2);
                             current_page--;
                             refreshLayout.setLoading(false);
                             refreshLayout.setRefreshing(false);

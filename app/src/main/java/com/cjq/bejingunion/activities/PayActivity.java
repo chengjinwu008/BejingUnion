@@ -22,6 +22,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.event.EventCartChange;
 import com.cjq.bejingunion.event.EventPayComplete;
@@ -83,28 +84,32 @@ public class PayActivity extends BaseActivity {
 
                     // 判断resultStatus 为“9000”则代表支付成功，具体状态码代表含义可参考接口文档
                     if (TextUtils.equals(resultStatus, "9000")) {
-                        Toast.makeText(PayActivity.this, "支付成功",
-                                Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(PayActivity.this, "支付成功",
+//                                Toast.LENGTH_SHORT).show();
+                        MyToast.showText(PayActivity.this, "支付成功");
                         EventBus.getDefault().post(new EventPayComplete());
                         finish();
                     } else {
                         // 判断resultStatus 为非“9000”则代表可能支付失败
                         // “8000”代表支付结果因为支付渠道原因或者系统原因还在等待支付结果确认，最终交易是否成功以服务端异步通知为准（小概率状态）
                         if (TextUtils.equals(resultStatus, "8000")) {
-                            Toast.makeText(PayActivity.this, "支付结果确认中",
-                                    Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(PayActivity.this, "支付结果确认中",
+//                                    Toast.LENGTH_SHORT).show();
+                            MyToast.showText(PayActivity.this, "支付结果确认中", R.drawable.a2);
 
                         } else {
                             // 其他值就可以判断为支付失败，包括用户主动取消支付，或者系统返回的错误
-                            Toast.makeText(PayActivity.this, "支付失败",
-                                    Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(PayActivity.this, "支付失败",
+//                                    Toast.LENGTH_SHORT).show();
+                            MyToast.showText(PayActivity.this, "支付失败", R.drawable.a2);
                         }
                     }
                     break;
                 }
                 case SDK_CHECK_FLAG: {
-                    Toast.makeText(PayActivity.this, "检查结果为：" + msg.obj,
-                            Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(PayActivity.this, "检查结果为：" + msg.obj,
+//                            Toast.LENGTH_SHORT).show();
+                    MyToast.showText(PayActivity.this, "检查结果为：" + msg.obj, R.drawable.a2);
                     break;
                 }
                 default:
@@ -173,11 +178,13 @@ public class PayActivity extends BaseActivity {
                 public void callback(String url, JSONObject object, AjaxStatus status) {
                     try {
                         if(object.getInt("code")==200){
-                            Toast.makeText(PayActivity.this,object.getJSONObject("datas").getString("msg"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(PayActivity.this,object.getJSONObject("datas").getString("msg"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(PayActivity.this,object.getJSONObject("datas").getString("msg"), R.drawable.a2);
                             EventBus.getDefault().post(new EventPayComplete());
                             finish();
                         }else{
-                            Toast.makeText(PayActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(PayActivity.this,object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
+                            MyToast.showText(PayActivity.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -311,7 +318,9 @@ public class PayActivity extends BaseActivity {
     public void getSDKVersion() {
         PayTask payTask = new PayTask(this);
         String version = payTask.getVersion();
-        Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, version, Toast.LENGTH_SHORT).show();
+
+        MyToast.showText(this, version, R.drawable.a2);
     }
 
     /**
