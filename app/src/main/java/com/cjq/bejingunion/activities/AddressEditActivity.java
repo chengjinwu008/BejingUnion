@@ -10,6 +10,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.utils.LoginUtil;
 
 import org.json.JSONException;
@@ -106,7 +107,8 @@ public class AddressEditActivity extends BaseActivity {
             intent.putExtra("upId", provenceId);
             startActivityForResult(intent, 1);
         } else {
-            Toast.makeText(this, R.string.please_choose_provence_first, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.please_choose_provence_first, Toast.LENGTH_SHORT).show();
+            MyToast.showText(this,R.string.please_choose_provence_first,R.drawable.a2);
         }
     }
 
@@ -117,7 +119,8 @@ public class AddressEditActivity extends BaseActivity {
             intent.putExtra("upId", cityId);
             startActivityForResult(intent, 2);
         } else {
-            Toast.makeText(this, R.string.please_choose_city_first, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.please_choose_city_first, Toast.LENGTH_SHORT).show();
+            MyToast.showText(this,R.string.please_choose_city_first,R.drawable.gou);
         }
     }
 
@@ -131,28 +134,34 @@ public class AddressEditActivity extends BaseActivity {
         final String address = aq.id(R.id.new_address_form_address).getText().toString();
 
         if ("".equals(true_name)) {
-            Toast.makeText(this, R.string.please_input_user_name, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.please_input_user_name, Toast.LENGTH_SHORT).show();
+            MyToast.showText(this, R.string.please_input_user_name, R.drawable.a2);
             return;
         }
         if ("".equals(mobile_phone)) {
-            Toast.makeText(this, R.string.please_input_phone_number, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.please_input_phone_number, Toast.LENGTH_SHORT).show();
+            MyToast.showText(this, R.string.please_input_phone_number, R.drawable.a2);
             return;
         }
         if ("".equals(provenceId)) {
-            Toast.makeText(this, R.string.please_choose_provence_first, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.please_choose_provence_first, Toast.LENGTH_SHORT).show();
+            MyToast.showText(this, R.string.please_choose_provence_first, R.drawable.a2);
             return;
         }
         if ("".equals(cityId)) {
-            Toast.makeText(this, R.string.please_choose_city_first, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.please_choose_city_first, Toast.LENGTH_SHORT).show();
+            MyToast.showText(this, R.string.please_choose_city_first, R.drawable.a2);
             return;
         }
 
         if ("".equals(areaId)) {
-            Toast.makeText(this, R.string.please_select_area, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.please_select_area, Toast.LENGTH_SHORT).show();
+            MyToast.showText(this, R.string.please_select_area, R.drawable.a2);
             return;
         }
         if ("".equals(address)) {
-            Toast.makeText(this, R.string.please_input_address, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, R.string.please_input_address, Toast.LENGTH_SHORT).show();
+            MyToast.showText(this, R.string.please_input_address, R.drawable.a2);
             return;
         }
         try {
