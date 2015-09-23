@@ -3,13 +3,18 @@ package com.cjq.bejingunion.activities;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.TypedValue;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.androidquery.AQuery;
@@ -40,7 +45,7 @@ import java.util.Map;
 /**
  * Created by CJQ on 2015/8/20.
  */
-public class ContractMachineActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, MyRefreshLayout.onLoadListener, AdapterView.OnItemClickListener {
+public class ContractMachineActivity extends BaseActivity implements SwipeRefreshLayout.OnRefreshListener, MyRefreshLayout.onLoadListener, AdapterView.OnItemClickListener, TextView.OnEditorActionListener {
 
     private AQuery aq;
     private RightSlideMenu menu;
@@ -79,6 +84,7 @@ public class ContractMachineActivity extends BaseActivity implements SwipeRefres
         sortViews[1]=aq.id(R.id.contract_machine_sort2).getImageView();
         sortViews[2]=aq.id(R.id.contract_machine_sort3).getImageView();
         sortViews[3]=aq.id(R.id.contract_machine_sort4).getImageView();
+        aq.id(R.id.contract_machine_search_text).getEditText().setOnEditorActionListener(this);
 
         aq.id(R.id.contract_machine_sort_click1).clicked(this, "sortByTime");
         aq.id(R.id.contract_machine_sort_click2).clicked(this, "sortByComments");
@@ -269,5 +275,18 @@ public class ContractMachineActivity extends BaseActivity implements SwipeRefres
         }catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && event.getAction() == MotionEvent.ACTION_DOWN) {
+            current_page = 1;
+            goodsList.clear();
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            requestData();
+            return true;
+        }
+        return false;
     }
 }
