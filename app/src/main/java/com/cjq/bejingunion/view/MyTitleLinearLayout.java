@@ -42,7 +42,7 @@ public class MyTitleLinearLayout extends LinearLayout {
             topContent = getChildAt(0);
             topTitle = getChildAt(1);
             content = getChildAt(2);
-            bottom = getBottom();
+            bottom =content.getBottom();
             ttop= getTop();
 
             top = (int) topContent.getY();
@@ -122,13 +122,9 @@ public class MyTitleLinearLayout extends LinearLayout {
 
         content.setY(y+top3);
 
-        int height;
-        if(y!=0){
-            height = (int) (bottom-content.getY()-(y+top3));
-        }else{
-            height = (int) (bottom-content.getY()-(y));
-        }
+        int height = (int) (bottom-content.getY());
 
+//        System.out.println(content.getY());
 
         LayoutParams params = (LayoutParams) content.getLayoutParams();
         params.height = height;

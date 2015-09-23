@@ -86,7 +86,7 @@ public class CardDetailActivity extends BaseActivity {
 
                         aq.id(R.id.buy_phone_number_detail_image).image(images.getString(0));
                         price = goods_info.getString("goods_price");
-                        aq.id(R.id.buy_phone_number_detail_price).text(price);
+                        aq.id(R.id.buy_phone_number_detail_price).text("￥"+price);
 
                         aq.id(R.id.buy_phone_number_detail_detail).text(goods_info.getString("mobile_body"));
 

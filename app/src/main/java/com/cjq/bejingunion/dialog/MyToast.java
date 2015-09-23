@@ -2,6 +2,7 @@ package com.cjq.bejingunion.dialog;
 
 import android.content.Context;
 import android.view.Gravity;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -22,6 +23,7 @@ public class MyToast {
             toast.setGravity(Gravity.CENTER,0,0);
         } else {
             toast.setText(text);
+            new AQuery(((ViewGroup)toast.getView()).getChildAt(0)).image(image, false, true);
             toast.setDuration(Toast.LENGTH_SHORT);
         }
         toast.show();
@@ -39,15 +41,20 @@ public class MyToast {
     }
 
     public static void showText(Context context, int textId, String image) {
-        if (toast == null) {
-            toast = Toast.makeText(context, textId, Toast.LENGTH_SHORT);
-            makeImage(context, image);
-            toast.setGravity(Gravity.CENTER, 0, 0);
-        } else {
-            toast.setText(textId);
-            toast.setDuration(Toast.LENGTH_SHORT);
+        try{
+            if (toast == null) {
+                toast = Toast.makeText(context, textId, Toast.LENGTH_SHORT);
+                makeImage(context, image);
+                toast.setGravity(Gravity.CENTER, 0, 0);
+            } else {
+                toast.setText(textId);
+                new AQuery(((ViewGroup)toast.getView()).getChildAt(0)).image(image, false, true);
+                toast.setDuration(Toast.LENGTH_SHORT);
+            }
+            toast.show();
+        }catch(Exception e){
+            e.printStackTrace();
         }
-        toast.show();
     }
 
     public static void showText(Context context, int textId, int image) {
@@ -57,6 +64,7 @@ public class MyToast {
             toast.setGravity(Gravity.CENTER, 0, 0);
         } else {
             toast.setText(textId);
+            ((ImageView)((ViewGroup)toast.getView()).getChildAt(0)).setImageResource(image);
             toast.setDuration(Toast.LENGTH_SHORT);
         }
         toast.show();
@@ -81,6 +89,7 @@ public class MyToast {
             toast.setGravity(Gravity.CENTER, 0, 0);
         } else {
             toast.setText(text);
+            ((ImageView)((ViewGroup)toast.getView()).getChildAt(0)).setImageResource(image);
             toast.setDuration(Toast.LENGTH_SHORT);
         }
         toast.show();
@@ -93,6 +102,7 @@ public class MyToast {
             toast.setGravity(Gravity.CENTER, 0, 0);
         } else {
             toast.setText(text);
+            ((ImageView)((ViewGroup)toast.getView()).getChildAt(0)).setImageResource(R.drawable.gou);
             toast.setDuration(Toast.LENGTH_SHORT);
         }
         toast.show();
@@ -105,6 +115,7 @@ public class MyToast {
             toast.setGravity(Gravity.CENTER, 0, 0);
         } else {
             toast.setText(textId);
+            ((ImageView)((ViewGroup)toast.getView()).getChildAt(0)).setImageResource(R.drawable.gou);
             toast.setDuration(Toast.LENGTH_SHORT);
         }
         toast.show();

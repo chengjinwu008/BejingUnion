@@ -38,7 +38,7 @@
 
     <TextView
         android:id="@+id/order_confirm_choose_address"
-        android:text="《层层恐惧》灵感源于16-18世纪间的绘画与建筑，玩家将深入一位发狂画家的内心深处，探索他扭曲异变的宅邸，挖掘出背后恐怖的真相。 [更多]"
+        android:text=""
         android:padding="10dp"
         android:textColor="#000"
         android:drawableRight="@drawable/a67"
@@ -92,7 +92,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/order_confirm_count"
-            android:text="12"
+            android:text="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -101,7 +101,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/order_confirm_price"
-            android:text="1220.00"
+            android:text="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView

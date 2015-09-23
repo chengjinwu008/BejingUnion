@@ -1,12 +1,14 @@
 package com.cjq.bejingunion.activities;
 
 import android.content.Intent;
+import android.hardware.input.InputManager;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -55,7 +57,7 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         setContentView(R.layout.market);
         Intent intent = getIntent();
 
-        gc_id = intent.getIntExtra("brand_id",4);
+        gc_id = intent.getIntExtra("brand_id", 4);
 
         aq = new AQuery(this);
 
@@ -65,8 +67,8 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         sortViews[2] = aq.id(R.id.market_sort3).getImageView();
         sortViews[3] = aq.id(R.id.market_sort4).getImageView();
 
-        if(activeSort != intent.getIntExtra("activeOrder",1)){
-            changeArrow(intent.getIntExtra("activeOrder",1));
+        if (activeSort != intent.getIntExtra("activeOrder", 1)) {
+            changeArrow(intent.getIntExtra("activeOrder", 1));
 
         }
 
@@ -123,21 +125,21 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
 
     private void changeArrow(int i) {
         if (activeSort == i) {
-            up[i-1] = !up[i-1];
-            if (up[i-1])
-                sortViews[activeSort-1].setImageResource(R.drawable.a35);
+            up[i - 1] = !up[i - 1];
+            if (up[i - 1])
+                sortViews[activeSort - 1].setImageResource(R.drawable.a35);
             else
-                sortViews[activeSort-1].setImageResource(R.drawable.a32);
+                sortViews[activeSort - 1].setImageResource(R.drawable.a32);
         } else {
-            if (up[activeSort-1])
-                sortViews[activeSort-1].setImageResource(R.drawable.a34);
+            if (up[activeSort - 1])
+                sortViews[activeSort - 1].setImageResource(R.drawable.a34);
             else
-                sortViews[activeSort-1].setImageResource(R.drawable.a33);
+                sortViews[activeSort - 1].setImageResource(R.drawable.a33);
             activeSort = i;
-            if (up[activeSort-1])
-                sortViews[activeSort-1].setImageResource(R.drawable.a35);
+            if (up[activeSort - 1])
+                sortViews[activeSort - 1].setImageResource(R.drawable.a35);
             else
-                sortViews[activeSort-1].setImageResource(R.drawable.a32);
+                sortViews[activeSort - 1].setImageResource(R.drawable.a32);
         }
     }
 
@@ -147,9 +149,11 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
         params.put("page", String.valueOf(CommonDataObject.PAGE_SIZE));
         params.put("curpage", String.valueOf(current_page));
         params.put("gc_id", String.valueOf(gc_id));
-        params.put("order", up[activeSort-1] ? "1" : "2");
+        params.put("order", up[activeSort - 1] ? "1" : "2");
         params.put("keyword", aq.id(R.id.market_search_text).getText().toString());
 //        params.put("brand_id",brand_id);
+
+        System.out.println(current_page);
 
         aq.ajax(CommonDataObject.GOODS_LIST_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
             @Override
@@ -180,7 +184,7 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
                         adapter.notifyDataSetChanged();
                         refreshLayout.setLoading(false);
                         refreshLayout.setRefreshing(false);
-                    }else{
+                    } else {
                         adapter.notifyDataSetChanged();
                         refreshLayout.setLoading(false);
                         refreshLayout.setRefreshing(false);
@@ -225,14 +229,16 @@ public class MarketActivity extends BaseActivity implements SwipeRefreshLayout.O
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Goods4IndexList goods = goodsList.get(position);
 
-        GoodsUtil.showGoodsDetail(MarketActivity.this,goods.getGoods_id());
+        GoodsUtil.showGoodsDetail(MarketActivity.this, goods.getGoods_id());
     }
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if(actionId == EditorInfo.IME_ACTION_SEARCH  || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && event.getAction() == MotionEvent.ACTION_DOWN){
+        if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER) && event.getAction() == MotionEvent.ACTION_DOWN) {
             current_page = 1;
             goodsList.clear();
+            InputMethodManager inputMethodManager = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+            inputMethodManager.hideSoftInputFromWindow(v.getWindowToken(), 0);
             requestData();
             return true;
         }

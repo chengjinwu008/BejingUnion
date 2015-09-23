@@ -50,7 +50,7 @@ public class IndexGridAdapter extends BaseAdapter {
         AQuery aq = new AQuery(convertView);
         aq.id(R.id.market_item_image).image(goods.getGoods_image_url(),false,true);
         aq.id(R.id.goods_name).text(goods.getGoods_name());
-        aq.id(R.id.special_price).text(goods.getGoods_price());
+        aq.id(R.id.special_price).text("￥"+goods.getGoods_price());
         aq.id(R.id.market_price).getTextView().getPaint().setFlags(Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
         aq.id(R.id.market_price).text(goods.getMarket_price());
         return convertView;

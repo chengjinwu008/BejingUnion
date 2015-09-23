@@ -220,7 +220,7 @@ public class DetailActivity extends BaseActivity {
 
     public void showDetailWap() {
         Intent intent = new Intent(this, CommonWebViewActivity.class);
-        intent.putExtra("url", CommonDataObject.DETAIL_WAP + "?goods_id=" + goods_id);
+        intent.putExtra("url", CommonDataObject.DETAIL_WAP + "goods_id=" + goods_id);
         startActivity(intent);
     }
 
@@ -255,7 +255,7 @@ public class DetailActivity extends BaseActivity {
                         if (object.getInt("code") == 200) {
                             msg = object.getJSONObject("datas").getString("msg");
                             EventBus.getDefault().post(new EventCartListChange());
-                            MyToast.showText(DetailActivity.this,msg);
+                            MyToast.showText(DetailActivity.this,msg,R.drawable.gou);
                         } else {
                             msg = object.getJSONObject("datas").getString("error");
                             MyToast.showText(DetailActivity.this,msg,R.drawable.a2);

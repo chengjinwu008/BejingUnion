@@ -1,6 +1,7 @@
 package com.cjq.bejingunion.activities;
 
 import android.os.Bundle;
+import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -25,18 +26,21 @@ public class CommonWebViewActivity extends BaseActivity {
         aq=new AQuery(this);
         webView = aq.id(R.id.common_webview_webview).getWebView();
 
-        aq.id(R.id.common_webview_back).clicked(this,"closeUp");
+        aq.id(R.id.common_webview_back).clicked(this, "closeUp");
 
         WebSettings settings = webView.getSettings();
-        settings.setJavaScriptEnabled(false);
+        String url =getIntent().getStringExtra("url");
+        webView.loadUrl(url);
+        webView.setWebChromeClient(new WebChromeClient());
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 return true;
             }
         });
-
-        webView.loadUrl(getIntent().getStringExtra("url"));
+        settings.setJavaScriptEnabled(true);
+        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        settings.setAppCacheEnabled(false);
     }
 
     public void closeUp(){
