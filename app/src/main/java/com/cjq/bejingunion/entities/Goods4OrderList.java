@@ -12,13 +12,24 @@ public class Goods4OrderList {
     boolean isStore;
     String cart_id;
     String goods_id;
+    String gc_id;
+
+    public String getGc_id() {
+        return gc_id;
+    }
+
+    public Goods4OrderList setGc_id(String gc_id) {
+        this.gc_id = gc_id;
+        return this;
+    }
 
     public String getGoods_id() {
         return goods_id;
     }
 
-    public void setGoods_id(String goods_id) {
+    public Goods4OrderList setGoods_id(String goods_id) {
         this.goods_id = goods_id;
+        return this;
     }
 
     public String getCart_id() {

@@ -75,7 +75,7 @@ public class OrderListActivity extends BaseActivity implements MyRefreshLayout.o
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
                     try {
-                        System.out.println(object.toString());
+//                        System.out.println(object.toString());
                         JSONArray a = object.getJSONObject("datas").getJSONArray("order_group_list");
                         if (object.getInt("code") == 200 && a.length() > 0) {
 
@@ -89,7 +89,7 @@ public class OrderListActivity extends BaseActivity implements MyRefreshLayout.o
                                 List<Goods4OrderList> goods4OrderLists = new ArrayList<Goods4OrderList>();
                                 for (int j = 0; j < aa.length(); j++) {
                                     JSONObject oo = aa.getJSONObject(j);
-                                    goods4OrderLists.add(new Goods4OrderList(oo.getString("goods_image_url"), oo.getString("goods_name"), "", oo.getInt("goods_num"), oo.getString("goods_price")));
+                                    goods4OrderLists.add(new Goods4OrderList(oo.getString("goods_image_url"), oo.getString("goods_name"), "", oo.getInt("goods_num"), oo.getString("goods_price")).setGc_id(oo.getString("gc_id1")).setGoods_id(oo.getString("goods_id")));
                                 }
 
                                 order.setGoods4OrderListList(goods4OrderLists);

@@ -37,7 +37,7 @@
     </RelativeLayout>
 
     <TextView
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/broadband_order_confirm_choose_address"
         android:text="选择收货地址"
         android:padding="10dp"
@@ -61,7 +61,6 @@
 
         <ImageView
             android:id="@+id/broadband_order_confirm_image2"
-            android:src="@drawable/a52"
             android:layout_width="80dp"
             android:layout_height="80dp" />
 
@@ -73,12 +72,12 @@
 
             <TextView
                 android:id="@+id/broadband_order_confirm_name2"
-                android:text="《层层恐惧》灵感源于16-18世纪间的绘画与建筑，玩家将深入一位发狂画家的内心深处"
+                android:text=""
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <TextView
                 android:id="@+id/broadband_order_confirm_one_price2"
-                android:text="$120.00"
+                android:text=""
                 android:textColor="#f00"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -119,7 +118,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/broadband_order_confirm_count2"
-            android:text="12"
+            android:text="0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
@@ -128,7 +127,7 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/broadband_order_confirm_price2"
-            android:text="1220.00"
+            android:text="0.00"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView

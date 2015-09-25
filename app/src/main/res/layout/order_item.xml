@@ -5,6 +5,7 @@
     android:paddingBottom="5dp"
     android:layout_height="match_parent">
     <TextView
+        android:drawableRight="@drawable/detail"
         android:background="#fff"
         android:id="@+id/order_number"
         android:padding="10dp"
@@ -51,56 +52,53 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@+id/textView1"
             android:layout_toEndOf="@+id/textView1" />
-
-        <TextView
-            android:visibility="gone"
-            android:textColor="#000"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="取消订单"
-            android:background="@drawable/border_white_box_5dp_corner"
-            android:id="@+id/textView3"
-            android:layout_alignTop="@+id/order_price"
+        <LinearLayout
+            android:gravity="right"
+            android:layout_toRightOf="@+id/order_price"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
-
-        <TextView
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:textColor="#fff"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:background="@drawable/blue_5dp_corner"
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="去付款"
-            android:id="@+id/order_item_pay"
-            android:layout_alignTop="@+id/textView3"
-            android:layout_toLeftOf="@+id/textView3"
-            android:layout_toStartOf="@+id/textView3" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:visibility="gone"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="5dp"
-            android:textColor="#fff"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            android:background="@drawable/blue_5dp_corner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="确认收货"
-            android:id="@+id/order_item_confirm"
-            android:layout_alignTop="@+id/textView3"
-            android:layout_toLeftOf="@+id/textView3"
-            android:layout_toStartOf="@+id/textView3" />
+            <TextView
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:textColor="#fff"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/blue_5dp_corner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="去付款"
+                android:id="@+id/order_item_pay" />
+            <TextView
+                android:visibility="gone"
+                android:textColor="#000"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="取消订单"
+                android:background="@drawable/border_white_box_5dp_corner"
+                android:id="@+id/order_list_cancel_order"/>
+            <TextView
+                android:visibility="gone"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:textColor="#fff"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@drawable/blue_5dp_corner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="确认收货"
+                android:id="@+id/order_item_confirm"/>
+        </LinearLayout>
     </RelativeLayout>
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.cjq.bejingunion.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.activities.OrderInfoDetailActivity;
 import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.entities.Order;
 import com.cjq.bejingunion.event.EventPayComplete;
@@ -54,7 +56,7 @@ public class OrderAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.order_item, parent, false);
@@ -63,7 +65,14 @@ public class OrderAdapter extends BaseAdapter {
         final Order order = orderList.get(position);
 
         final AQuery aq = new AQuery(convertView);
-        aq.id(R.id.order_number).text("订单编号：" + order.getOrderNum());
+        aq.id(R.id.order_number).text("订单编号：" + order.getOrderNum()).clicked(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent =new Intent(context, OrderInfoDetailActivity.class);
+                intent.putExtra("order_id",order.getOrder_id());
+                context.startActivity(intent);
+            }
+        });
         if (order.getPhoneNumber() != null) {
             aq.id(R.id.order_phone_number).visible().text("选择卡号：" + order.getPhoneNumber());
         } else {
@@ -78,10 +87,27 @@ public class OrderAdapter extends BaseAdapter {
             aq.id(R.id.order_item_pay).gone();
         else {
             aq.id(R.id.order_item_pay).visible();
+            aq.id(R.id.order_list_cancel_order).visible();
             aq.id(R.id.order_item_pay).clicked(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     PayUtil.pay(context, "订单编号：" + order.getOrderNum(), order.getPhoneNumber() == null ? "选择卡号：" + order.getPhoneNumber() : "", order.getPrice(), order.getOrderNum(), "");
+                }
+            });
+            aq.id(R.id.order_list_cancel_order).clicked(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    try {
+                        PayUtil.cancelOrder(context, order.getOrder_id(), new Runnable() {
+                            @Override
+                            public void run() {
+                                orderList.remove(position);
+                                notifyDataSetChanged();
+                            }
+                        });
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
             });
         }
@@ -94,18 +120,18 @@ public class OrderAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
 
-                    Map<String,String> params = new HashMap<String, String>();
+                    Map<String, String> params = new HashMap<String, String>();
                     try {
                         params.put("key", LoginUtil.getKey(context));
-                        params.put("order_id",order.getOrder_id());
-                        aq.ajax(CommonDataObject.ORDER_RECEIVE_CONFIRM,params, JSONObject.class,new AjaxCallback<JSONObject>(){
+                        params.put("order_id", order.getOrder_id());
+                        aq.ajax(CommonDataObject.ORDER_RECEIVE_CONFIRM, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                             @Override
                             public void callback(String url, JSONObject object, AjaxStatus status) {
                                 try {
-                                    if(200==object.getInt("code")){
+                                    if (200 == object.getInt("code")) {
                                         MyToast.showText(context, object.getJSONObject("datas").getString("msg"));
                                         EventBus.getDefault().post(new EventPayComplete());
-                                    }else{
+                                    } else {
                                         MyToast.showText(context, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                                     }
                                 } catch (JSONException e) {

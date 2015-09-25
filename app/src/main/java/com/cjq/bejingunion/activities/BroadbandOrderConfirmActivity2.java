@@ -41,7 +41,7 @@ public class BroadbandOrderConfirmActivity2 extends BaseActivity {
     private double price;
     private String offpay_hash;
     private String offpay_hash_batch;
-    private String invoice_id="0";
+    private String invoice_id = "0";
     private Address4Show address4Show;
 
     @Override
@@ -55,8 +55,8 @@ public class BroadbandOrderConfirmActivity2 extends BaseActivity {
         aq = new AQuery(this);
 
         aq.id(R.id.broadband_order_confirm_back2).clicked(this, "finish");
-//        aq.id(R.id.broadband_order_confirm_choose_address).clicked(this,"chooseAddress");
-        aq.id(R.id.broadband_order_confirm_submit2).clicked(this,"submit");
+        aq.id(R.id.broadband_order_confirm_choose_address).clicked(this, "chooseAddress");
+        aq.id(R.id.broadband_order_confirm_submit2).clicked(this, "submit");
 
         try {
             Map<String, String> params = new HashMap<>();
@@ -77,7 +77,7 @@ public class BroadbandOrderConfirmActivity2 extends BaseActivity {
                                 address4Show.setCityId(address_info.getString("city_id"));
                                 address4Show.setAreaId(address_info.getString("area_id"));
                                 String aa = address_info.getString("area_info") + " " + address_info.getString("address") + "\n" + address_info.getString("true_name") + " tel:" + address_info.getString("mob_phone");
-//                            aq.id(R.id.broadband_order_confirm_choose_address).text(aa);
+                                aq.id(R.id.broadband_order_confirm_choose_address).text(aa);
                                 vat_hash = data.getString("vat_hash");
                             }
                             JSONArray ga = data.getJSONArray("store_cart_list");
@@ -92,8 +92,8 @@ public class BroadbandOrderConfirmActivity2 extends BaseActivity {
                                     JSONObject o = gaa.getJSONObject(j);
                                     Goods4OrderList goods4OrderList = new Goods4OrderList(o.getString("goods_image_url"), o.getString("goods_name"), null, o.getInt("goods_num"), o.getString("goods_price"));
                                     store4ShowList.add(goods4OrderList);
-                                    count+=goods4OrderList.getCount();
-                                    price+=goods4OrderList.getCount()*Double.valueOf(goods4OrderList.getPrice4One());
+                                    count += goods4OrderList.getCount();
+                                    price += goods4OrderList.getCount() * Double.valueOf(goods4OrderList.getPrice4One());
                                 }
                             }
 
@@ -104,12 +104,12 @@ public class BroadbandOrderConfirmActivity2 extends BaseActivity {
                             aq.id(R.id.broadband_order_confirm_count2).text(String.valueOf(count));
                             aq.id(R.id.broadband_order_confirm_price2).text(format.format(price));
 
-                            Goods4OrderList goods4OrderList =  store4ShowList.get(1);
+                            Goods4OrderList goods4OrderList = store4ShowList.get(1);
                             aq.id(R.id.broadband_order_confirm_image2).image(goods4OrderList.getPortrait(), false, true);
-                            aq .id(R.id.broadband_order_confirm_one_price2).text("￥"+goods4OrderList.getPrice4One());
-                            aq .id(R.id.broadband_order_confirm_name2).text(goods4OrderList.getName());
+                            aq.id(R.id.broadband_order_confirm_one_price2).text("￥" + goods4OrderList.getPrice4One());
+                            aq.id(R.id.broadband_order_confirm_name2).text(goods4OrderList.getName());
 //                            goods4OrderList.getDescription();
-                        }else{
+                        } else {
 //                            Toast.makeText(getApplicationContext(),object.getJSONObject("datas").getString("error"),Toast.LENGTH_SHORT).show();
                             MyToast.showText(BroadbandOrderConfirmActivity2.this, object.getJSONObject("datas").getString("error"), R.drawable.a2);
                             finish();
@@ -127,17 +127,17 @@ public class BroadbandOrderConfirmActivity2 extends BaseActivity {
         }
     }
 
-    public void submit(){
+    public void submit() {
         requestHashCode(address4Show);
     }
 
-    /*public void chooseAddress() {
+    public void chooseAddress() {
         Intent intent = new Intent(this, AddressListActivity.class);
         intent.putExtra("choose", true);
         startActivityForResult(intent, 0);
-    }*/
+    }
 
-    /*@Override
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         switch (requestCode) {
             case 0:
@@ -151,46 +151,46 @@ public class BroadbandOrderConfirmActivity2 extends BaseActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
-    }*/
+    }
 
     private void requestHashCode(Address4Show address4Show) {
         try {
             addressId = address4Show.getAddressId();
-            Map<String,String> params = new HashMap<>();
+            Map<String, String> params = new HashMap<>();
             params.put("key", LoginUtil.getKey(this));
-            params.put("area_id",address4Show.getAreaId());
-            params.put("city_id",address4Show.getCityId());
-            params.put("address_id",address4Show.getAddressId());
-            params.put("freight_hash",freight_hash);
-            params.put("renew",aq.id(R.id.broadband_order_confirm_more_info2).getText().toString());
+            params.put("area_id", address4Show.getAreaId());
+            params.put("city_id", address4Show.getCityId());
+            params.put("address_id", address4Show.getAddressId());
+            params.put("freight_hash", freight_hash);
+            params.put("renew", aq.id(R.id.broadband_order_confirm_more_info2).getText().toString());
 
-            aq.ajax(CommonDataObject.ADDRESS_HASH_CODE_URL,params,JSONObject.class,new AjaxCallback<JSONObject>(){
+            aq.ajax(CommonDataObject.ADDRESS_HASH_CODE_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
                 public void callback(String url, JSONObject object, AjaxStatus status) {
                     try {
-                        if(object.getInt("code")==200){
-                            JSONObject data =  object.getJSONObject("datas");
-                            offpay_hash= data.getString("offpay_hash");
+                        if (object.getInt("code") == 200) {
+                            JSONObject data = object.getJSONObject("datas");
+                            offpay_hash = data.getString("offpay_hash");
                             offpay_hash_batch = data.getString("offpay_hash_batch");
 
-                            try{
-                                Map<String,String> params = new HashMap<>();
-                                params.put("key",LoginUtil.getKey(BroadbandOrderConfirmActivity2.this));
-                                params.put("cart_id",cart_id);
-                                params.put("ifcart",ifcart);
-                                params.put("address_id",addressId);
-                                params.put("pay_name","online");
-                                params.put("pd_pay",aq.id(R.id.broadband_order_confirm_use_points2).isChecked()?"1":"0");
-                                params.put("vat_hash",vat_hash);
-                                params.put("offpay_hash",offpay_hash);
-                                params.put("offpay_hash_batch",offpay_hash_batch);
-                                params.put("invoice_id",invoice_id);
+                            try {
+                                Map<String, String> params = new HashMap<>();
+                                params.put("key", LoginUtil.getKey(BroadbandOrderConfirmActivity2.this));
+                                params.put("cart_id", cart_id);
+                                params.put("ifcart", ifcart);
+                                params.put("address_id", addressId);
+                                params.put("pay_name", "online");
+                                params.put("pd_pay", aq.id(R.id.broadband_order_confirm_use_points2).isChecked() ? "1" : "0");
+                                params.put("vat_hash", vat_hash);
+                                params.put("offpay_hash", offpay_hash);
+                                params.put("offpay_hash_batch", offpay_hash_batch);
+                                params.put("invoice_id", invoice_id);
 
                                 aq.ajax(CommonDataObject.SUBMIT_ORDER_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                                     @Override
                                     public void callback(String url, JSONObject object, AjaxStatus status) {
                                         try {
-                                            if(object.getInt("code")==200){
+                                            if (object.getInt("code") == 200) {
                                                 JSONObject data = object.getJSONObject("datas");
                                                 PayUtil.pay(BroadbandOrderConfirmActivity2.this, data.getString("goods_name"), data.getString("goods_description"), data.getString("api_pay_amount"), data.getString("pay_sn"), data.getString("order_type"));
                                                 finish();
@@ -202,7 +202,7 @@ public class BroadbandOrderConfirmActivity2 extends BaseActivity {
                                     }
                                 });
 
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
