@@ -47,14 +47,14 @@ public class ImageViewWithNumericHint extends ImageView {
             if(number>100){
                 showNumber = String.valueOf(99)+"+";
             }
-            int i=12;
+            int i=18;
             int width = getMeasuredWidth() - i;
             int h = i;
 
             paint.setColor(Color.RED);
             canvas.drawCircle(width, h, i, paint);
             paint.setColor(Color.WHITE);
-            canvas.drawText(showNumber,width-showNumber.length()*3,h+4,paint);
+            canvas.drawText(showNumber,width-showNumber.length()*5,h+63,paint);
         }
     }
 
