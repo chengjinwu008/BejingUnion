@@ -15,6 +15,7 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.activities.OrderInfoDetailActivity;
 import com.cjq.bejingunion.dialog.MyToast;
+import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Order;
 import com.cjq.bejingunion.event.EventPayComplete;
 import com.cjq.bejingunion.utils.LoginUtil;
@@ -97,17 +98,23 @@ public class OrderAdapter extends BaseAdapter {
             aq.id(R.id.order_list_cancel_order).clicked(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    try {
-                        PayUtil.cancelOrder(context, order.getOrder_id(), new Runnable() {
-                            @Override
-                            public void run() {
-                                orderList.remove(position);
-                                notifyDataSetChanged();
+
+                    new WarningAlertDialog(context).changeText("确认取消该订单吗？").onOKClick(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                PayUtil.cancelOrder(context, order.getOrder_id(), new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        orderList.remove(position);
+                                        notifyDataSetChanged();
+                                    }
+                                });
+                            } catch (Exception e) {
+                                e.printStackTrace();
                             }
-                        });
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                        }
+                    }).showCancel(true);
                 }
             });
         }
