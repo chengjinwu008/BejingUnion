@@ -15,6 +15,7 @@ public class ImageViewWithNumericHint extends ImageView {
 
     private int number = 0;
     private Paint paint;
+    private static final float SIZE =8;
 
     public ImageViewWithNumericHint(Context context) {
         super(context);
@@ -36,7 +37,6 @@ public class ImageViewWithNumericHint extends ImageView {
         paint.setColor(Color.RED);
         paint.setAntiAlias(true);
         paint.setStyle(Paint.Style.FILL);
-        paint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
     }
 
     @Override
@@ -44,17 +44,23 @@ public class ImageViewWithNumericHint extends ImageView {
         super.onDraw(canvas);
         if (number > 0) {
             String showNumber = String.valueOf(number);
-            if(number>100){
+            if(number>=100){
                 showNumber = String.valueOf(99)+"+";
             }
-            int i=18;
-            int width = getMeasuredWidth() - i;
-            int h = i;
+
+            float i= TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, SIZE,getResources().getDisplayMetrics());
+            float textSize =TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, SIZE, getResources().getDisplayMetrics());
+            paint.setTextSize(textSize);
+
+            float width = getMeasuredWidth() - i;
 
             paint.setColor(Color.RED);
-            canvas.drawCircle(width, h, i, paint);
+            canvas.drawCircle(width, i, i, paint);
             paint.setColor(Color.WHITE);
-            canvas.drawText(showNumber,width-showNumber.length()*5,h+63,paint);
+            float h = i/2 +textSize/2+paint.getFontMetrics().descent;
+            paint.setTextAlign(Paint.Align.CENTER);
+
+            canvas.drawText(showNumber, width, h, paint);
         }
     }
 

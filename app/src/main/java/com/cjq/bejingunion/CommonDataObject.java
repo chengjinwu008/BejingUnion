@@ -8,8 +8,8 @@ public class CommonDataObject {
 
     public static final String MAIN_URL = "http://xm0000009.demo.kh888.cn";
     public static final String BANNER_URL = MAIN_URL +"/app/index.php?act=index";
-    public static final String INDEX_NEW_GOODS_LIST =MAIN_URL+ "/app/index.php?act=goods&op=index_goods&key=4&order=2";
-    public static final String INDEX_HOT_GOODS_LIST =MAIN_URL+ "/app/index.php?act=goods&op=index_goods&key=1&order=2";
+    public static final String INDEX_NEW_GOODS_LIST =MAIN_URL+ "/app/index.php?act=goods&op=index_goods&key=4&order=2&gc_id=4";
+    public static final String INDEX_HOT_GOODS_LIST =MAIN_URL+ "/app/index.php?act=goods&op=index_goods&key=1&order=2&gc_id=4";
     public static final String LOGIN_URL =MAIN_URL+ "/app/index.php?act=login";
     public static final String VERIFY_CODE_URL =MAIN_URL+ "/app/index.php?act=login&op=getsms";
     public static final String REGISTER_URL =MAIN_URL+ "/app/index.php?act=login&op=register";

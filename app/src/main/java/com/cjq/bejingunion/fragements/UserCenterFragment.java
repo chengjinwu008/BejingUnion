@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,12 +37,13 @@ import java.util.Map;
 /**
  * Created by CJQ on 2015/8/19.
  */
-public class UserCenterFragment extends Fragment {
+public class UserCenterFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener{
 
     private View view;
     private AQuery aq;
     private String avator;
     private String username;
+    private SwipeRefreshLayout refreshLayout;
 
     public void onEventMainThread(EventPortraitChange e) {
         aq.id(R.id.user_center_user_portrait).image(e.getImage(), true, false);
@@ -54,7 +56,6 @@ public class UserCenterFragment extends Fragment {
     public void onEventMainThread(EventCartChange e) {
         requestOrderCount();
     }
-
 
     @Nullable
     @Override
@@ -69,19 +70,29 @@ public class UserCenterFragment extends Fragment {
         aq.id(R.id.user_center_jump_user_setting).clicked(this, "jumpSetting");
         EventBus.getDefault().register(this);
 
+        aq.id(R.id.user_center_refresh).invoke("setOnRefreshListener", new Class[]{SwipeRefreshLayout.OnRefreshListener.class}, this);
+        refreshLayout = (SwipeRefreshLayout) aq.id(R.id.user_center_refresh).getView();
+
+        aq.id(R.id.user_center_my_collection).clicked(this, "jumpMyCollection");
+        aq.id(R.id.user_center_my_address).clicked(this, "jumpMyAddress");
+        aq.id(R.id.user_center_change_password).clicked(this, "showChangePassword");
+        aq.id(R.id.user_center_jump_pay_points).clicked(this, "jumpPayPoints");
+        aq.id(R.id.user_center_jump_msg_list).clicked(this, "jumpMsgList");
+        aq.id(R.id.user_center_jump_evaluation).clicked(this, "jumpEvaluationList");
+        aq.id(R.id.user_center_broadband_order_list).clicked(this, "jumpOrderListActivity");
+        aq.id(R.id.user_center_card_number_order_list).clicked(this, "jumpOrderListActivity2");
+        aq.id(R.id.user_center_contract_mobile_order_list).clicked(this, "jumpOrderListActivity3");
+        aq.id(R.id.user_center_market_order_list).clicked(this, "jumpOrderListActivity4");
+
+        requestInfo();
+
+        requestOrderCount();
+    }
+
+    private void requestInfo() {
         try {
             Map<String, String> params = new HashMap<>();
             params.put("key", LoginUtil.getKey(getActivity()));
-            aq.id(R.id.user_center_my_collection).clicked(this, "jumpMyCollection");
-            aq.id(R.id.user_center_my_address).clicked(this, "jumpMyAddress");
-            aq.id(R.id.user_center_change_password).clicked(this, "showChangePassword");
-            aq.id(R.id.user_center_jump_pay_points).clicked(this, "jumpPayPoints");
-            aq.id(R.id.user_center_jump_msg_list).clicked(this, "jumpMsgList");
-            aq.id(R.id.user_center_jump_evaluation).clicked(this, "jumpEvaluationList");
-            aq.id(R.id.user_center_broadband_order_list).clicked(this, "jumpOrderListActivity");
-            aq.id(R.id.user_center_card_number_order_list).clicked(this, "jumpOrderListActivity2");
-            aq.id(R.id.user_center_contract_mobile_order_list).clicked(this, "jumpOrderListActivity3");
-            aq.id(R.id.user_center_market_order_list).clicked(this, "jumpOrderListActivity4");
 
             aq.ajax(CommonDataObject.USER_INFO_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
                 @Override
@@ -106,6 +117,8 @@ public class UserCenterFragment extends Fragment {
                                 aq.id(R.id.user_center_vip_charge).visible();
                                 aq.id(R.id.user_center_vip).background(R.drawable.btn);
                             }
+
+                            refreshLayout.setRefreshing(false);
                         }
                         super.callback(url, object, status);
                     } catch (JSONException e) {
@@ -116,8 +129,6 @@ public class UserCenterFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        requestOrderCount();
     }
 
     public void jumpOrderListActivity() {
@@ -236,5 +247,12 @@ public class UserCenterFragment extends Fragment {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onRefresh() {
+        refreshLayout.setRefreshing(true);
+        requestOrderCount();
+        requestInfo();
     }
 }
