@@ -10,6 +10,7 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
+import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.CollectionToShow;
 import com.cjq.bejingunion.event.EventCollectionChange;
 import com.cjq.bejingunion.utils.GoodsUtil;
@@ -74,33 +75,37 @@ public class CollectionAdapter extends SwipeListAdapter {
         aq.id(R.id.sliding_menu).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String favid = collectionToShow.getFav_id();
 
-                try {
-                    Map<String, String> params = new HashMap<String, String>();
-                    params.put("key", LoginUtil.getKey(context));
-                    params.put("fav_id", favid);
+                new WarningAlertDialog(context).changeText("确定要删除这条收藏吗？").onOKClick(new Runnable() {
+                    @Override
+                    public void run() {
+                        String favid = collectionToShow.getFav_id();
+                        try {
+                            Map<String, String> params = new HashMap<String, String>();
+                            params.put("key", LoginUtil.getKey(context));
+                            params.put("fav_id", favid);
 
-                    aq.ajax(CommonDataObject.COLLECTION_DELETE_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-                        @Override
-                        public void callback(String url, JSONObject object, AjaxStatus status) {
-                            try {
-                                if (200 == object.getInt("code")) {
-                                    ((SwipeListItemView) finalConvertView).mSmoothScrollTo(0);
-                                    list.remove(position);
-                                    EventBus.getDefault().post(new EventCollectionChange());
-                                    notifyDataSetChanged();
+                            aq.ajax(CommonDataObject.COLLECTION_DELETE_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+                                @Override
+                                public void callback(String url, JSONObject object, AjaxStatus status) {
+                                    try {
+                                        if (200 == object.getInt("code")) {
+                                            ((SwipeListItemView) finalConvertView).mSmoothScrollTo(0);
+                                            list.remove(position);
+                                            EventBus.getDefault().post(new EventCollectionChange());
+                                            notifyDataSetChanged();
+                                        }
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+                                    super.callback(url, object, status);
                                 }
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            super.callback(url, object, status);
+                            });
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
+                    }
+                });
             }
         });
         return convertView;

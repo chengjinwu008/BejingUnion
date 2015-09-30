@@ -15,6 +15,7 @@ import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.activities.AddressEditActivity;
+import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.entities.Address4Show;
 import com.cjq.bejingunion.event.EventCollectionChange;
 import com.cjq.bejingunion.utils.GoodsUtil;
@@ -35,7 +36,7 @@ import java.util.Map;
 public class AddressAdapter extends SwipeListAdapter {
     Listener listener;
 
-    public interface Listener{
+    public interface Listener {
         void onContentClick(int i);
     }
 
@@ -75,9 +76,9 @@ public class AddressAdapter extends SwipeListAdapter {
         aq.id(R.id.address_true_name).text(address4Show.getTrueName());
         aq.id(R.id.address_mobile_number).text(address4Show.getPhoneNumber());
 
-        if(address4Show.ismDefault()){
+        if (address4Show.ismDefault()) {
             aq.id(R.id.sliding_content).background(R.drawable.blue_border_2dp);
-        }else{
+        } else {
             aq.id(R.id.sliding_content).backgroundColor(Color.WHITE);
         }
 
@@ -100,9 +101,9 @@ public class AddressAdapter extends SwipeListAdapter {
         aq.id(R.id.sliding_content).clicked(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(listener!=null){
+                if (listener != null) {
                     listener.onContentClick(position);
-                }else{
+                } else {
                     aq.id(R.id.sliding_content).longClick();
                 }
             }
@@ -111,31 +112,34 @@ public class AddressAdapter extends SwipeListAdapter {
         aq.id(R.id.sliding_menu).clicked(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
-                                                 String addressId = address4Show.getAddressId();
+                                                 final String addressId = address4Show.getAddressId();
+                                                 new WarningAlertDialog(context).changeText("要删除这条收货地址吗？").onOKClick(new Runnable() {
+                                                     @Override
+                                                     public void run() {
+                                                         try {
+                                                             Map<String, String> params = new HashMap<String, String>();
+                                                             params.put("key", LoginUtil.getKey(context));
+                                                             params.put("address_id", addressId);
 
-                                                 try {
-                                                     Map<String, String> params = new HashMap<String, String>();
-                                                     params.put("key", LoginUtil.getKey(context));
-                                                     params.put("address_id", addressId);
-
-                                                     aq.ajax(CommonDataObject.ADDRESS_DELETE_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
-                                                         @Override
-                                                         public void callback(String url, JSONObject object, AjaxStatus status) {
-                                                             try {
-                                                                 if (200 == object.getInt("code")) {
-                                                                     address4ShowList.remove(position);
-                                                                     notifyDataSetChanged();
+                                                             aq.ajax(CommonDataObject.ADDRESS_DELETE_URL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+                                                                 @Override
+                                                                 public void callback(String url, JSONObject object, AjaxStatus status) {
+                                                                     try {
+                                                                         if (200 == object.getInt("code")) {
+                                                                             address4ShowList.remove(position);
+                                                                             notifyDataSetChanged();
+                                                                         }
+                                                                     } catch (JSONException e) {
+                                                                         e.printStackTrace();
+                                                                     }
+                                                                     super.callback(url, object, status);
                                                                  }
-                                                             } catch (JSONException e) {
-                                                                 e.printStackTrace();
-                                                             }
-                                                             super.callback(url, object, status);
+                                                             });
+                                                         } catch (Exception e) {
+                                                             e.printStackTrace();
                                                          }
-                                                     });
-                                                 }catch (Exception e) {
-                                                     e.printStackTrace();
-                                                 }
-
+                                                     }
+                                                 });
                                              }
                                          }
 
