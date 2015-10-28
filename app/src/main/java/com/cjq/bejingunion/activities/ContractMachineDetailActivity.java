@@ -246,7 +246,7 @@ public class ContractMachineDetailActivity extends BaseActivity {
 
     public void showDetailWap() {
         Intent intent = new Intent(this, CommonWebViewActivity.class);
-        intent.putExtra("url", CommonDataObject.DETAIL_WAP + "?goods_id=" + goods_id);
+        intent.putExtra("url", CommonDataObject.DETAIL_WAP + "goods_id=" + goods_id);
         startActivity(intent);
     }
 

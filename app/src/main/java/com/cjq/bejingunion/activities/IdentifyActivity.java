@@ -68,7 +68,7 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
         imageSelectorView.setImageChangeListener(this);
         imageSelectorView.setW(120);
         imageSelectorView.setH(80);
-        imageSelectorView.setMax(1);
+        imageSelectorView.setMax(3);
 
     }
 

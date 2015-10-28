@@ -2,7 +2,6 @@ package com.cjq.bejingunion.fragements;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,12 +11,10 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.androidquery.AQuery;
@@ -29,7 +26,7 @@ import com.cjq.bejingunion.activities.BroadBandActivity;
 import com.cjq.bejingunion.activities.ContractMachineActivity;
 import com.cjq.bejingunion.activities.MarketActivity;
 import com.cjq.bejingunion.activities.MobileNumberListActivity;
-import com.cjq.bejingunion.adapter.BannerAdapter;
+import com.cjq.bejingunion.adapter.BannerAdapter2;
 import com.cjq.bejingunion.adapter.IndexGridAdapter;
 import com.cjq.bejingunion.entities.Ad;
 import com.cjq.bejingunion.entities.Goods4IndexList;
@@ -109,7 +106,7 @@ public class IndexFragment extends Fragment implements TextView.OnEditorActionLi
                             Ad ad = new Ad(getActivity(), o.getString("title"), o.getString("goods_id"));
                             adList.add(ad);
                         }
-                        bannerView.setAdapter(new BannerAdapter(getActivity(), adList));
+                        bannerView.setAdapter(new BannerAdapter2(getActivity(), adList));
 
                         aq.id(R.id.left_ad).image(data.getJSONObject("left").getString("title"), false, true, 200, 0).clicked(new View.OnClickListener() {
                             @Override

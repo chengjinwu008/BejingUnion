@@ -60,13 +60,11 @@ public class BannerView extends RelativeLayout implements ViewPager.OnPageChange
         points.setGravity(Gravity.CENTER);
         addView(mPager);
         addView(points);
-
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         points.setLayoutParams(layoutParams);
-
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 

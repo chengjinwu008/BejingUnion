@@ -15,12 +15,12 @@ import java.util.List;
 /**
  * Created by CJQ on 2015/8/10.
  */
-public class BannerAdapter extends PagerAdapter {
+public class BannerAdapter2 extends PagerAdapter {
 
     Context context;
     List<Ad> ads;
 
-    public BannerAdapter(Context context, List<Ad> ads) {
+    public BannerAdapter2(Context context, List<Ad> ads) {
         this.context = context;
         this.ads = ads;
     }
@@ -39,7 +39,7 @@ public class BannerAdapter extends PagerAdapter {
     public Object instantiateItem(ViewGroup container, final int position) {
         ImageView view  = ads.get(position).getImageView();
         new AQuery(view).image(ads.get(position).getUrl(),false,true);
-        view.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        view.setScaleType(ImageView.ScaleType.FIT_XY);
         container.addView(view);
         view.setOnClickListener(new View.OnClickListener() {
             @Override

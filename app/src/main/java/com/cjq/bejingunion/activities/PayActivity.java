@@ -1,6 +1,7 @@
 package com.cjq.bejingunion.activities;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -128,7 +129,7 @@ public class PayActivity extends BaseActivity {
     private AQuery aq;
     // “00” – 银联正式环境
     // “01” – 银联测试环境，该环境中不发生真实交易
-    public String CHINA_BANK_UNION_MODE = "01";
+    public String CHINA_BANK_UNION_MODE = "00";
     private String type;
 
     @Override
@@ -160,7 +161,7 @@ public class PayActivity extends BaseActivity {
         aq.id(R.id.pay_show_money).text(format.format(Double.valueOf(price)));
 
         aq.id(R.id.pay_by_alipay).clicked(this, "pay");
-//        aq.id(R.id.pay_by_china_bank).clicked(this, "payByChinaBank");
+        aq.id(R.id.pay_by_china_bank).clicked(this, "payByChinaBank");
         aq.id(R.id.pay_by_points).clicked(this, "payByPoints");
         aq.id(R.id.pay_choose_back).clicked(this, "finish");
     }
@@ -199,13 +200,62 @@ public class PayActivity extends BaseActivity {
         }
     }
 
-    public void payByChinaBank() {
+    public void payByChinaBank() throws Exception {
 
-        // TODO: 2015/9/17 请求tn
-        String tn="";
+        final ProgressDialog dialog =new ProgressDialog(this);
+        dialog.setMessage("正在请求银联信息...");
+        dialog.show();
 
-        UPPayAssistEx.startPayByJAR(this, com.unionpay.uppay.PayActivity.class, null, null, tn,
-                CHINA_BANK_UNION_MODE);
+        Map<String,String> params = new HashMap<>();
+        params.put("key",LoginUtil.getKey(this));
+        params.put("pay_sn", orderNumber);
+
+        aq.ajax(CommonDataObject.PAY_BY_CHINA_BANK_URL, params, String.class, new AjaxCallback<String>() {
+//            @Override
+//            public void callback(String url, JSONObject object, AjaxStatus status) {
+//                dialog.dismiss();
+//                try {
+//                    if(200==object.getInt("code")){
+//                        String tn = object.getJSONObject("datas").getString("tn");
+//                        UPPayAssistEx.startPayByJAR(PayActivity.this, com.unionpay.uppay.PayActivity.class, null, null, tn,
+//                                CHINA_BANK_UNION_MODE);
+////                        dialog.setMessage("正在进入支付...");
+//                    }
+//                    else{
+//
+//                        MyToast.showText(PayActivity.this,object.getString("error"),R.drawable.a2);
+//                    }
+//                } catch (JSONException e) {
+//                    e.printStackTrace();
+//                }
+//                super.callback(url, object, status);
+//            }
+
+
+            @Override
+            public void callback(String url, String object, AjaxStatus status) {
+                System.out.println(object);
+                dialog.dismiss();
+                try {
+                    JSONObject obj = new JSONObject(object.substring(6));
+
+                    if(200==obj.getInt("code")){
+                        String tn = obj.getJSONObject("datas").getString("tn");
+                        UPPayAssistEx.startPayByJAR(PayActivity.this, com.unionpay.uppay.PayActivity.class, null, null, tn,
+                                CHINA_BANK_UNION_MODE);
+//                        dialog.setMessage("正在进入支付...");
+                    }
+                    else{
+
+                        MyToast.showText(PayActivity.this,obj.getString("error"),R.drawable.a2);
+                    }
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                super.callback(url, object, status);
+            }
+        });
     }
 
     @Override
