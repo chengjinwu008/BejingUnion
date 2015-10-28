@@ -438,7 +438,7 @@ public class UserSettingActivity extends BaseActivity implements View.OnFocusCha
                 format.setMaximumFractionDigits(0);
                 format.setMinimumFractionDigits(0);
 
-                String x = year+ "-" + format.format(monthOfYear) + "-" + format.format(dayOfMonth);
+                String x = year+ "-" + format.format(monthOfYear+1) + "-" + format.format(dayOfMonth);
 
                 if(!x.equals(birthday)){
                     birthday=x;
@@ -450,7 +450,7 @@ public class UserSettingActivity extends BaseActivity implements View.OnFocusCha
 
                 aq.id(R.id.user_setting_edit_birthday).text(birthday);
             }
-        },Integer.parseInt(times[0]),Integer.parseInt(times[1]),Integer.parseInt(times[2]));
+        },Integer.parseInt(times[0]),Integer.parseInt(times[1])-1,Integer.parseInt(times[2]));
 
         dialog.setTitle("选择出生日期");
         dialog.show();
