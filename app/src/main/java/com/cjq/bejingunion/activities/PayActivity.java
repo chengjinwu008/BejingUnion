@@ -144,6 +144,7 @@ public class PayActivity extends BaseActivity {
         orderNumber = intent.getStringExtra("orderNumber");
         price = intent.getStringExtra("price");
         type = intent.getStringExtra("type");
+        boolean points = intent.getBooleanExtra("points",false);
 
         aq = new AQuery(this);
 
@@ -159,11 +160,14 @@ public class PayActivity extends BaseActivity {
         format.setMinimumIntegerDigits(1);
 
         aq.id(R.id.pay_show_money).text(format.format(Double.valueOf(price)));
-
         aq.id(R.id.pay_by_alipay).clicked(this, "pay");
         aq.id(R.id.pay_by_china_bank).clicked(this, "payByChinaBank");
-        aq.id(R.id.pay_by_points).clicked(this, "payByPoints");
         aq.id(R.id.pay_choose_back).clicked(this, "finish");
+        if(!points){
+            aq.id(R.id.pay_by_points).visible().clicked(this, "payByPoints");
+        }else{
+            aq.id(R.id.pay_by_points).gone();
+        }
     }
 
     public void payByPoints(){
@@ -238,7 +242,6 @@ public class PayActivity extends BaseActivity {
                 dialog.dismiss();
                 try {
                     JSONObject obj = new JSONObject(object.substring(6));
-
                     if(200==obj.getInt("code")){
                         String tn = obj.getJSONObject("datas").getString("tn");
                         UPPayAssistEx.startPayByJAR(PayActivity.this, com.unionpay.uppay.PayActivity.class, null, null, tn,
@@ -264,12 +267,12 @@ public class PayActivity extends BaseActivity {
             return;
         }
         String str = data.getExtras().getString("pay_result");
-        if (str.equalsIgnoreCase("success")) {
+        if ("success".equalsIgnoreCase(str)) {
             new WarningAlertDialog(this).changeText("支付成功").showCancel(false).show();
             EventBus.getDefault().post(new EventPayComplete());
-        } else if (str.equalsIgnoreCase("fail")) {
+        } else if ("fail".equalsIgnoreCase(str)) {
             new WarningAlertDialog(this).changeText("支付失败").showCancel(false).show();
-        } else if (str.equalsIgnoreCase("cancel")) {
+        } else if ("cancel".equalsIgnoreCase(str)) {
             new WarningAlertDialog(this).changeText("支付被取消了").showCancel(false).show();
         }
         super.onActivityResult(requestCode, resultCode, data);

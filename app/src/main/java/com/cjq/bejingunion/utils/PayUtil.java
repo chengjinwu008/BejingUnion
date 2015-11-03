@@ -32,6 +32,18 @@ public class PayUtil {
         context.startActivity(intent);
     }
 
+    public static void payForPoints(Context context,String name,String body,String price,String orderNumber,String type){
+        Intent intent = new Intent(context, PayActivity.class);
+        intent.putExtra("name",name);
+        intent.putExtra("body",body);
+        intent.putExtra("price",price);
+        intent.putExtra("orderNumber",orderNumber);
+        intent.putExtra("type",type);
+        intent.putExtra("points",true);
+
+        context.startActivity(intent);
+    }
+
     public static void cancelOrder(final Context context,String orderId, final Runnable afterCancel) throws Exception {
         AQuery aq = new AQuery(context);
         Map<String,String> params = new HashMap<>();

@@ -1,5 +1,6 @@
 package com.cjq.bejingunion.activities;
 
+import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -136,6 +137,15 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
                     cursor.moveToFirst();
                     String path = cursor.getString(column_index);
 
+                    if(path==null){
+                        CursorLoader loader =new CursorLoader(this,uri,proj,null,null,null);
+                        Cursor cursor2 =loader.loadInBackground();
+                        int column_index2 = cursor2
+                                .getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+                        cursor2.moveToFirst();
+                        path = cursor2.getString(column_index2);
+                    }
+
                     imageSelectorView.addImage(path);
                 } else if ("file".equals(uri.getScheme())) {
                     String path = uri.getPath();
@@ -147,9 +157,12 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*");
-        startActivityForResult(intent, 1);
+//        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//        intent.setType("image/*");
+//        startActivityForResult(intent, 1);
+        Intent intent = new Intent(Intent.ACTION_PICK,
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        startActivityForResult(intent,1);
     }
 
 

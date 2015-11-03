@@ -52,7 +52,7 @@ public class PayForPointsActivity extends BaseActivity {
                             String price = data.getString("pdr_amount");
                             String orderType=data.getString("order_type");
 
-                            PayUtil.pay(PayForPointsActivity.this,name,body,price,orderNumber,orderType);
+                            PayUtil.payForPoints(PayForPointsActivity.this,name,body,price,orderNumber,orderType);
                             finish();
                         }
                     } catch (JSONException e) {
