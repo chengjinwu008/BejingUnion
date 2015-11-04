@@ -214,7 +214,7 @@ public class PayActivity extends BaseActivity {
         params.put("key",LoginUtil.getKey(this));
         params.put("pay_sn", orderNumber);
 
-        aq.ajax(CommonDataObject.PAY_BY_CHINA_BANK_URL, params, String.class, new AjaxCallback<String>() {
+        aq.ajax(CommonDataObject.CHARGE_BY_CHINA_BANK_URL, params, String.class, new AjaxCallback<String>() {
 //            @Override
 //            public void callback(String url, JSONObject object, AjaxStatus status) {
 //                dialog.dismiss();

@@ -110,7 +110,7 @@ public class UserSettingActivity extends BaseActivity implements View.OnFocusCha
                             is_agent = member_info.getInt("is_agent");
                             is_apply_agent = member_info.getInt("is_apply_agent");
 
-                            aq.id(R.id.user_setting_showing_nick_name).text(nickName.equals("")?mobile:nickName);
+                            aq.id(R.id.user_setting_showing_nick_name).text(nickName.equals("") ? mobile : nickName);
                             aq.id(R.id.user_center_setting_portrait).image(avator, true, false);
                             aq.id(R.id.user_setting_edit_nickname).text(nickName);
                             aq.id(R.id.user_setting_username).text(member_info.getString("user_name"));
@@ -141,6 +141,11 @@ public class UserSettingActivity extends BaseActivity implements View.OnFocusCha
                                 aq.id(R.id.user_setting_vip).background(R.drawable.btn);
                                 aq.id(R.id.user_setting_become_partner).gone();
                             }
+                        } else {
+                            LoginUtil.logout(UserSettingActivity.this);
+                            Intent intent = new Intent(UserSettingActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();
