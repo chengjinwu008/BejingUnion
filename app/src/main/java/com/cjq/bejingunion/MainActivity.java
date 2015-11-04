@@ -16,6 +16,7 @@ import com.cjq.bejingunion.fragements.CartFragment;
 import com.cjq.bejingunion.fragements.CategoryFragment;
 import com.cjq.bejingunion.fragements.IndexFragment;
 import com.cjq.bejingunion.fragements.UserCenterFragmentMain;
+import com.cjq.bejingunion.service.BackgroundService;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.view.FragmentView;
 import com.ypy.eventbus.EventBus;
@@ -23,7 +24,17 @@ import com.ypy.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.bmob.v3.Bmob;
+
 public class MainActivity extends BaseActivity {
+
+    private Intent intent;
+
+    @Override
+    protected void onDestroy() {
+        stopService(intent);
+        super.onDestroy();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +44,13 @@ public class MainActivity extends BaseActivity {
         if (LoginUtil.isAutoLogin(this)) {
             LoginUtil.autoLogin(this);
         }
-        if (savedInstanceState == null)
+        intent = new Intent(this, BackgroundService.class);
+
+        if (savedInstanceState == null){
             PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, "rU95anFF579fG7z8N2iHcbZ4");
+            startService(intent);
+            Bmob.initialize(this, "e44326ae71a6f2bf955ee40f80a341e1");
+        }
 
         FragmentView fragmentView = (FragmentView) findViewById(R.id.main_fragment);
 

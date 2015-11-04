@@ -131,6 +131,7 @@ public class PayActivity extends BaseActivity {
     // “01” – 银联测试环境，该环境中不发生真实交易
     public String CHINA_BANK_UNION_MODE = "00";
     private String type;
+    private boolean points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,7 +145,7 @@ public class PayActivity extends BaseActivity {
         orderNumber = intent.getStringExtra("orderNumber");
         price = intent.getStringExtra("price");
         type = intent.getStringExtra("type");
-        boolean points = intent.getBooleanExtra("points",false);
+        points = intent.getBooleanExtra("points", false);
 
         aq = new AQuery(this);
 
@@ -214,7 +215,9 @@ public class PayActivity extends BaseActivity {
         params.put("key",LoginUtil.getKey(this));
         params.put("pay_sn", orderNumber);
 
-        aq.ajax(CommonDataObject.CHARGE_BY_CHINA_BANK_URL, params, String.class, new AjaxCallback<String>() {
+        String url= points?CommonDataObject.CHARGE_BY_CHINA_BANK_URL:CommonDataObject.PAY_BY_CHINA_BANK_URL;
+
+        aq.ajax(url, params, String.class, new AjaxCallback<String>() {
 //            @Override
 //            public void callback(String url, JSONObject object, AjaxStatus status) {
 //                dialog.dismiss();
