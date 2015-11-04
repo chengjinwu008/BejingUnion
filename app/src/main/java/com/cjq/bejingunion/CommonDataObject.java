@@ -60,6 +60,7 @@ public class CommonDataObject {
     public static final String ORDER_CANCEL =MAIN_URL+ "/app/index.php?act=member_order&op=order_cancel";
     public static final String ORDER_INFO_DETAIL =MAIN_URL+ "/app/index.php?act=member_order&op=order_info";
     public static final String PAY_BY_CHINA_BANK_URL=MAIN_URL+ "/app/index.php?act=member_payment&op=chinabank_pay";
+    public static final String CHARGE_BY_CHINA_BANK_URL=MAIN_URL+ "/app/index.php?act=member_index&op=chinaBankget_add";
 
     public static final String DETAIL_WAP=MAIN_URL+"/app/index.php?act=goods&op=goods_info&";
     public static final String PAY_NOTIFY_URL=MAIN_URL+"/app/index.php?act=payment&op=notify";
