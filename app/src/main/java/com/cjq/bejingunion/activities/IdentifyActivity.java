@@ -1,5 +1,7 @@
 package com.cjq.bejingunion.activities;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.database.Cursor;
@@ -169,6 +171,9 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
     @Override
     public void add(final String path) {
         RequestParams params = new RequestParams();
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setMessage("图片上传中");
+        dialog.show();
         try {
             params.put("key", LoginUtil.getKey(this));
             FileUploader.upload(CommonDataObject.COMMON_UPLOAD_IMAGE_URL, "pic", path, params, new FileUploader.FileUploadCallBack() {
@@ -178,6 +183,7 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
                         if (200 == object.getInt("code")) {
                             String imageId = object.getJSONObject("datas").getString("img_id");
                             images.put(path, imageId);
+                            dialog.dismiss();
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

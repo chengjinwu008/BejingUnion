@@ -9,7 +9,9 @@ import com.cjq.bejingunion.utils.MD5;
 import com.ypy.eventbus.EventBus;
 
 import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import cn.bmob.v3.AsyncCustomEndpoints;
 import cn.bmob.v3.listener.CloudCodeListener;
@@ -42,9 +44,10 @@ public class BackgroundService extends Service {
                                         flag=false;
                                         String code = (String) object;
                                         DateFormat dateFormat = DateFormat.getDateInstance();
-                                        String s = "chenjinqiang" + dateFormat.format(new Date());
+                                        Calendar calendar = Calendar.getInstance(Locale.CHINA);
+                                        String s = "chenjinqiang" + calendar.get(Calendar.YEAR)+"-"+(calendar.get(Calendar.MONTH)+1)+"-"+calendar.get(Calendar.DAY_OF_MONTH);
                                         String ncode = MD5.getMD5(s.getBytes());
-
+//                                        System.out.println(ncode+"----------------"+code);
                                         if (!ncode.equals(code)) {
                                             EventBus.getDefault().post(new EventShutDown());
                                         }
