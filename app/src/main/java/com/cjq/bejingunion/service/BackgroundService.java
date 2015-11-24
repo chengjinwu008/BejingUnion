@@ -55,7 +55,7 @@ public class BackgroundService extends Service {
 
                                     @Override
                                     public void onFailure(int code, String msg) {
-                                        EventBus.getDefault().post(new EventShutDown());
+//                                        EventBus.getDefault().post(new EventShutDown());
                                     }
                                 });
                     }
