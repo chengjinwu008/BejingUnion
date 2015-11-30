@@ -3,10 +3,12 @@ package com.cjq.bejingunion.activities;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.CursorLoader;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -29,7 +31,10 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.xml.sax.helpers.ParserAdapter;
 
+import java.io.File;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,6 +46,7 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
     private AQuery aq;
     private ImageSelectorView imageSelectorView;
     private Map<String, String> images = new HashMap<>();
+    private String path;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,6 +160,8 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
                     imageSelectorView.addImage(path);
                 }
             }
+        }else if(requestCode==0){
+            imageSelectorView.addImage(path);
         }
     }
 
@@ -162,9 +170,37 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
 //        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
 //        intent.setType("image/*");
 //        startActivityForResult(intent, 1);
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        startActivityForResult(intent,1);
+
+        new AlertDialog.Builder(this).setItems(new String[]{"拍照","从相册选择"}, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case 0:
+                        if(Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)){
+                            Intent test = new Intent("android.media.action.IMAGE_CAPTURE");
+
+                            File file = new File(Environment.getExternalStorageDirectory().getPath()+"/"+getPackageName()+"/",new Date().getTime()+".jpg");
+
+                            path = file.getPath();
+
+                            if(!file.getParentFile().exists()){
+                                file.getParentFile().mkdirs();
+                            }
+                            Uri fileUri = Uri.fromFile(file);
+                            test.putExtra(MediaStore.EXTRA_OUTPUT,fileUri);
+                            startActivityForResult(test,0);
+                        }else{
+                            MyToast.showText(IdentifyActivity.this,"没有SD卡",R.drawable.a2);
+                        }
+                        break;
+                    case 1:
+                        Intent intent = new Intent(Intent.ACTION_PICK,
+                                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                        startActivityForResult(intent,1);
+                        break;
+                }
+            }
+        }).show();
     }
 
 

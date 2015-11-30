@@ -1,5 +1,10 @@
 package com.cjq.bejingunion;
 
+import android.os.Environment;
+
+import java.io.File;
+import java.util.Date;
+
 /**
  * Created by CJQ on 2015/8/19.
  */

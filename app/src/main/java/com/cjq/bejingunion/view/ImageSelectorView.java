@@ -18,7 +18,9 @@ import com.loopj.android.http.RequestParams;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by CJQ on 2015/8/17.
@@ -32,6 +34,7 @@ public class ImageSelectorView extends LinearLayout{
     private ImageView addImageButton;
     private List<String> images = new ArrayList<>();
     private int max=1;
+    private Map<String,ImageView> imageViews = new HashMap<>();
 
     public int getMax() {
         return max;
@@ -173,16 +176,12 @@ public class ImageSelectorView extends LinearLayout{
                 }
 
                 new AQuery(addImageButton).image(new File(path), ww);
+                imageViews.put(path,addImageButton);
 
                 addImageButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        if(imageChangeListener!=null){
-                            imageChangeListener.delete(path);
-                        }
-                        images.remove(path);
-                        removeView(v);
+                        remove(v, path);
                     }
                 });
                 addImageButton = new ImageView(context);
@@ -198,27 +197,39 @@ public class ImageSelectorView extends LinearLayout{
                 }
 
                 new AQuery(addImageButton).image(new File(path), ww);
-
+                imageViews.put(path,addImageButton);
                 addImageButton.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
-                        if(imageChangeListener!=null){
-                            imageChangeListener.delete(path);
-                        }
-                        images.remove(path);
-                        removeView(v);
-
-                        addImageButton = new ImageView(context);
-                        addImageButton.setLayoutParams(params);
-                        addImageButton.setImageResource(R.drawable.a28);
-                        addImageButton.setBackgroundColor(Color.WHITE);
-                        addImageButton.setScaleType(ImageView.ScaleType.FIT_XY);
-                        addImageButton.setOnClickListener(ImageSelectorView.this.listener);
-                        addView(addImageButton);
+                        remove(v, path);
                     }
                 });
             }
+        }
+    }
+
+    private void remove(View v, String path) {
+        if(images.size()<max){
+            if(imageChangeListener!=null){
+                imageChangeListener.delete(path);
+            }
+            images.remove(path);
+            removeView(v);
+            imageViews.remove(path);
+        }else{
+            if(imageChangeListener!=null){
+                imageChangeListener.delete(path);
+            }
+            images.remove(path);
+            removeView(v);
+            imageViews.remove(path);
+            addImageButton = new ImageView(context);
+            addImageButton.setLayoutParams(params);
+            addImageButton.setImageResource(R.drawable.a28);
+            addImageButton.setBackgroundColor(Color.WHITE);
+            addImageButton.setScaleType(ImageView.ScaleType.FIT_XY);
+            addImageButton.setOnClickListener(ImageSelectorView.this.listener);
+            addView(addImageButton);
         }
     }
 }
