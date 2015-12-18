@@ -227,7 +227,7 @@ public class ImageSelectorView extends LinearLayout{
             addImageButton.setLayoutParams(params);
             addImageButton.setImageResource(R.drawable.a28);
             addImageButton.setBackgroundColor(Color.WHITE);
-            addImageButton.setScaleType(ImageView.ScaleType.FIT_XY);
+            addImageButton.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
             addImageButton.setOnClickListener(ImageSelectorView.this.listener);
             addView(addImageButton);
         }

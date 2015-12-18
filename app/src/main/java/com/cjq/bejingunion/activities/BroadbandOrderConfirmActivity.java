@@ -57,6 +57,9 @@ public class BroadbandOrderConfirmActivity extends BaseActivity {
         aq.id(R.id.broadband_order_confirm_choose_address).clicked(this,"chooseAddress");
         aq.id(R.id.broadband_order_confirm_submit).clicked(this,"submit");
 
+        aq.id(R.id.broadband_order_confirm_more_info_name).text("机主姓名："+intent.getStringExtra("userName"));
+        aq.id(R.id.broadband_order_confirm_more_info_idnumber).text("身份证号："+intent.getStringExtra("id_number"));
+
         try {
             Map<String, String> params = new HashMap<>();
             params.put("key", LoginUtil.getKey(this));

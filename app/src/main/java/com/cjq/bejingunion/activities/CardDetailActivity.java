@@ -174,10 +174,16 @@ public class CardDetailActivity extends BaseActivity {
             MyToast.showText(this, "不选号码怎么帮您购买卡号呢？", R.drawable.a2);
             return;
         }
-        DetailItem detailItem = (DetailItem) adapter.getItem(0);
-        DetailChoice choice = detailItem.getDetailChoices().get(Integer.valueOf(detailItem.getChosenId()));
 
-        GoodsUtil.showIdentify(this, choice.getValue(), price, number, 2);
+        if(adapter.getCount()>0){
+            DetailItem detailItem = (DetailItem) adapter.getItem(0);
+            DetailChoice choice = detailItem.getDetailChoices().get(Integer.valueOf(detailItem.getChosenId()));
+
+            GoodsUtil.showIdentify(this, choice.getValue(), price, number, 2);
+        }else{
+            GoodsUtil.showIdentify(this, null, price, number, 2);
+        }
+
     }
 
     public void choosePhoneNumber() {

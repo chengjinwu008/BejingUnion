@@ -84,6 +84,37 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <LinearLayout
+        android:padding="10dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:text="入网信息:"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/broadband_order_confirm_more_info_name"
+            android:lines="1"
+            android:ellipsize="middle"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingRight="5dp"
+            android:paddingLeft="50dp"
+            android:text="机主姓名："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/broadband_order_confirm_more_info_idnumber"
+            android:lines="1"
+            android:ellipsize="middle"
+            android:text="身份证号："
+            android:paddingLeft="50dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
     <CheckBox
         android:visibility="invisible"
         android:id="@+id/broadband_order_confirm_use_points"

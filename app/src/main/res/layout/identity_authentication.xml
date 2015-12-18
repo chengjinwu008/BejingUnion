@@ -98,6 +98,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:orientation="horizontal"
                 android:layout_margin="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -122,81 +123,87 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
             <LinearLayout
-                android:padding="10dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
+                android:id="@+id/identify_details"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+                <LinearLayout
+                    android:padding="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="您已选择"
-                    android:id="@+id/textView18" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="您已选择"
+                        android:id="@+id/textView18" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="："
-                    android:id="@+id/textView19" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="："
+                        android:id="@+id/textView19" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="北京；在网4个月，59元/月合约；赠话费版套餐"
-                    android:id="@+id/identify_set_meal" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="北京；在网4个月，59元/月合约；赠话费版套餐"
+                        android:id="@+id/identify_set_meal" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:padding="10dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                <LinearLayout
+                    android:padding="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="手机号码为"
-                    android:id="@+id/textView21" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="手机号码为"
+                        android:id="@+id/textView21" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="："
-                    android:id="@+id/textView22" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="："
+                        android:id="@+id/textView22" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="#027bd5"
-                    android:text="123456789"
-                    android:id="@+id/identify_phone_number" />
-            </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="#027bd5"
+                        android:text="123456789"
+                        android:id="@+id/identify_phone_number" />
+                </LinearLayout>
 
-            <LinearLayout
-                android:padding="10dp"
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                <LinearLayout
+                    android:padding="10dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="合约总金额："
-                    android:id="@+id/textView24" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="合约总金额："
+                        android:id="@+id/textView24" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="￥"
-                    android:textColor="#027bd5"
-                    android:id="@+id/textView25" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="￥"
+                        android:textColor="#027bd5"
+                        android:id="@+id/textView25" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="4999.00"
-                    android:textColor="#027bd5"
-                    android:id="@+id/identify_price" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="4999.00"
+                        android:textColor="#027bd5"
+                        android:id="@+id/identify_price" />
+                </LinearLayout>
             </LinearLayout>
 
             <TextView

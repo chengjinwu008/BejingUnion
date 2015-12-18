@@ -40,8 +40,11 @@ public class FileUploader {
 
                 @Override
                 public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                    String response = new String(responseBody);
-                    System.out.println("ERROR:===========\n"+response);
+                    System.out.println("ERROR:===========\n"+statusCode);
+                    if(responseBody!=null){
+                        String response = new String(responseBody);
+                        System.out.println("ERROR:===========\n"+response);
+                    }
                 }
             });
     }

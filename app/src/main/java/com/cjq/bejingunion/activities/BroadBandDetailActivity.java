@@ -77,18 +77,50 @@ public class BroadBandDetailActivity extends BaseActivity {
     }
 
     public void openNewBroadBand() {
-        Intent intent = new Intent(this, BroadbandOrderConfirmActivity.class);
-        intent.putExtra("cart_id", goods_id + "|" + 1);
-        intent.putExtra("ifcart", "0");
-        startActivity(intent);
-        finish();
+//        Intent intent = new Intent(this, BroadbandOrderConfirmActivity.class);
+//        intent.putExtra("cart_id", goods_id + "|" + 1);
+//        intent.putExtra("ifcart", "0");
+//        startActivity(intent);
+//        finish();
+        GoodsUtil.showIdentify(this, 1);
     }
 
     public void renewBroadBand() {
+//        GoodsUtil.showIdentify(this, 2);
         Intent intent = new Intent(this, BroadbandOrderConfirmActivity2.class);
         intent.putExtra("cart_id", goods_id + "|" + 1);
         intent.putExtra("ifcart", is_fcode);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (requestCode) {
+            case 1:
+                if (resultCode == RESULT_OK) {
+                    Intent intent = new Intent(this, BroadbandOrderConfirmActivity.class);
+                    intent.putExtra("cart_id", goods_id + "|" + 1);
+                    intent.putExtra("phone_additional_id", data.getStringExtra("id"));
+                    intent.putExtra("userName",data.getStringExtra("userName"));
+                    intent.putExtra("id_number",data.getStringExtra("id_number"));
+                    intent.putExtra("ifcart", is_fcode);
+                    startActivity(intent);
+                    finish();
+                }
+                break;
+//            case 2:
+//                if (resultCode == RESULT_OK) {
+//                    Intent intent = new Intent(this, BroadbandOrderConfirmActivity2.class);
+//                    intent.putExtra("cart_id", goods_id + "|" + 1);
+//                    intent.putExtra("phone_additional_id", data.getStringExtra("id"));
+//                    intent.putExtra("ifcart", "0");
+//                    startActivity(intent);
+//                    finish();
+//                }
+//                break;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

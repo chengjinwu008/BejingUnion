@@ -54,31 +54,44 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
         setContentView(R.layout.identity_authentication);
         aq = new AQuery(this);
 
+        try {
+            LoginUtil.getKey(this);
+        } catch (Exception e) {
+            finish();
+            e.printStackTrace();
+        }
+
         Intent intent = getIntent();
-
-        aq.id(R.id.identify_set_meal).text(intent.getStringExtra("setMeal"));
-        aq.id(R.id.identify_price).text(intent.getStringExtra("price"));
-        aq.id(R.id.identify_phone_number).text(intent.getStringExtra("phoneNumber"));
-        aq.id(R.id.identify_back).clicked(this, "finish");
-        aq.id(R.id.identify_submit).clicked(this, "submit");
-        SpannableString spannableString = new SpannableString("根据国家工信部《电话用户真实身份信息登记规定》（工业和信息化部令第25号）文件要求，用户通过网络办理新号码须上传身份证照片并通过实名验证,收货时须再出示本人身份证原并提供身份证复印件以做备案");
-        URLSpan urlSpan = new URLSpan(CommonDataObject.IDENTIFY_NOTIFY1);
-        spannableString.setSpan(urlSpan, 7, 37, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        SpannableString spannableString1 = new SpannableString("我已经同意《入网协议》");
-        URLSpan urlSpan1 = new URLSpan(CommonDataObject.IDENTIFY_NOTIFY2);
-        spannableString1.setSpan(urlSpan1, 5, 11, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        aq.id(R.id.identify_text1).text(spannableString).getTextView().setMovementMethod(LinkMovementMethod.getInstance());
-        aq.id(R.id.identify_check_box).text(spannableString1).getTextView().setMovementMethod(LinkMovementMethod.getInstance());
-
         imageSelectorView = (ImageSelectorView) aq.id(R.id.identify_add_pic).getView();
         imageSelectorView.setOnAddButtonClickListener(this);
         imageSelectorView.setImageChangeListener(this);
-        imageSelectorView.setW(120);
-        imageSelectorView.setH(80);
-        imageSelectorView.setMax(3);
+        if(intent.getBooleanExtra("broadband",false)){
+            aq.id(R.id.identify_details).gone();
+            aq.id(R.id.identify_text1).gone();
+            imageSelectorView.setW(120);
+            imageSelectorView.setH(80);
+            imageSelectorView.setMax(3);
+        }else{
+            aq.id(R.id.identify_set_meal).text(intent.getStringExtra("setMeal"));
+            aq.id(R.id.identify_price).text(intent.getStringExtra("price"));
+            aq.id(R.id.identify_phone_number).text(intent.getStringExtra("phoneNumber"));
 
+            SpannableString spannableString = new SpannableString("根据国家工信部《电话用户真实身份信息登记规定》（工业和信息化部令第25号）文件要求，用户通过网络办理新号码须上传身份证照片并通过实名验证,收货时须再出示本人身份证原并提供身份证复印件以做备案");
+            URLSpan urlSpan = new URLSpan(CommonDataObject.IDENTIFY_NOTIFY1);
+            spannableString.setSpan(urlSpan, 7, 37, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+            SpannableString spannableString1 = new SpannableString("我已经同意《入网协议》");
+            URLSpan urlSpan1 = new URLSpan(CommonDataObject.IDENTIFY_NOTIFY2);
+            spannableString1.setSpan(urlSpan1, 5, 11, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            aq.id(R.id.identify_text1).text(spannableString).getTextView().setMovementMethod(LinkMovementMethod.getInstance());
+            aq.id(R.id.identify_check_box).text(spannableString1).getTextView().setMovementMethod(LinkMovementMethod.getInstance());
+            imageSelectorView.setW(120);
+            imageSelectorView.setH(80);
+            imageSelectorView.setMax(3);
+        }
+
+        aq.id(R.id.identify_back).clicked(this, "finish");
+        aq.id(R.id.identify_submit).clicked(this, "submit");
     }
 
     public void submit() {
@@ -112,6 +125,8 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
                             String id = object.getJSONObject("datas").getString("phone_additional_id");
 
                             Intent intent = new Intent();
+                            intent.putExtra("userName",aq.id(R.id.identify_username).getText().toString());
+                            intent.putExtra("id_number",aq.id(R.id.identify_ID_card).getText().toString());
                             intent.putExtra("id", id);
                             setResult(RESULT_OK, intent);
                             finish();

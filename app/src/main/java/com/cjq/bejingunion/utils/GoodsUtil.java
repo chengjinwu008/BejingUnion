@@ -64,4 +64,12 @@ public class GoodsUtil {
 
         context.startActivityForResult(intent, requestCode);
     }
+
+    public static void showIdentify(Activity context,int requestCode){
+        Intent intent = new Intent(context,IdentifyActivity.class);
+
+        intent.putExtra("broadband",true);
+
+        context.startActivityForResult(intent, requestCode);
+    }
 }

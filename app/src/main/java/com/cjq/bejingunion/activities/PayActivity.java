@@ -13,6 +13,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -22,17 +23,26 @@ import com.androidquery.callback.AjaxCallback;
 import com.androidquery.callback.AjaxStatus;
 import com.cjq.bejingunion.BaseActivity;
 import com.cjq.bejingunion.CommonDataObject;
+import com.cjq.bejingunion.Constants;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.event.EventCartChange;
 import com.cjq.bejingunion.event.EventPayComplete;
+import com.cjq.bejingunion.event.EventShutDown;
+import com.cjq.bejingunion.event.EventWXpayComplete;
 import com.cjq.bejingunion.utils.LoginUtil;
+import com.cjq.bejingunion.utils.MD5;
 import com.cjq.bejingunion.utils.PayResult;
 import com.cjq.bejingunion.utils.SignUtils;
+import com.tencent.mm.sdk.modelpay.PayReq;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 import com.unionpay.UPPayAssistEx;
 import com.ypy.eventbus.EventBus;
 
+import org.apache.http.NameValuePair;
+import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.helpers.ParserFactory;
@@ -41,6 +51,8 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.NumberFormat;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -133,12 +145,28 @@ public class PayActivity extends BaseActivity {
     private String type;
     private boolean points;
 
+    final IWXAPI msgApi = WXAPIFactory.createWXAPI(this, null);
+    private PayReq req;
+
+    public void onEventMainThread(EventWXpayComplete e) {
+        // TODO: 2015/12/15 检查支付结果
+
+        new WarningAlertDialog(this).changeText("支付成功").showCancel(false).onOKClick(new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        }).show();
+        EventBus.getDefault().post(new EventPayComplete());
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_choose);
         EventBus.getDefault().post(new EventCartChange());
         Intent intent = getIntent();
+
 
         name = intent.getStringExtra("name");
         body = intent.getStringExtra("body");
@@ -164,6 +192,7 @@ public class PayActivity extends BaseActivity {
         aq.id(R.id.pay_by_alipay).clicked(this, "pay");
         aq.id(R.id.pay_by_china_bank).clicked(this, "payByChinaBank");
         aq.id(R.id.pay_choose_back).clicked(this, "finish");
+        aq.id(R.id.pay_by_wx).clicked(this, "payByWx");
         if(!points){
             aq.id(R.id.pay_by_points).visible().clicked(this, "payByPoints");
         }else{
@@ -203,6 +232,30 @@ public class PayActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void  payByWx() throws Exception{
+        // TODO: 2015/12/15 执行微信支付
+
+        req = new PayReq();
+        msgApi.registerApp(Constants.APP_ID);
+
+        req.appId = Constants.APP_ID;
+        req.partnerId = Constants.MCH_ID;
+        req.prepayId = "";
+        req.packageValue = "Sign=WXPay";
+        req.nonceStr = "";
+        req.timeStamp = "";
+
+        List<NameValuePair> signParams = new LinkedList<NameValuePair>();
+        signParams.add(new BasicNameValuePair("appid", req.appId));
+        signParams.add(new BasicNameValuePair("noncestr", req.nonceStr));
+        signParams.add(new BasicNameValuePair("package", req.packageValue));
+        signParams.add(new BasicNameValuePair("partnerid", req.partnerId));
+        signParams.add(new BasicNameValuePair("prepayid", req.prepayId));
+        signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));
+        req.sign = genAppSign(signParams);
+        msgApi.sendReq(req);
     }
 
     public void payByChinaBank() throws Exception {
@@ -271,7 +324,12 @@ public class PayActivity extends BaseActivity {
         }
         String str = data.getExtras().getString("pay_result");
         if ("success".equalsIgnoreCase(str)) {
-            new WarningAlertDialog(this).changeText("支付成功").showCancel(false).show();
+            new WarningAlertDialog(this).changeText("支付成功").showCancel(false).onOKClick(new Runnable() {
+                @Override
+                public void run() {
+                    finish();
+                }
+            }).show();
             EventBus.getDefault().post(new EventPayComplete());
         } else if ("fail".equalsIgnoreCase(str)) {
             new WarningAlertDialog(this).changeText("支付失败").showCancel(false).show();
@@ -463,5 +521,20 @@ public class PayActivity extends BaseActivity {
      */
     public String getSignType() {
         return "sign_type=\"RSA\"";
+    }
+
+    private String genAppSign(List<NameValuePair> params) {
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < params.size(); i++) {
+            sb.append(params.get(i).getName());
+            sb.append('=');
+            sb.append(params.get(i).getValue());
+            sb.append('&');
+        }
+        sb.append("key=");
+        sb.append(Constants.API_KEY);
+
+        return MD5.getMessageDigest(sb.toString().getBytes()).toUpperCase();
     }
 }
