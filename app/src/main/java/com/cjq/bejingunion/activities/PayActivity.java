@@ -50,6 +50,7 @@ import org.xml.sax.helpers.ParserFactory;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.text.NumberFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -149,15 +150,13 @@ public class PayActivity extends BaseActivity {
     private PayReq req;
 
     public void onEventMainThread(EventWXpayComplete e) {
-        // TODO: 2015/12/15 检查支付结果
-
-        new WarningAlertDialog(this).changeText("支付成功").showCancel(false).onOKClick(new Runnable() {
+        EventBus.getDefault().post(new EventPayComplete());
+        new WarningAlertDialog(this).changeText("支付完成").showCancel(false).onDismiss(new Runnable() {
             @Override
             public void run() {
                 finish();
             }
         }).show();
-        EventBus.getDefault().post(new EventPayComplete());
     }
 
     @Override
@@ -235,27 +234,52 @@ public class PayActivity extends BaseActivity {
     }
 
     public void  payByWx() throws Exception{
-        // TODO: 2015/12/15 执行微信支付
+        final ProgressDialog dialog = new ProgressDialog(this);
+        dialog.setTitle("请稍等");
+        dialog.setMessage("支付中……");
+        dialog.show();
 
-        req = new PayReq();
-        msgApi.registerApp(Constants.APP_ID);
+        Map<String,String> params = new HashMap<>();
+        params.put("key ",LoginUtil.getKey(this));
+        params.put("pay_sn",orderNumber);
 
-        req.appId = Constants.APP_ID;
-        req.partnerId = Constants.MCH_ID;
-        req.prepayId = "";
-        req.packageValue = "Sign=WXPay";
-        req.nonceStr = "";
-        req.timeStamp = "";
+        aq.ajax(CommonDataObject.PAY_BY_WX,params,JSONObject.class,new AjaxCallback<JSONObject>(){
+            @Override
+            public void callback(String url, JSONObject object, AjaxStatus status) {
+                dialog.dismiss();
+                try {
 
-        List<NameValuePair> signParams = new LinkedList<NameValuePair>();
-        signParams.add(new BasicNameValuePair("appid", req.appId));
-        signParams.add(new BasicNameValuePair("noncestr", req.nonceStr));
-        signParams.add(new BasicNameValuePair("package", req.packageValue));
-        signParams.add(new BasicNameValuePair("partnerid", req.partnerId));
-        signParams.add(new BasicNameValuePair("prepayid", req.prepayId));
-        signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));
-        req.sign = genAppSign(signParams);
-        msgApi.sendReq(req);
+                    if("200".equals(object.getString("code"))){
+                        JSONObject data = object.getJSONObject("datas");
+                        req = new PayReq();
+                        msgApi.registerApp(Constants.APP_ID);
+
+                        req.appId = Constants.APP_ID;
+                        req.partnerId = Constants.MCH_ID;
+                        req.prepayId = data.getString("prepay_id");
+                        req.packageValue = "Sign=WXPay";
+                        req.nonceStr =data.getString("nonce_str");
+                        req.timeStamp = String.valueOf(new Date().getTime());
+
+                        List<NameValuePair> signParams = new LinkedList<NameValuePair>();
+                        signParams.add(new BasicNameValuePair("appid", req.appId));
+                        signParams.add(new BasicNameValuePair("noncestr", req.nonceStr));
+                        signParams.add(new BasicNameValuePair("package", req.packageValue));
+                        signParams.add(new BasicNameValuePair("partnerid", req.partnerId));
+                        signParams.add(new BasicNameValuePair("prepayid", req.prepayId));
+                        signParams.add(new BasicNameValuePair("timestamp", req.timeStamp));
+                        req.sign = genAppSign(signParams);
+                        msgApi.sendReq(req);
+                    }else{
+                        MyToast.showText(PayActivity.this,object.getString("msg"),R.drawable.a2);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    MyToast.showText(PayActivity.this,"支付后台出错",R.drawable.a2);
+                }
+                super.callback(url, object, status);
+            }
+        });
     }
 
     public void payByChinaBank() throws Exception {

@@ -2,6 +2,7 @@ package com.cjq.bejingunion.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import com.androidquery.AQuery;
@@ -10,10 +11,11 @@ import com.cjq.bejingunion.R;
 /**
  * Created by CJQ on 2015/8/19.
  */
-public class WarningAlertDialog extends Dialog{
+public class WarningAlertDialog extends Dialog implements DialogInterface.OnDismissListener {
     private AQuery aq;
     private Runnable okClicked;
     private Runnable cancelClicked;
+    private Runnable dismissRunnable;
 
     public WarningAlertDialog(Context context) {
         super(context,R.style.WarningDialog);
@@ -29,6 +31,7 @@ public class WarningAlertDialog extends Dialog{
         aq.id(R.id.cancel).clicked(this, "cancelClick");
         aq.id(R.id.main).clicked(this, "clickNone");
         aq.id(R.id.background).clicked(this, "dismiss");
+        setOnDismissListener(this);
     }
 
     public void clickNone(){
@@ -68,5 +71,16 @@ public class WarningAlertDialog extends Dialog{
     public WarningAlertDialog onCancelClick(Runnable runnable){
         cancelClicked=runnable;
         return this;
+    }
+
+    public WarningAlertDialog onDismiss(Runnable runnable){
+        dismissRunnable = runnable;
+        return this;
+    }
+
+    @Override
+    public void onDismiss(DialogInterface dialog) {
+        if(dismissRunnable!=null)
+            dismissRunnable.run();
     }
 }
