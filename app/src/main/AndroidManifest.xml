@@ -216,7 +216,10 @@
 
         <activity
             android:name=".wxapi.WXPayEntryActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:launchMode="singleTop"
+            />
 
         <activity
             android:name="com.alipay.sdk.app.H5PayActivity"
@@ -240,6 +243,13 @@
             android:name=".service.BackgroundService"
             android:enabled="true"
             android:exported="true"></service>
+
+        <receiver
+            android:name="net.sourceforge.simcpux.AppRegister">
+            <intent-filter>
+                <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

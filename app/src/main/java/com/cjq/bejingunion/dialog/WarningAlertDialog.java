@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
 
 import com.androidquery.AQuery;
 import com.cjq.bejingunion.R;
@@ -11,7 +12,7 @@ import com.cjq.bejingunion.R;
 /**
  * Created by CJQ on 2015/8/19.
  */
-public class WarningAlertDialog extends Dialog implements DialogInterface.OnDismissListener {
+public class WarningAlertDialog extends Dialog implements DialogInterface.OnDismissListener, View.OnClickListener {
     private AQuery aq;
     private Runnable okClicked;
     private Runnable cancelClicked;
@@ -26,11 +27,18 @@ public class WarningAlertDialog extends Dialog implements DialogInterface.OnDism
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.warning);
-        aq = new AQuery(findViewById(android.R.id.content));
-        aq.id(R.id.ok).clicked(this,"okClick");
-        aq.id(R.id.cancel).clicked(this, "cancelClick");
-        aq.id(R.id.main).clicked(this, "clickNone");
-        aq.id(R.id.background).clicked(this, "dismiss");
+
+        View view= getWindow().getDecorView();
+        view.findViewById(android.R.id.content).findViewById(R.id.cancel).setOnClickListener(this);
+        view.findViewById(android.R.id.content).findViewById(R.id.ok).setOnClickListener(this);
+        view.findViewById(android.R.id.content).findViewById(R.id.main).setOnClickListener(this);
+        view.findViewById(android.R.id.content).findViewById(R.id.background).setOnClickListener(this);
+
+        aq = new AQuery(view.findViewById(android.R.id.content));
+//        aq.id(R.id.ok).clicked(this,"okClick");
+//        aq.id(R.id.cancel).clicked(this, "cancelClick");
+//        aq.id(R.id.main).clicked(this, "clickNone");
+//        aq.id(R.id.background).clicked(this, "dismiss");
         setOnDismissListener(this);
     }
 
@@ -82,5 +90,27 @@ public class WarningAlertDialog extends Dialog implements DialogInterface.OnDism
     public void onDismiss(DialogInterface dialog) {
         if(dismissRunnable!=null)
             dismissRunnable.run();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.ok:
+                if(okClicked!=null)
+                    okClicked.run();
+                dismiss();
+                break;
+            case R.id.cancel:
+                if(cancelClicked!=null)
+                    cancelClicked.run();
+                dismiss();
+                break;
+            case R.id.main:
+
+                break;
+            case R.id.background:
+                dismiss();
+                break;
+        }
     }
 }

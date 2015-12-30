@@ -240,10 +240,10 @@ public class PayActivity extends BaseActivity {
         dialog.show();
 
         Map<String,String> params = new HashMap<>();
-        params.put("key ",LoginUtil.getKey(this));
+        params.put("key",LoginUtil.getKey(this));
         params.put("pay_sn",orderNumber);
 
-        aq.ajax(CommonDataObject.PAY_BY_WX,params,JSONObject.class,new AjaxCallback<JSONObject>(){
+        aq.ajax(!points?CommonDataObject.PAY_BY_WX:CommonDataObject.PAY_BY_WX_RECHARGE,params,JSONObject.class,new AjaxCallback<JSONObject>(){
             @Override
             public void callback(String url, JSONObject object, AjaxStatus status) {
                 dialog.dismiss();
@@ -271,7 +271,7 @@ public class PayActivity extends BaseActivity {
                         req.sign = genAppSign(signParams);
                         msgApi.sendReq(req);
                     }else{
-                        MyToast.showText(PayActivity.this,object.getString("msg"),R.drawable.a2);
+                        MyToast.showText(PayActivity.this,object.getJSONObject("datas").getString("error"),R.drawable.a2);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -321,7 +321,7 @@ public class PayActivity extends BaseActivity {
                 System.out.println(object);
                 dialog.dismiss();
                 try {
-                    JSONObject obj = new JSONObject(object.substring(6));
+                    JSONObject obj = new JSONObject(object);
                     if(200==obj.getInt("code")){
                         String tn = obj.getJSONObject("datas").getString("tn");
                         UPPayAssistEx.startPayByJAR(PayActivity.this, com.unionpay.uppay.PayActivity.class, null, null, tn,

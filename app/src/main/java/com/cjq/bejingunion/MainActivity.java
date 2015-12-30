@@ -113,6 +113,7 @@ public class MainActivity extends BaseActivity {
                     // TODO: 2015/9/10 测试代码可以放这里
                 }
             });
+            return true;
         }
         return super.onKeyDown(keyCode, event);
     }

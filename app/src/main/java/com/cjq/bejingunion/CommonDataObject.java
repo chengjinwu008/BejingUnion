@@ -67,6 +67,7 @@ public class CommonDataObject {
     public static final String PAY_BY_CHINA_BANK_URL=MAIN_URL+ "/app/index.php?act=member_payment&op=chinabank_pay";
     public static final String CHARGE_BY_CHINA_BANK_URL=MAIN_URL+ "/app/index.php?act=member_index&op=chinaBankget_add";
     public static final String PAY_BY_WX=MAIN_URL+ "/app/index.php?act=member_payment&op=wxpay";
+    public static final String PAY_BY_WX_RECHARGE=MAIN_URL+ "/app/index.php?act=member_payment&op=recharge_wx";
 
     public static final String DETAIL_WAP=MAIN_URL+"/app/index.php?act=goods&op=goods_info&";
     public static final String PAY_NOTIFY_URL=MAIN_URL+"/app/index.php?act=payment&op=notify";
