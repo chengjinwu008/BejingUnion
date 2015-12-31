@@ -141,8 +141,9 @@ public class PayActivity extends BaseActivity {
     private String price;
     private AQuery aq;
     // “00” – 银联正式环境
-    // “01” – 银联测试环境，该环境中不发生真实交易
-    public String CHINA_BANK_UNION_MODE = "00";
+// “01” – 银联测试环境，该环境中不发生真实交易
+    private String serverMode = "00";
+
     private String type;
     private boolean points;
 
@@ -320,16 +321,15 @@ public class PayActivity extends BaseActivity {
             public void callback(String url, String object, AjaxStatus status) {
                 System.out.println(object);
                 dialog.dismiss();
+//                MyToast.showText(PayActivity.this,"ok",R.drawable.a2);
                 try {
                     JSONObject obj = new JSONObject(object);
                     if(200==obj.getInt("code")){
                         String tn = obj.getJSONObject("datas").getString("tn");
-                        UPPayAssistEx.startPayByJAR(PayActivity.this, com.unionpay.uppay.PayActivity.class, null, null, tn,
-                                CHINA_BANK_UNION_MODE);
+                        UPPayAssistEx.startPay(PayActivity.this, null, null, tn, serverMode);
 //                        dialog.setMessage("正在进入支付...");
                     }
                     else{
-
                         MyToast.showText(PayActivity.this,obj.getString("error"),R.drawable.a2);
                     }
 

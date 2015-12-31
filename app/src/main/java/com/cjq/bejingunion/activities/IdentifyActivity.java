@@ -26,6 +26,7 @@ import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.utils.FileUploader;
 import com.cjq.bejingunion.utils.LoginUtil;
+import com.cjq.bejingunion.utils.Validator;
 import com.cjq.bejingunion.view.ImageSelectorView;
 import com.loopj.android.http.RequestParams;
 
@@ -47,6 +48,7 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
     private ImageSelectorView imageSelectorView;
     private Map<String, String> images = new HashMap<>();
     private String path;
+    private boolean broadband;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,9 +67,11 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
         imageSelectorView = (ImageSelectorView) aq.id(R.id.identify_add_pic).getView();
         imageSelectorView.setOnAddButtonClickListener(this);
         imageSelectorView.setImageChangeListener(this);
-        if(intent.getBooleanExtra("broadband",false)){
+        broadband = intent.getBooleanExtra("broadband",false);
+        if(broadband){
             aq.id(R.id.identify_details).gone();
             aq.id(R.id.identify_text1).gone();
+            aq.id(R.id.identify_check_box).gone();
             imageSelectorView.setW(120);
             imageSelectorView.setH(80);
             imageSelectorView.setMax(3);
@@ -95,9 +99,15 @@ public class IdentifyActivity extends BaseActivity implements View.OnClickListen
     }
 
     public void submit() {
+        if(!broadband)
         if(!aq.id(R.id.identify_check_box).isChecked()){
 //            Toast.makeText(this,"不同意入网协议吗？",Toast.LENGTH_SHORT).show();
             MyToast.showText(this, "不同意入网协议吗？", R.drawable.a2);
+            return;
+        }
+
+        if(!Validator.validate_ID(aq.id(R.id.identify_ID_card).getText().toString())){
+            MyToast.showText(this, "身份证不合法", R.drawable.a2);
             return;
         }
 
