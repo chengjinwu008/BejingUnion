@@ -2,10 +2,8 @@ package com.cjq.bejingunion.activities;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,9 +11,7 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
 
 import com.alipay.sdk.app.PayTask;
 import com.androidquery.AQuery;
@@ -29,7 +25,6 @@ import com.cjq.bejingunion.dialog.MyToast;
 import com.cjq.bejingunion.dialog.WarningAlertDialog;
 import com.cjq.bejingunion.event.EventCartChange;
 import com.cjq.bejingunion.event.EventPayComplete;
-import com.cjq.bejingunion.event.EventShutDown;
 import com.cjq.bejingunion.event.EventWXpayComplete;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.utils.MD5;
@@ -45,7 +40,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.xml.sax.helpers.ParserFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

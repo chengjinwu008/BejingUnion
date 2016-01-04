@@ -90,7 +90,7 @@
         android:id="@+id/broadband_order_confirm_more_info2"
         android:padding="10dp"
         android:gravity="top"
-        android:hint="请填写续费信息"
+        android:hint="请填写续费账号信息"
         android:drawableLeft="@drawable/a56"
         android:background="@drawable/border_white_box_no_corner"
         android:layout_width="match_parent"

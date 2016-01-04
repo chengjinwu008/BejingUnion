@@ -74,7 +74,7 @@ public class OrderAdapter extends BaseAdapter {
                 context.startActivity(intent);
             }
         });
-        if (order.getPhoneNumber() != null) {
+        if (order.getPhoneNumber() != null && !order.getPhoneNumber().equals("null")) {
             aq.id(R.id.order_phone_number).visible().text("选择卡号：" + order.getPhoneNumber());
         } else {
             aq.id(R.id.order_phone_number).gone();

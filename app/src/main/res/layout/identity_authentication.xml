@@ -116,6 +116,14 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+            <TextView
+                android:textSize="11sp"
+                android:textColor="#aca9a9"
+                android:padding="5dp"
+                android:text="需要上传身份证正面、反面和人证合照三张照片"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
             <CheckBox
                 android:id="@+id/identify_check_box"
                 android:textColor="#555"

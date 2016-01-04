@@ -15,12 +15,12 @@ import com.cjq.bejingunion.CommonDataObject;
 import com.cjq.bejingunion.R;
 import com.cjq.bejingunion.adapter.OrderItemAdapter;
 import com.cjq.bejingunion.entities.Goods4OrderList;
+import com.cjq.bejingunion.utils.JSONArray;
+import com.cjq.bejingunion.utils.JSONObject;
 import com.cjq.bejingunion.utils.LoginUtil;
 import com.cjq.bejingunion.utils.PayUtil;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.DateFormat;
 import java.text.NumberFormat;
@@ -30,6 +30,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * Created by CJQ on 2015/9/24.
@@ -67,13 +68,16 @@ public class OrderInfoDetailActivity extends BaseActivity{
         params.put("key", LoginUtil.getKey(this));
         params.put("order_id",orderId);
 
-        aq.ajax(CommonDataObject.ORDER_INFO_DETAIL, params, JSONObject.class, new AjaxCallback<JSONObject>() {
+        aq.ajax(CommonDataObject.ORDER_INFO_DETAIL, params, String.class, new AjaxCallback<String>() {
             @Override
-            public void callback(String url, JSONObject object, AjaxStatus status) {
+            public void callback(String url, String object, AjaxStatus status) {
                 try {
-                    if (200 == object.getInt("code")) {
-                        data = object.getJSONObject("datas");
-                        putDataIntoView();
+                    if(object!=null){
+                        JSONObject object1 = new JSONObject(object);
+                        if (200 == object1.getInt("code")) {
+                            data = object1.getJSONObject("datas");
+                            putDataIntoView();
+                        }
                     }
                     super.callback(url, object, status);
                 } catch (JSONException e) {
@@ -99,9 +103,15 @@ public class OrderInfoDetailActivity extends BaseActivity{
         if(!data.has("phone_about")){
             aq.id(R.id.order_info_detail_remark_parent).gone();
         }else{
-            aq.id(R.id.order_info_detail_remark_parent).visible();
             JSONObject remark = data.getJSONObject("phone_about");
-            aq.id(R.id.order_info_detail_remark).text("卡号：" + remark.getString("phone") + "\n" + "购卡人姓名：" + remark.getJSONObject("user").getString("user_name") + "\n" + "购卡人身份证号：" + remark.getJSONObject("user").getString("ID_card"));
+            if(remark.getString("phone")!=null && !"null".equals(remark.getString("phone"))){
+                aq.id(R.id.order_info_detail_remark_parent).visible();
+                aq.id(R.id.order_info_detail_remark).text("卡号：" + remark.getString("phone") + "\n" + "购卡人姓名：" + remark.getJSONObject("user").getString("user_name") + "\n" + "购卡人身份证号：" + remark.getJSONObject("user").getString("ID_card"));
+            }
+            else
+            {
+                aq.id(R.id.order_info_detail_remark_parent).gone();
+            }
         }
 
         NumberFormat numberFormat = NumberFormat.getCurrencyInstance(Locale.CHINA);
